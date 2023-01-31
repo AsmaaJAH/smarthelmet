@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+
+import 'package:smarthelmet/modules/home-page/HomePage.dart';
+
 import 'package:smarthelmet/modules/signup/SignIn/SignIn.dart';
 import 'package:smarthelmet/modules/signup/SignUp.dart';
+
 
 
 
@@ -26,10 +30,12 @@ class MyApp extends StatelessWidget {
         // or simply save your changes to "hot reload" in a Flutter IDE).
         // Notice that the counter didn't reset back to zero; the application
         // is not restarted.
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.amber,
       ),
       debugShowCheckedModeBanner: false,
+
       home: SignInScreen(),
+
     );
   }
 }
