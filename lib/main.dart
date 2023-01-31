@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:smarthelmet/modules/signup/SignUp.dart';
 
-import 'modules/home-page/HomePage.dart';
+
 
 void main() {
   runApp(const MyApp());
@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       debugShowCheckedModeBanner: false,
-      home: HomePageScreen(),
+      home: SignUpScreen(),
     );
   }
 }

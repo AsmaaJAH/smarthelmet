@@ -1,17 +1,27 @@
 import 'package:flutter/material.dart';
 
-class SignUpScreen extends StatelessWidget {
-  var usernameController = TextEditingController();
-  var emailController = TextEditingController();
+class SignUpScreen extends StatefulWidget {
+  @override
+  State<SignUpScreen> createState() => _SignUpScreenState();
+}
 
+class _SignUpScreenState extends State<SignUpScreen> {
+  var usernameController = TextEditingController();
+
+  var emailController = TextEditingController();
+  var prefixIcon = Icons.lock;
+  var suffexIcon = Icons.visibility_off;
+  var secure = true;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
-          children:  [
-            SizedBox(height: 60,),
+          children: [
+            SizedBox(
+              height: 60,
+            ),
             Center(
               child: CircleAvatar(
                 radius: 60,
@@ -20,56 +30,63 @@ class SignUpScreen extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(height: 10,),
+            SizedBox(
+              height: 10,
+            ),
             defaultTextFormFieldColumn(
                 controller: usernameController,
                 validatorFunction: (value) {
-                  if(value.length == 0)
-                    return 'this field is requreid';
+                  if (value.length == 0) return 'this field is requreid';
                 },
                 textInputType: TextInputType.text,
-                labelText: 'User name'
+                labelText: 'User name'),
+            SizedBox(
+              height: 10,
             ),
-            SizedBox(height: 10,),
             defaultTextFormFieldColumn(
                 controller: emailController,
                 validatorFunction: (value) {
-                  if(value.length == 0)
-                    return 'this field is requreid';
-
+                  if (value.length == 0) return 'this field is requreid';
                 },
                 textInputType: TextInputType.emailAddress,
                 labelText: 'Email address',
-                prefixIcon: Icon(Icons.email)
+                prefixIcon: Icon(Icons.email)),
+            SizedBox(
+              height: 10,
             ),
-            SizedBox(height: 10,),
             defaultTextFormFieldColumn(
                 controller: emailController,
                 validatorFunction: (value) {
-                  if(value.length == 0)
-                    return 'this field is requreid';
-
+                  if (value.length == 0) return 'this field is requreid';
                 },
                 textInputType: TextInputType.visiblePassword,
                 labelText: 'Password',
-                prefixIcon: Icon(Icons.email)
-            )
+                prefixIcon: Icon(prefixIcon),
+                isSecure: secure,
+                suffixIcon: suffexIcon,
+                suffixIconFunction: () {
+                  secure = !secure;
+                  prefixIcon = secure ? Icons.lock : Icons.lock_open;
+                  
+                }),
           ],
         ),
       ),
     );
   }
+
   Widget defaultTextFormFieldColumn({
     required TextEditingController controller,
-    required String labelText ,
+    required String labelText,
     required Function validatorFunction,
     required TextInputType textInputType,
     Function? suffixIconFunction,
-    Icon? prefixIcon ,
+    Icon? prefixIcon,
     IconData? suffixIcon,
     bool isSecure = false,
   }) =>
-      Container( // email address
+      Container(
+        // email address
         height: 50.0,
         child: TextFormField(
           validator: (value) {
@@ -93,6 +110,5 @@ class SignUpScreen extends StatelessWidget {
             ),
           ),
         ),
-      )
-  ;
+      );
 }
