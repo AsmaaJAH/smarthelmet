@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:smarthelmet/nav-bar/Gas.dart';
 import 'package:smarthelmet/nav-bar/Tempreture.dart';
 import 'package:smarthelmet/nav-bar/UltrasonicSensor.dart';
+import 'package:smarthelmet/shared/constants/Constants.dart';
 
 import 'Alerts.dart';
 import 'FallDeteting.dart';
@@ -24,17 +25,16 @@ class NavBar extends StatelessWidget {
                   fontSize: 22.0,
                   fontWeight: FontWeight.bold,
                   letterSpacing: 2.0,
-                  color: Colors.amber[600],
+                  color: navBarColor,
                   fontFamily: 'Ubuntu',
                 ),
               ),
             ),
           ),
-
           ListTile(
             leading: Icon(
               Icons.home_outlined,
-              color: Colors.amber[600],
+              color: navBarColor,
             ),
             title: Text(
               'Home',
@@ -59,7 +59,7 @@ class NavBar extends StatelessWidget {
           ExpansionTile(
             leading: Icon(Icons.speed_outlined),
             iconColor: Colors.grey[800],
-            collapsedIconColor: Colors.amber[600],
+            collapsedIconColor: navBarColor,
             title: Text(
               "Monitoring",
               style: TextStyle(
@@ -188,7 +188,7 @@ class NavBar extends StatelessWidget {
           ListTile(
             leading: Icon(
               Icons.near_me_outlined,
-              color: Colors.amber[600],
+              color: navBarColor
             ),
             title: Text(
               'Tracking',
@@ -214,7 +214,7 @@ class NavBar extends StatelessWidget {
           ListTile(
             leading: Icon(
               Icons.report_problem_outlined,
-              color: Colors.amber[600],
+              color: navBarColor,
             ),
             title: Text(
               'Alerts',
@@ -240,7 +240,7 @@ class NavBar extends StatelessWidget {
                 color: Colors.red,
                 width: 20,
                 height: 20,
-                child: Center(
+                child: const Center(
                   child: Text(
                     '8', // EDIT THIS TO BE VARIABLE LATER
                     style: TextStyle(
@@ -253,32 +253,7 @@ class NavBar extends StatelessWidget {
             ),
           ),
           Divider(),
-          // ListTile(
-          //   title: Text(
-          //     'Settings',
-          //     style: TextStyle(
-          //       fontSize: 16.0,
-          //       //fontWeight: FontWeight.bold,
-          //       letterSpacing: 2.0,
-          //       color: Colors.grey[800],
-          //       fontFamily: 'Ubuntu',
-          //     ),
-          //   ),
-          //   leading: Icon(
-          //     Icons.settings_outlined,
-          //     // color: Colors.amber[600],
-          //   ),
-          //   onTap: () {
-          //     // Update the state of the app
-          //     Navigator.push(
-          //       context,
-          //       MaterialPageRoute(builder: (context) => const Settings()),
-          //     );
-          //     // Then close the drawer
-          //     //Navigator.pop(context);
-          //   },
-          // ),
-          //Divider(),
+
           ListTile(
             title: Text(
               'Exit',

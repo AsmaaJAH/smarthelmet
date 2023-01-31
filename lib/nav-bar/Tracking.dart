@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:smarthelmet/shared/constants/Constants.dart';
 
 class Tracking extends StatelessWidget {
   @override
@@ -16,7 +17,7 @@ class Tracking extends StatelessWidget {
             fontFamily: 'Ubuntu',
           ),
         ),
-        backgroundColor: Colors.amber[600],
+        backgroundColor: navBarColor,
         elevation: 0.0,
         leading: IconButton(
           onPressed: () {

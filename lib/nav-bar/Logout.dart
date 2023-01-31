@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:smarthelmet/shared/constants/Constants.dart';
 
 class LogOutScreen extends StatelessWidget {
 
@@ -17,7 +18,7 @@ class LogOutScreen extends StatelessWidget {
             fontFamily: 'Ubuntu',
           ),
         ),
-        backgroundColor: Colors.amber[600],
+        backgroundColor: navBarColor,
         elevation: 0.0,
         leading: IconButton(
           onPressed: () {
