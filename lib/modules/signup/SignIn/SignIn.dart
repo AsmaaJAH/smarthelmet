@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:smarthelmet/modules/home-page/HomePage.dart';
+import 'package:smarthelmet/modules/signup/SignUp.dart';
 
 class SignInScreen extends StatefulWidget {
   @override
@@ -73,7 +75,7 @@ class _SignInScreenState extends State<SignInScreen> {
                   const Text('Do not have an account? '),
                   TextButton(
                       onPressed: () {
-
+                        Navigator.push(context, MaterialPageRoute(builder: (context) =>  SignUpScreen()));
                       },
                       child: const Text(
                         'Sign Up',
@@ -89,6 +91,7 @@ class _SignInScreenState extends State<SignInScreen> {
                 onTap: () {
                     if(formKey.currentState!.validate()) {
                       print("All done");
+                      Navigator.push(context, MaterialPageRoute(builder: (context) =>  HomePageScreen()));
                     }
                 },
                 child: Container(
@@ -104,7 +107,6 @@ class _SignInScreenState extends State<SignInScreen> {
                       fontWeight: FontWeight.bold,
                     ),
                   )
-
                   ),
                 ),
               ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:smarthelmet/modules/signup/SignIn/SignIn.dart';
 import 'package:smarthelmet/nav-bar/Gas.dart';
 import 'package:smarthelmet/nav-bar/Tempreture.dart';
 import 'package:smarthelmet/nav-bar/UltrasonicSensor.dart';
@@ -268,7 +269,7 @@ class NavBar extends StatelessWidget {
             onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => LogOutScreen()),
+                    MaterialPageRoute(builder: (context) => SignInScreen()),
                   );
             },
           ),
