@@ -1,8 +1,6 @@
-
 import 'package:flutter/material.dart';
 
 class GasScreen extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,7 +15,7 @@ class GasScreen extends StatelessWidget {
             fontFamily: 'Ubuntu',
           ),
         ),
-        backgroundColor: Colors.amber[600],
+        backgroundColor: Colors.cyan,
         elevation: 0.0,
         leading: IconButton(
           onPressed: () {
