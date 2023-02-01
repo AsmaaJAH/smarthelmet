@@ -2,6 +2,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:smarthelmet/modules/SignIn/SignIn.dart';
+import 'package:smarthelmet/shared/functions/shared_function.dart';
+
+import '../home-page/HomePage.dart';
 
 import '../../models/userModel.dart';
 
@@ -30,11 +34,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
           .doc(value.user!.uid)
           .set(user.toMap());
     });
-  }
-
-  void login() async {
-    await FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: "yousef@gm.co", password: "_password");
   }
 
   int _radioSelected = 2;
@@ -220,7 +219,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   children: [
                     const Text('Have an account? '),
                     TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          navigateTo(context, SignInScreen());
+                        },
                         child: const Text(
                           'Sign in',
                           style: TextStyle(color: Colors.blue),
@@ -240,6 +241,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           userName: usernameController.text,
                           phone: phoneController.text,
                           role: role);
+                      navigateAndFinish(context, SignInScreen());
                     }
                   },
                   child: Container(

@@ -1,18 +1,32 @@
 import 'package:flutter/material.dart';
+
+import 'package:smarthelmet/modules/home-page/HomePage.dart';
+
+import 'package:smarthelmet/modules/SignIn/SignIn.dart';
 import 'package:smarthelmet/modules/signup/SignUp.dart';
 
 // ignore_for_file: prefer_equal_for_default_values
 import 'package:firebase_core/firebase_core.dart';
+import 'package:smarthelmet/shared/network/local/cache_helper.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
+  await CachHelper.init();
   await Firebase.initializeApp();
-  runApp(const MyApp());
+  var userID = await CachHelper.getData(key: "uid");
+  Widget startWidget = SignInScreen();
+  if (userID != null) {
+    startWidget = HomePageScreen();
+  }
+  runApp(MyApp(startWidget: startWidget));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  final Widget startWidget;
+  const MyApp({
+    super.key,
+    required this.startWidget,
+  });
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -21,7 +35,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       debugShowCheckedModeBanner: false,
-      home: SignUpScreen(),
+      home: startWidget,
     );
   }
 }
