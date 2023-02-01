@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:smarthelmet/modules/signup/SignIn/SignIn.dart';
+import 'package:smarthelmet/modules/SignIn/SignIn.dart';
 import 'package:smarthelmet/nav-bar/Gas.dart';
 import 'package:smarthelmet/nav-bar/Tempreture.dart';
 import 'package:smarthelmet/nav-bar/UltrasonicSensor.dart';
@@ -56,7 +56,6 @@ class NavBar extends StatelessWidget {
             },
           ),
 
-
           ExpansionTile(
             leading: Icon(Icons.speed_outlined),
             iconColor: Colors.grey[800],
@@ -72,7 +71,7 @@ class NavBar extends StatelessWidget {
               ),
             ),
             //leading: Icon(Icons.person), //add icon
-            childrenPadding: EdgeInsets.only(left:50), //children padding
+            childrenPadding: EdgeInsets.only(left: 50), //children padding
             children: [
               ListTile(
                 title: Text(
@@ -85,7 +84,7 @@ class NavBar extends StatelessWidget {
                     fontFamily: 'Ubuntu',
                   ),
                 ),
-                onTap: (){
+                onTap: () {
                   //action on press
                   // Update the state of the app
                   Navigator.push(
@@ -107,7 +106,7 @@ class NavBar extends StatelessWidget {
                     fontFamily: 'Ubuntu',
                   ),
                 ),
-                onTap: (){
+                onTap: () {
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => TempretureScreen()),
@@ -125,7 +124,7 @@ class NavBar extends StatelessWidget {
                     fontFamily: 'Ubuntu',
                   ),
                 ),
-                onTap: (){
+                onTap: () {
                   //action on press
                   // Update the state of the app
                   Navigator.push(
@@ -147,7 +146,7 @@ class NavBar extends StatelessWidget {
                     fontFamily: 'Ubuntu',
                   ),
                 ),
-                onTap: (){
+                onTap: () {
                   //action on press
                   // Update the state of the app
                   Navigator.push(
@@ -161,7 +160,6 @@ class NavBar extends StatelessWidget {
               //more child menu
             ],
           ),
-
 
           // ListTile(
           //   leading: Icon(Icons.chevron_right),
@@ -187,10 +185,7 @@ class NavBar extends StatelessWidget {
           // ),
 
           ListTile(
-            leading: Icon(
-              Icons.near_me_outlined,
-              color: navBarColor
-            ),
+            leading: Icon(Icons.near_me_outlined, color: navBarColor),
             title: Text(
               'Tracking',
               style: TextStyle(
@@ -257,7 +252,7 @@ class NavBar extends StatelessWidget {
 
           ListTile(
             title: Text(
-              'Exit',
+              'Logout',
               style: TextStyle(
                 fontSize: 16.0,
                 letterSpacing: 2.0,
@@ -267,10 +262,10 @@ class NavBar extends StatelessWidget {
             ),
             leading: const Icon(Icons.exit_to_app),
             onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => SignInScreen()),
-                  );
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => SignInScreen()),
+              );
             },
           ),
         ],
@@ -278,4 +273,3 @@ class NavBar extends StatelessWidget {
     );
   }
 }
-

@@ -1,9 +1,10 @@
-
 import 'package:flutter/material.dart';
+import 'package:smarthelmet/modules/SignIn/SignIn.dart';
 import 'package:smarthelmet/shared/constants/Constants.dart';
+import 'package:smarthelmet/shared/functions/shared_function.dart';
+import 'package:smarthelmet/shared/network/local/cache_helper.dart';
 
 class LogOutScreen extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,7 +23,8 @@ class LogOutScreen extends StatelessWidget {
         elevation: 0.0,
         leading: IconButton(
           onPressed: () {
-            Navigator.pop(context);
+            navigateAndFinish(context, SignInScreen());
+            CachHelper.removeAllData();
           },
           icon: const Icon(Icons.arrow_back_ios_new),
         ),

@@ -2,12 +2,31 @@ import 'package:flutter/material.dart';
 import '../../nav-bar/NavBarScreen.dart';
 
 class HomePageScreen extends StatelessWidget {
-
   @override
+  // leading: Builder(builder: (context) {
+  //           return IconButton(
+  //             onPressed: () { Scaffold.of(context).openDrawer();}
+  //             icon: Icon(
+  //               Icons.image_search_outlined,
+  //             ),
+  //           );
+  //         }),
+  //       )
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: NavBar(),
       appBar: AppBar(
+        leading: Builder(builder: (context) {
+          return IconButton(
+            onPressed: () {
+              Scaffold.of(context).openDrawer();
+            },
+            icon: const Icon(
+              Icons.menu,
+              color: Colors.cyan,
+            ),
+          );
+        }),
         title: const Text("Safety  Helmet",
             style: TextStyle(
                 color: Colors.cyan, fontSize: 35, fontWeight: FontWeight.w700)),
@@ -37,8 +56,9 @@ class HomePageScreen extends StatelessWidget {
                     fit: BoxFit.cover,
                     height: 250,
                     image: AssetImage(
-                    "assets/images/myappLogo.png",
-                  ),)
+                      "assets/images/myappLogo.png",
+                    ),
+                  )
                 ],
               ),
             ),
