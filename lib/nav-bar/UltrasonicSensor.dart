@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 class UltraScreen extends StatelessWidget {
@@ -7,7 +6,7 @@ class UltraScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'Ultra sonic',
+          'Ultrasonic Sensors',
           style: TextStyle(
             fontSize: 22.0,
             fontWeight: FontWeight.bold,
@@ -16,7 +15,7 @@ class UltraScreen extends StatelessWidget {
             fontFamily: 'Ubuntu',
           ),
         ),
-        backgroundColor: Colors.amber[600],
+        backgroundColor: Colors.cyan,
         elevation: 0.0,
         leading: IconButton(
           onPressed: () {

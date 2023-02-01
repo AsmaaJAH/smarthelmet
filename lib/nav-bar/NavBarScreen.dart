@@ -4,7 +4,9 @@ import 'package:smarthelmet/nav-bar/Gas.dart';
 import 'package:smarthelmet/nav-bar/Tempreture.dart';
 import 'package:smarthelmet/nav-bar/UltrasonicSensor.dart';
 import 'package:smarthelmet/shared/constants/Constants.dart';
+import 'package:smarthelmet/shared/functions/shared_function.dart';
 
+import '../shared/network/local/cache_helper.dart';
 import 'Alerts.dart';
 import 'FallDeteting.dart';
 import 'Logout.dart';
@@ -261,11 +263,9 @@ class NavBar extends StatelessWidget {
               ),
             ),
             leading: const Icon(Icons.exit_to_app),
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => SignInScreen()),
-              );
+            onTap: () async {
+              navigateAndFinish(context, SignInScreen());
+              await CachHelper.removeAllData();
             },
           ),
         ],
