@@ -6,6 +6,7 @@ import 'package:smarthelmet/shared/functions/component.dart';
 import 'package:smarthelmet/shared/functions/shared_function.dart';
 
 import '../../shared/network/local/cache_helper.dart';
+import '../forgotPasswod/forgot_pass.dart';
 
 class SignInScreen extends StatefulWidget {
   @override
@@ -46,19 +47,23 @@ class _SignInScreenState extends State<SignInScreen> {
                 defaultTextFormFieldColumn(
                     controller: emailController,
                     validatorFunction: (value) {
-                      if (value.length == 0) return 'this field is requreid';
+                      if (value.length == 0) {
+                        return 'This field is requreid';
+                      } else if (!(value!.contains(RegExp(
+                          r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")))) {
+                        return "Please enter a valid e-mail";
+                      }
                     },
                     textInputType: TextInputType.emailAddress,
                     labelText: 'Email address',
                     prefixIcon: const Icon(Icons.email)),
                 const SizedBox(
-                  height: 10,
+                  height: 30,
                 ),
                 defaultTextFormFieldColumn(
                     controller: passwordController,
                     validatorFunction: (value) {
                       if (value.length == 0) return 'this field is requreid';
-                      if (value.length < 8) return 'password is too short';
                     },
                     textInputType: TextInputType.visiblePassword,
                     labelText: 'Password',
@@ -73,14 +78,18 @@ class _SignInScreenState extends State<SignInScreen> {
                       setState(() {});
                     }),
                 const SizedBox(
-                  height: 10,
+                  height: 30,
                 ),
                 Row(
                   children: [
                     const Text('Do not have an account? '),
                     TextButton(
                         onPressed: () {
-                          navigateTo(context, const SignUpScreen());
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (BuildContext context) =>
+                                      const SignUpScreen()));
                         },
                         child: const Text(
                           'Sign Up',
@@ -91,6 +100,18 @@ class _SignInScreenState extends State<SignInScreen> {
                 const SizedBox(
                   height: 20,
                 ),
+                TextButton(
+                    onPressed: (() {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (BuildContext context) => ForgotPass()));
+                    }),
+                    child: const Text(
+                      "Forgot Password ?",
+                      style: TextStyle(
+                          fontSize: 15, decoration: TextDecoration.underline),
+                    )),
                 InkWell(
                   onTap: () async {
                     if (formKey.currentState!.validate()) {

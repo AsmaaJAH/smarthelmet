@@ -5,9 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:smarthelmet/modules/SignIn/SignIn.dart';
 import 'package:smarthelmet/shared/functions/shared_function.dart';
 
-import '../home-page/HomePage.dart';
-
 import '../../models/userModel.dart';
+import '../../shared/functions/passwordcheck.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
@@ -24,6 +23,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
     required phone,
     required role,
   }) async {
+    setState(() {
+      Loading = true;
+    });
     await FirebaseAuth.instance
         .createUserWithEmailAndPassword(email: email, password: password)
         .then((value) {
@@ -33,6 +35,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
           .collection("Users")
           .doc(value.user!.uid)
           .set(user.toMap());
+    });
+    
+    setState(() {
+      Loading = false;
     });
   }
 
@@ -46,6 +52,39 @@ class _SignUpScreenState extends State<SignUpScreen> {
   var suffexIcon = Icons.visibility_off;
   var secure = true;
   var formKey = GlobalKey<FormState>();
+
+  bool Loading = false;
+  bool is8digits = false;
+  bool hasUpper = false;
+  bool hasLower = false;
+  bool hasDigit = false;
+  bool hsaSpecial = false;
+
+  PasswordInteraction(String password) {
+    is8digits = false;
+    hasUpper = false;
+    hasLower = false;
+    hasDigit = false;
+    hsaSpecial = false;
+    setState(() {
+      if (password.contains(RegExp(r'.{8,}'))) {
+        is8digits = true;
+      }
+      if (password.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'))) {
+        hsaSpecial = true;
+      }
+      if (password.contains(RegExp(r'[a-z]'))) {
+        hasLower = true;
+      }
+      if (password.contains(RegExp(r'[0-9]'))) {
+        hasDigit = true;
+      }
+      if (password.contains(RegExp(r'[A-Z]'))) {
+        hasUpper = true;
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -57,7 +96,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
             child: Column(
               children: [
                 const SizedBox(
-                  height: 60,
+                  height: 20,
                 ),
                 const Center(
                   child: CircleAvatar(
@@ -69,148 +108,103 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 const SizedBox(
                   height: 20,
                 ),
-                defaultTextFormFieldColumn(
+                TextFormField(
                     controller: usernameController,
-                    validatorFunction: (value) {
-                      if (value.length == 0) return 'this field is requreid';
+                    validator: (value) {
+                      if (value!.isEmpty) return 'This field is requreid';
                     },
-                    textInputType: TextInputType.text,
-                    labelText: 'User name'),
+                    keyboardType: TextInputType.text,
+                    decoration: const InputDecoration(
+                        labelText: 'User name',
+                        border: OutlineInputBorder(),
+                        suffixIcon: Icon(Icons.person))),
                 const SizedBox(
                   height: 10,
                 ),
-                defaultTextFormFieldColumn(
-                    controller: emailController,
-                    validatorFunction: (value) {
-                      if (value.length == 0) return 'this field is requreid';
+                TextFormField(
+                    controller: phoneController,
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'This field is requreid';
+                      } else if (value.length != 13) {
+                        return 'Please enter a valid number';
+                      }
                     },
-                    textInputType: TextInputType.emailAddress,
-                    labelText: 'Email address',
-                    prefixIcon: const Icon(Icons.email)),
+                    keyboardType: TextInputType.number,
+                    decoration: const InputDecoration(
+                        labelText: 'Phone number',
+                        border: OutlineInputBorder(),
+                        suffixIcon: Icon(Icons.phone))),
                 const SizedBox(
                   height: 10,
                 ),
-                defaultTextFormFieldColumn(
-                    controller: passwordController,
-                    validatorFunction: (value) {
-                      if (value.length == 0) return 'this field is requreid';
-                      if (value.length < 8) return 'password is too short';
-                    },
-                    textInputType: TextInputType.visiblePassword,
-                    labelText: 'Password',
-                    prefixIcon: Icon(prefixIcon),
-                    isSecure: secure,
-                    suffixIcon: suffexIcon,
-                    suffixIconFunction: () {
-                      secure = !secure;
-                      prefixIcon = secure ? Icons.lock : Icons.lock_open;
-                      suffexIcon =
-                          secure ? Icons.visibility_off : Icons.visibility;
-                      setState(() {});
-                    }),
-                const SizedBox(
-                  height: 10,
-                ),
-                defaultTextFormFieldColumn(
-                  controller: phoneController,
-                  validatorFunction: (value) {
-                    if (value.length == 0)
-                      return 'this field is requreid';
-                    else if (value.length != 13) return 'phone is in valid';
+                TextFormField(
+                  controller: emailController,
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return 'This field is requreid';
+                    } else if (!(value.contains(RegExp(
+                        r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")))) {
+                      return "Please enter a valid e-mail";
+                    }
                   },
-                  textInputType: TextInputType.number,
-                  labelText: 'Phone number',
-                  prefixIcon: const Icon(Icons.phone),
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  keyboardType: TextInputType.emailAddress,
+                  decoration: const InputDecoration(
+                      labelText: 'Email address',
+                      border: OutlineInputBorder(),
+                      suffixIcon: Icon(Icons.email)),
                 ),
                 const SizedBox(
                   height: 10,
                 ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text('Choose Role'),
-                    const SizedBox(height: 7),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        InkWell(
-                          onTap: (() => {
-                                setState(() {
-                                  _radioSelected = 1;
-                                  role = "supervisor";
-                                })
-                              }),
-                          child: Container(
-                            width: 150,
-                            height: 40,
-                            padding: const EdgeInsets.all(3.0),
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(15),
-                                border: Border.all(color: Colors.grey)),
-                            child: Row(children: [
-                              const SizedBox(
-                                width: 10,
-                              ),
-                              const Text(
-                                'Supervisor',
-                                style: TextStyle(color: Colors.grey),
-                              ),
-                              Radio(
-                                value: 1,
-                                groupValue: _radioSelected,
-                                activeColor: Colors.blue,
-                                onChanged: (value) {
-                                  setState(() {
-                                    _radioSelected = 1;
-                                    role = "supervisor";
-                                  });
-                                },
-                              ),
-                            ]),
-                          ),
-                        ),
-                        const SizedBox(
-                          width: 5,
-                        ),
-                        InkWell(
-                          onTap: (() => {
-                                setState(() {
-                                  _radioSelected = 2;
-                                  role = "worker";
-                                })
-                              }),
-                          child: Container(
-                            width: 130,
-                            height: 40,
-                            padding: const EdgeInsets.all(3.0),
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(15),
-                                border: Border.all(color: Colors.grey)),
-                            child: Row(children: [
-                              const SizedBox(
-                                width: 10,
-                              ),
-                              const Text(
-                                'Worker',
-                                style: TextStyle(color: Colors.grey),
-                              ),
-                              Radio(
-                                value: 2,
-                                groupValue: _radioSelected,
-                                activeColor: Colors.blue,
-                                onChanged: (value) {
-                                  setState(() {
-                                    _radioSelected = 2;
-                                    role = "worker";
-                                  });
-                                },
-                              ),
-                            ]),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
+                TextFormField(
+                  controller: passwordController,
+                  onChanged: (value) {
+                    PasswordInteraction(value);
+                  },
+                  validator: (value) {
+                    if (value!.isEmpty) return 'This field is requreid';
+                    if (value.length < 8) return 'Please enter valid password';
+                  },
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  keyboardType: TextInputType.visiblePassword,
+                  obscureText: secure ? true : false,
+                  decoration: InputDecoration(
+                      labelText: 'Password',
+                      border: const OutlineInputBorder(),
+                      suffixIcon: IconButton(
+                          onPressed: () {
+                            setState(() {
+                              secure = !secure;
+                            });
+                          },
+                          icon: secure
+                              ? const Icon(Icons.visibility)
+                              : const Icon(Icons.visibility_off))),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                CheckCard("Has Uppercase", hasUpper),
+                const SizedBox(
+                  height: 10,
+                ),
+                CheckCard("Has Lowercase", hasLower),
+                const SizedBox(
+                  height: 10,
+                ),
+                CheckCard("Has Special Character", hsaSpecial),
+                const SizedBox(
+                  height: 10,
+                ),
+                CheckCard("At least one number", hasDigit),
+                const SizedBox(
+                  height: 10,
+                ),
+                CheckCard("At least 8 digits", is8digits),
+                const SizedBox(
+                  height: 10,
                 ),
                 const SizedBox(
                   height: 10,
@@ -220,7 +214,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     const Text('Have an account? '),
                     TextButton(
                         onPressed: () {
-                          navigateTo(context, SignInScreen());
+                          Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (BuildContext context) =>
+                                      SignInScreen()));
                         },
                         child: const Text(
                           'Sign in',
@@ -250,14 +248,18 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
                         color: Colors.blue),
-                    child: const Center(
-                        child: Text(
-                      'Create an acount',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    )),
+                    child: Center(
+                        child: Loading
+                            ? const CircularProgressIndicator(
+                                color: Colors.white,
+                              )
+                            : const Text(
+                                'Create an acount',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              )),
                   ),
                 ),
               ],
@@ -267,41 +269,4 @@ class _SignUpScreenState extends State<SignUpScreen> {
       ),
     );
   }
-
-  Widget defaultTextFormFieldColumn({
-    required TextEditingController controller,
-    required String labelText,
-    required Function validatorFunction,
-    required TextInputType textInputType,
-    Function? suffixIconFunction,
-    Icon? prefixIcon,
-    IconData? suffixIcon,
-    bool isSecure = false,
-  }) =>
-      Container(
-        // email address
-        height: 50.0,
-        child: TextFormField(
-          validator: (value) {
-            return validatorFunction(value);
-          },
-          obscureText: isSecure,
-          controller: controller,
-          keyboardType: textInputType,
-          decoration: InputDecoration(
-            labelText: labelText,
-            border: const OutlineInputBorder(),
-            prefix: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: prefixIcon,
-            ),
-            suffixIcon: IconButton(
-              icon: Icon(suffixIcon),
-              onPressed: () {
-                return suffixIconFunction!();
-              },
-            ),
-          ),
-        ),
-      );
 }
