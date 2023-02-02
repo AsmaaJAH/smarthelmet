@@ -7,10 +7,8 @@ class UserModel {
   late String uID;
   late String userName;
   late String phone;
-  late String role;
 
-  UserModel(this.email, this.password, this.uID, this.userName, this.phone,
-      this.role);
+  UserModel(this.email, this.password, this.uID, this.userName, this.phone);
   UserModel.fromJson(Map<String, dynamic> json) {
     email = json["email"];
     password = json["password"];
@@ -24,7 +22,6 @@ class UserModel {
       "uID": uID,
       "userName": userName,
       "phone": phone,
-      "role": role
     };
   }
 }
