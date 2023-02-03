@@ -21,6 +21,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
     required password,
     required userName,
     required phone,
+    required role,
   }) async {
     setState(() {
       Loading = true;
@@ -29,18 +30,20 @@ class _SignUpScreenState extends State<SignUpScreen> {
         .createUserWithEmailAndPassword(email: email, password: password)
         .then((value) {
       UserModel user =
-          UserModel(email, password, value.user!.uid, userName, phone);
+          UserModel(email, password, value.user!.uid, userName, phone, role);
       FirebaseFirestore.instance
           .collection("Users")
           .doc(value.user!.uid)
           .set(user.toMap());
     });
-
+    
     setState(() {
       Loading = false;
     });
   }
 
+  int _radioSelected = 2;
+  String role = "worker";
   var usernameController = TextEditingController();
   var emailController = TextEditingController();
   var passwordController = TextEditingController();
@@ -211,12 +214,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     const Text('Have an account? '),
                     TextButton(
                         onPressed: () {
-                          navigateAndFinish(context,SignInScreen());
-                          // Navigator.pushReplacement(
-                          //     context,
-                          //     MaterialPageRoute(
-                          //         builder: (BuildContext context) =>
-                          //             SignInScreen()));
+                          Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (BuildContext context) =>
+                                      SignInScreen()));
                         },
                         child: const Text(
                           'Sign in',
@@ -230,12 +232,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 InkWell(
                   onTap: () {
                     if (formKey.currentState!.validate()) {
+                      print("All done");
                       createUser(
-                        email: emailController.text,
-                        password: passwordController.text,
-                        userName: usernameController.text,
-                        phone: phoneController.text,
-                      );
+                          email: emailController.text,
+                          password: passwordController.text,
+                          userName: usernameController.text,
+                          phone: phoneController.text,
+                          role: role);
                       navigateAndFinish(context, SignInScreen());
                     }
                   },
