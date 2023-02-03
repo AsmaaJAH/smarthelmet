@@ -11,6 +11,7 @@ import 'Alerts.dart';
 import 'FallDeteting.dart';
 import 'Logout.dart';
 import 'Tracking.dart';
+import 'testReceiving.dart';
 
 class NavBar extends StatelessWidget {
   @override
@@ -75,6 +76,29 @@ class NavBar extends StatelessWidget {
             //leading: Icon(Icons.person), //add icon
             childrenPadding: EdgeInsets.only(left: 50), //children padding
             children: [
+               ListTile(
+                title: Text(
+                  "Test: Receiving data",
+                  style: TextStyle(
+                    fontSize: 14.0,
+                    //fontWeight: FontWeight.bold,
+                    letterSpacing: 2.0,
+                    color: Colors.grey[700],
+                    fontFamily: 'Ubuntu',
+                  ),
+                ),
+                onTap: () {
+                  //action on press
+                  // Update the state of the app
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => TestRecievingText()),
+                  );
+                  // Then close the drawer
+                  //Navigator.pop(context);
+                },
+              ),
+
               ListTile(
                 title: Text(
                   "Gas",

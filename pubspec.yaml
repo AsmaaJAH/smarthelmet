@@ -38,6 +38,8 @@ dependencies:
   cloud_firestore: ^4.3.1
   shared_preferences: ^2.0.17
   fluttertoast: ^8.1.2
+  esp_smartconfig: ^1.1.10
+  web_socket_channel: ^2.3.0
 
 dev_dependencies:
   flutter_test:
