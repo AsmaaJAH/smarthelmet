@@ -1,7 +1,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.smarthelmet">
    <application
+<<<<<<< Updated upstream
         android:label="Safety Helmet"
+=======
+        android:label="SafetyHelmet"
+>>>>>>> Stashed changes
         android:name="${applicationName}"
         android:icon="@mipmap/launcher_icon">
         <activity

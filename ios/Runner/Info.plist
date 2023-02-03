@@ -13,7 +13,11 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
+<<<<<<< Updated upstream
 	<string>Safety Helmet</string>
+=======
+	<string>SafetyHelmet</string>
+>>>>>>> Stashed changes
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
