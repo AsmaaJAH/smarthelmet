@@ -1,3 +1,4 @@
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 
 import 'package:smarthelmet/modules/home-page/HomePage.dart';
@@ -9,6 +10,7 @@ import 'package:smarthelmet/modules/signup/SignUp.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:smarthelmet/shared/network/local/cache_helper.dart';
 import 'firebase_options.dart';
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await CachHelper.init();
@@ -16,6 +18,7 @@ Future<void> main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  await FirebaseDatabase.instance;
   var userID = await CachHelper.getData(key: "uid");
   Widget startWidget = SignInScreen();
   if (userID != null) {

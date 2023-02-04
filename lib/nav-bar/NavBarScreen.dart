@@ -76,7 +76,7 @@ class NavBar extends StatelessWidget {
             //leading: Icon(Icons.person), //add icon
             childrenPadding: EdgeInsets.only(left: 50), //children padding
             children: [
-               ListTile(
+              ListTile(
                 title: Text(
                   "Test: Receiving data",
                   style: TextStyle(
@@ -92,7 +92,7 @@ class NavBar extends StatelessWidget {
                   // Update the state of the app
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => TestRecievingText()),
+                    MaterialPageRoute(builder: (context) => Try()),
                   );
                   // Then close the drawer
                   //Navigator.pop(context);
