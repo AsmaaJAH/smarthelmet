@@ -320,7 +320,7 @@ class Try extends StatelessWidget {
     return Scaffold(
       floatingActionButton: FloatingActionButton(onPressed: () {
         test
-            .set({"key_pass": '50'})
+            .set({"a": '5000'})
             .then((value) => print('done'))
             .catchError((onError) => print("error ${onError.toString()}"));
       }),
