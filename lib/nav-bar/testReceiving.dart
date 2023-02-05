@@ -1,73 +1,92 @@
+
 // import 'package:flutter/material.dart';
 // import 'package:web_socket_channel/io.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
+import 'package:web_socket_channel/io.dart';
 import 'package:firebase_database/firebase_database.dart';
 
-// class TestRecievingText extends StatefulWidget {
-//   @override
-//   State<TestRecievingText> createState() => _TestRecievingTextState();
-// }
+class TestRecievingText extends StatefulWidget {
+  @override
+  State<TestRecievingText> createState() => _TestRecievingTextState();
+}
 
-// class _TestRecievingTextState extends State<TestRecievingText> {
-//   late DatabaseReference ref;
-//   @override
-//   void initState() {
-//     // TODO: implement initState
-//     super.initState();
-//     ref = FirebaseDatabase.instance.reference();
+class _TestRecievingTextState extends State<TestRecievingText> {
+  late DatabaseReference ref;
+  @override
+  void initState() {
+    // TODO: implement initState
+    getData();
+    super.initState();
+    ref = FirebaseDatabase.instance.reference();
+  }
+
+  void getData() async {
+    CollectionReference user = FirebaseFirestore.instance.collection('Users');
+    await user.get().then((value) {
+      value.docs.forEach((element) {
+        var data = element.data() as Map<String, dynamic>;
+        print("----------------------------------");
+        print(data['email']);
+        print(data['userName']);
+        print("----------------------------------");
+      });
+    });
+  }
+
+  Future<void> sendData() async {
+    DatabaseReference ref = FirebaseDatabase.instance.ref("users/123");
+
+    await ref.set({
+      "name": "John",
+      "age": 18,
+      "address": {"line1": "100 Mountain View"}
+    });
+    print("after send");
+  }
+  // FirebaseDatabase database = FirebaseDatabase.instance;
+
+// await ref.set({
+//   "name": "John",
+//   "age": 18,
+//   "address": {
+//     "line1": "100 Mountain View"
 //   }
-
-//   Future<void> sendData() async {
-//     DatabaseReference ref = FirebaseDatabase.instance.ref("users/123");
-
-//     await ref.set({
-//       "name": "John",
-//       "age": 18,
-//       "address": {"line1": "100 Mountain View"}
-//     });
-//     print("after send");
-//   }
-//   // FirebaseDatabase database = FirebaseDatabase.instance;
-
-// // await ref.set({
-// //   "name": "John",
-// //   "age": 18,
-// //   "address": {
-// //     "line1": "100 Mountain View"
-// //   }
-// // });
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       floatingActionButton: FloatingActionButton(
-//         onPressed: () {
-//           print("object");
-//           sendData();
-//         },
-//       ),
-//       appBar: AppBar(
-//         title: const Text(
-//           'Test: Receiving any text',
-//           style: TextStyle(
-//             fontSize: 22.0,
-//             fontWeight: FontWeight.bold,
-//             letterSpacing: 2.0,
-//             color: Colors.white,
-//             fontFamily: 'Ubuntu',
-//           ),
-//         ),
-//         backgroundColor: Colors.cyan,
-//         elevation: 0.0,
-//         leading: IconButton(
-//           onPressed: () {
-//             Navigator.pop(context);
-//           },
-//           icon: const Icon(Icons.arrow_back_ios_new),
-//         ),
-//       ),
-//     );
-//   }
-// }
+// });
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          print("object");
+          sendData();
+        },
+      ),
+      appBar: AppBar(
+        title: const Text(
+          'Test: Receiving any text',
+          style: TextStyle(
+            fontSize: 22.0,
+            fontWeight: FontWeight.bold,
+            letterSpacing: 2.0,
+            color: Colors.white,
+            fontFamily: 'Ubuntu',
+          ),
+        ),
+        backgroundColor: Colors.cyan,
+        elevation: 0.0,
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: const Icon(Icons.arrow_back_ios_new),
+        ),
+      ),
+    );
+  }
+}
 
 // class WebSocketLed extends StatefulWidget {
 //   @override
@@ -188,17 +207,97 @@ import 'package:firebase_database/firebase_database.dart';
 //     );
 //   }
 // }
-// import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_database/firebase_database.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 
+// import 'package:cloud_firestore/cloud_firestore.dart';
+
+// import 'package:firebase_database/firebase_database.dart';
+// import 'package:flutter/material.dart';
+// import 'package:flutter/src/foundation/key.dart';
+// import 'package:flutter/src/widgets/framework.dart';
+
+// class Try extends StatefulWidget {
+//   const Try({Key? key}) : super(key: key);
+
+//   @override
+//   State<Try> createState() => _TryState();
+// }
+
+// class _TryState extends State<Try> {
+//   Future<void> sendData() async {
+//     DatabaseReference ref = FirebaseDatabase.instance.ref();
+
+//     await ref.set({
+//       "name": "John",
+//       "age": 18,
+//       "address": {"line1": "100 Mountain View"}
+//     });
+//     print("after send");
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       floatingActionButton: FloatingActionButton(
+//         onPressed: () {
+//           sendData();
+//         },
+//       ),
+//     );
+//   }
+// }
+
+// class UserInformation extends StatefulWidget {
+//   @override
+//   _UserInformationState createState() => _UserInformationState();
+// }
+
+// class _UserInformationState extends State<UserInformation> {
+//   final Stream<QuerySnapshot> _usersStream =
+//       FirebaseFirestore.instance.collection('Users').snapshots();
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return StreamBuilder<QuerySnapshot>(
+//       stream: _usersStream,
+//       builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+//         if (snapshot.hasError) {
+//           return Text('Something went wrong');
+//         }
+
+//         if (snapshot.connectionState == ConnectionState.waiting) {
+//           return Text("Loading");
+//         }
+
+//         return ListView(
+//           children: snapshot.data!.docs.map((DocumentSnapshot document) {
+//             Map<String, dynamic> data =
+//                 document.data()! as Map<String, dynamic>;
+//             // print("--------------  here ---------------");
+//             // print(data);
+//             return ListTile(
+//               title: Text(data['userName']),
+//               subtitle: Text(data['email']),
+//             );
+//           }).toList(),
+//         );
+//       },
+//     );
+//   }
+// }
 class Try extends StatefulWidget {
   const Try({Key? key}) : super(key: key);
 
   @override
-  State<Try> createState() => _TryState();
+  Widget build(BuildContext context) {
+    return Container();
+  }
+
+  @override
+  State<StatefulWidget> createState() {
+    // TODO: implement createState
+    throw UnimplementedError();
+  }
+
 }
 
 class _TryState extends State<Try> {

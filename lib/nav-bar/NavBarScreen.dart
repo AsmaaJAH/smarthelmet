@@ -92,7 +92,7 @@ class NavBar extends StatelessWidget {
                   // Update the state of the app
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => Try()),
+                    MaterialPageRoute(builder: (context) => TestRecievingText()),
                   );
                   // Then close the drawer
                   //Navigator.pop(context);
