@@ -44,6 +44,7 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
+    databaseURL: "https://smarthelmet-de844-default-rtdb.europe-west1.firebasedatabase.app/",
     apiKey: 'AIzaSyBIFa05uFiCcK1lPTGf80VtcltDf51IXB4',
     appId: '1:809881275893:web:8914a2400fc191524e24bc',
     messagingSenderId: '809881275893',
