@@ -1,6 +1,7 @@
 // import 'package:flutter/material.dart';
 // import 'package:web_socket_channel/io.dart';
-// import 'package:firebase_database/firebase_database.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_database/firebase_database.dart';
 
 // class TestRecievingText extends StatefulWidget {
 //   @override
@@ -187,6 +188,7 @@
 //     );
 //   }
 // }
+// import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
@@ -200,20 +202,60 @@ class Try extends StatefulWidget {
 }
 
 class _TryState extends State<Try> {
-  Future<void> sendData() async {
-    DatabaseReference ref = FirebaseDatabase.instance.ref("users/123");
 
-    await ref.set({
-      "name": "John",
-      "age": 18,
-      "address": {"line1": "100 Mountain View"}
+
+  Future<void> sendData() async {
+  // Query db = FirebaseDatabase.instance.ref().child('test');
+  // DataSnapshot dataSnapshot = await db.get();
+  //   dataSnapshot.children.forEach((element) {
+  //     print("---------------------------1");
+  //     print(element.value);
+  //     print("---------------------------1");
+  //   });
+    print("***********************************");
+    FirebaseFirestore.instance.collection('notes').snapshots().listen((event) {
+      event.docs.forEach((element) {
+        var data = element.data();
+        print(data['name']);
+        print(data['email']);
+
+        print("----------------------------------");
+      });
     });
-    print("after send");
+    // DatabaseReference ref = FirebaseDatabase.instance;
+    // print("---------------------------1");
+    // CollectionReference users = FirebaseFirestore.instance.collection('Users');
+    // print("---------------------------2");
+    // await users.get().then((value) {
+    //   print("---------------------------3");
+    //   value.docs.forEach((element) {
+    //     var data = element.data() as Map<String, dynamic>;
+    //     print("----------------------------------");
+    //     print(data['email']);
+    //     print(data['userName']);
+    //     print("----------------------------------");
+    //   });
+    // });
+    //
+    // await ref.set({
+    //   "name": "John",
+    //   "age": 18,
+    //   "address": {"line1": "100 Mountain View"}
+    // });
   }
 
   @override
+  void initState() {
+    // TODO: implement initState
+    sendData();
+    super.initState();
+  }
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
+      body: Container(
+        height: double.infinity,
+      ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           sendData();
