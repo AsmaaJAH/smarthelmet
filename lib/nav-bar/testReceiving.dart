@@ -255,6 +255,7 @@
 //     );
 //   }
 // }
+// import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
@@ -263,9 +264,58 @@ import 'package:flutter/src/widgets/framework.dart';
 class Try extends StatelessWidget {
   Try({super.key});
   final dataBase = FirebaseDatabase.instance.reference();
+// class Try extends StatefulWidget {
+//   const Try({Key? key}) : super(key: key);
+
+//   @override
+//   State<Try> createState() => _TryState();
+// }
+
+// class _TryState extends State<Try> {
+
+  // Future<void> sendData() async {
+  // // Query db = FirebaseDatabase.instance.ref().child('test');
+  // // DataSnapshot dataSnapshot = await db.get();
+  // //   dataSnapshot.children.forEach((element) {
+  // //     print("---------------------------1");
+  // //     print(element.value);
+  // //     print("---------------------------1");
+  // //   });
+  //   print("***********************************");
+  //   FirebaseFirestore.instance.collection('notes').snapshots().listen((event) {
+  //     event.docs.forEach((element) {
+  //       var data = element.data();
+  //       print(data['name']);
+  //       print(data['email']);
+
+  //       print("----------------------------------");
+  //     });
+  //   });
+  //   // DatabaseReference ref = FirebaseDatabase.instance;
+  //   // print("---------------------------1");
+  //   // CollectionReference users = FirebaseFirestore.instance.collection('Users');
+  //   // print("---------------------------2");
+  //   // await users.get().then((value) {
+  //   //   print("---------------------------3");
+  //   //   value.docs.forEach((element) {
+  //   //     var data = element.data() as Map<String, dynamic>;
+  //   //     print("----------------------------------");
+  //   //     print(data['email']);
+  //   //     print(data['userName']);
+  //   //     print("----------------------------------");
+  //   //   });
+  //   // });
+  //   //
+  //   // await ref.set({
+  //   //   "name": "John",
+  //   //   "age": 18,
+  //   //   "address": {"line1": "100 Mountain View"}
+  //   // });
+  // }
+
   @override
   Widget build(BuildContext context) {
-    final test = dataBase.child("test/");
+    final test = dataBase.child("yousef/");
 
     return Scaffold(
       floatingActionButton: FloatingActionButton(onPressed: () {
