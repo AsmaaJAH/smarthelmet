@@ -16,41 +16,26 @@ class FetchData extends StatefulWidget {
 }
 
 class _FetchDataState extends State<FetchData> {
-  final dataBase = FirebaseDatabase.instance.reference();
+  final dataBase = FirebaseDatabase.instance.ref();
 
   Query dbRef = FirebaseDatabase.instance.ref().child('ALRET');
-
   Map<String, dynamic> data = {};
-
-  void read() async {
-    dbRef.onValue.listen((event) {
-     data = event.snapshot.value as Map <String, dynamic> ;
-      print(data);
+  void readRealTimeDatabase() async {
+    await dbRef.onValue.listen((event) {
+     data = event.snapshot.value as Map<String, dynamic>;
+     setState(() {});
     });
-
-    await dbRef.get().then((value) {
-      value.children.forEach((element) {
-        data[element.key.toString()] = element.value.toString();
-        print(element.value.toString());
-      });
-    });
-    print(data);
-    setState(() {});
   }
 
   @override
   void initState() {
     // TODO: implement initState
-    read();
+    readRealTimeDatabase();
     super.initState();
   }
-
-  // Future<http.Response> fetchAlbum() {
   @override
   Widget build(BuildContext context) {
     final test = dataBase.child("write now/");
-
-    //final readDatabase = fetchAlbum();
     return Scaffold(
       drawer: NavBar(),
       appBar: AppBar(
@@ -80,7 +65,7 @@ class _FetchDataState extends State<FetchData> {
         }),
       ),
       floatingActionButton: FloatingActionButton(onPressed: () {
-        read();
+        readRealTimeDatabase();
         test
             .set({"a": '5000'})
             .then((value) => print('done'))
@@ -133,7 +118,7 @@ class _FetchDataState extends State<FetchData> {
             height: 5,
           ),
           Text(
-            sensors['temp'] ?? "",
+            "${sensors['temp']}" ?? "",
             style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
           ),
         ],
