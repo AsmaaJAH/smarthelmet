@@ -22,8 +22,8 @@ class _FetchDataState extends State<FetchData> {
   Map<String, dynamic> data = {};
   void readRealTimeDatabase() async {
     await dbRef.onValue.listen((event) {
-     data = event.snapshot.value as Map<String, dynamic>;
-     setState(() {});
+      data = event.snapshot.value as Map<String, dynamic>;
+      setState(() {});
     });
   }
 
@@ -33,6 +33,7 @@ class _FetchDataState extends State<FetchData> {
     readRealTimeDatabase();
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     final test = dataBase.child("write now/");
@@ -51,7 +52,6 @@ class _FetchDataState extends State<FetchData> {
         ),
         backgroundColor: Colors.cyan,
         elevation: 0.0,
- 
         leading: Builder(builder: (context) {
           return IconButton(
             onPressed: () {
@@ -118,7 +118,8 @@ class _FetchDataState extends State<FetchData> {
             height: 5,
           ),
           Text(
-            "${sensors['temp']}" ?? "",
+            sensors['temp']?? "",
+            // sensors['teml'] ?? "",
             style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
           ),
         ],
