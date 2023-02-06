@@ -256,10 +256,13 @@
 //   }
 // }
 // import 'package:cloud_firestore/cloud_firestore.dart';
+import 'dart:developer';
+
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:http/http.dart' as http;
 
 class Try extends StatelessWidget {
   Try({super.key});
@@ -313,17 +316,30 @@ class Try extends StatelessWidget {
   //   // });
   // }
 
+  Future<http.Response> fetchAlbum() {
+    final response = http.get(Uri.parse(
+        'https://smarthelmet-de844-default-rtdb.europe-west1.firebasedatabase.app/'));
+    log(response.toString());
+    return response;
+  }
+
   @override
   Widget build(BuildContext context) {
-    final test = dataBase.child("yousef/");
+    final test = dataBase.child("write now/");
 
+    final readDatabase = fetchAlbum();
     return Scaffold(
       floatingActionButton: FloatingActionButton(onPressed: () {
         test
             .set({"a": '5000'})
             .then((value) => print('done'))
             .catchError((onError) => print("error ${onError.toString()}"));
+
+        
       }),
+      body: Container(
+        child: Text(readDatabase.toString()),
+      ),
     );
   }
 }
