@@ -5,16 +5,17 @@ import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:smarthelmet/nav-bar/NavBarScreen.dart';
 // import 'package:http/http.dart' as http;
 
-class Try extends StatefulWidget {
-  Try({super.key});
+class FetchData extends StatefulWidget {
+  FetchData({super.key});
 
   @override
-  State<Try> createState() => _TryState();
+  State<FetchData> createState() => _FetchDataState();
 }
 
-class _TryState extends State<Try> {
+class _FetchDataState extends State<FetchData> {
   final dataBase = FirebaseDatabase.instance.reference();
 
   Query dbRef = FirebaseDatabase.instance.ref().child('ALRET');
@@ -51,9 +52,10 @@ class _TryState extends State<Try> {
 
     //final readDatabase = fetchAlbum();
     return Scaffold(
+      drawer: NavBar(),
       appBar: AppBar(
         title: const Text(
-          'Worker 1',
+          'Worker',
           style: TextStyle(
             fontSize: 22.0,
             fontWeight: FontWeight.bold,
@@ -64,12 +66,18 @@ class _TryState extends State<Try> {
         ),
         backgroundColor: Colors.cyan,
         elevation: 0.0,
-        leading: IconButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          icon: const Icon(Icons.arrow_back_ios_new),
-        ),
+ 
+        leading: Builder(builder: (context) {
+          return IconButton(
+            onPressed: () {
+              Scaffold.of(context).openDrawer();
+            },
+            icon: const Icon(
+              Icons.menu,
+              color: Colors.white,
+            ),
+          );
+        }),
       ),
       floatingActionButton: FloatingActionButton(onPressed: () {
         read();

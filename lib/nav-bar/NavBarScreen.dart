@@ -6,12 +6,14 @@ import 'package:smarthelmet/nav-bar/UltrasonicSensor.dart';
 import 'package:smarthelmet/shared/constants/Constants.dart';
 import 'package:smarthelmet/shared/functions/shared_function.dart';
 
+import '../modules/forgotPasswod/aboutUs/aboutus.dart';
+import '../modules/home-page/HomePage.dart';
 import '../shared/network/local/cache_helper.dart';
 import 'Alerts.dart';
 import 'FallDeteting.dart';
 import 'Logout.dart';
 import 'Tracking.dart';
-import 'testReceiving.dart';
+import 'FetchData.dart';
 
 class NavBar extends StatelessWidget {
   @override
@@ -51,14 +53,13 @@ class NavBar extends StatelessWidget {
               ),
             ),
             onTap: () {
-              // Update the state of the app
-              // Navigator.push(
-              //   context,
-              //   MaterialPageRoute(builder: (context) => const Home()),
-              // );
+              //  Update the state of the app
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => HomePageScreen()),
+              );
             },
           ),
-
           ExpansionTile(
             leading: Icon(Icons.speed_outlined),
             iconColor: Colors.grey[800],
@@ -92,7 +93,7 @@ class NavBar extends StatelessWidget {
                   // Update the state of the app
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => Try()),
+                    MaterialPageRoute(builder: (context) => FetchData()),
                   );
                   // Then close the drawer
                   //Navigator.pop(context);
@@ -163,7 +164,7 @@ class NavBar extends StatelessWidget {
               ),
               ListTile(
                 title: Text(
-                  "Utra sonic",
+                  "Utrasonic Sensor",
                   style: TextStyle(
                     fontSize: 14.0,
                     //fontWeight: FontWeight.bold,
@@ -186,30 +187,6 @@ class NavBar extends StatelessWidget {
               //more child menu
             ],
           ),
-
-          // ListTile(
-          //   leading: Icon(Icons.chevron_right),
-          //   title: Text(
-          //       'Monitoring',
-          //       style: TextStyle(
-          //       fontSize: 14.0,
-          //       //fontWeight: FontWeight.bold,
-          //       letterSpacing: 2.0,
-          //       color: Colors.grey[800],
-          //       fontFamily: 'Ubuntu',
-          //     ),
-          //   ),
-          //   onTap: () {
-          //     // Update the state of the app
-          //     Navigator.push(
-          //       context,
-          //       MaterialPageRoute(builder: (context) => const Monitoring()),
-          //     );
-          //     // Then close the drawer
-          //     //Navigator.pop(context);
-          //   },
-          // ),
-
           ListTile(
             leading: Icon(Icons.near_me_outlined, color: navBarColor),
             title: Text(
@@ -228,11 +205,8 @@ class NavBar extends StatelessWidget {
                 context,
                 MaterialPageRoute(builder: (context) => Tracking()),
               );
-              // Then close the drawer
-              //Navigator.pop(context);
             },
           ),
-
           ListTile(
             leading: Icon(
               Icons.report_problem_outlined,
@@ -254,8 +228,6 @@ class NavBar extends StatelessWidget {
                 context,
                 MaterialPageRoute(builder: (context) => Alerts()),
               );
-              // Then close the drawer
-              //Navigator.pop(context);
             },
             trailing: ClipOval(
               child: Container(
@@ -275,7 +247,28 @@ class NavBar extends StatelessWidget {
             ),
           ),
           Divider(),
-
+          ListTile(
+            leading: Icon(
+              Icons.info,
+              color: navBarColor,
+            ),
+            title: Text(
+              'About Us',
+              style: TextStyle(
+                fontSize: 16.0,
+                //fontWeight: FontWeight.bold,
+                letterSpacing: 2.0,
+                color: Colors.grey[800],
+                fontFamily: 'Ubuntu',
+              ),
+            ),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => AboutScreen()),
+              );
+            },
+          ),
           ListTile(
             title: Text(
               'Logout',

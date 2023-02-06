@@ -1,150 +1,174 @@
 import 'package:flutter/material.dart';
 import '../../nav-bar/NavBarScreen.dart';
 
-class HomePageScreen extends StatelessWidget {
+import 'package:easy_search_bar/easy_search_bar.dart';
+import 'package:flutter/material.dart';
+
+import '../../nav-bar/FetchData.dart';
+import '../../shared/constants/Constants.dart';
+import '../../shared/functions/shared_function.dart';
+import '../../shared/network/local/cache_helper.dart';
+import '../SignIn/SignIn.dart';
+import '../forgotPasswod/aboutUs/aboutus.dart';
+
+class HomePageScreen extends StatefulWidget {
+  const HomePageScreen({Key? key}) : super(key: key);
+
   @override
-  // leading: Builder(builder: (context) {
-  //           return IconButton(
-  //             onPressed: () { Scaffold.of(context).openDrawer();}
-  //             icon: Icon(
-  //               Icons.image_search_outlined,
-  //             ),
-  //           );
-  //         }),
-  //       )
+  State<HomePageScreen> createState() => _HomePageScreenState();
+}
+
+class _HomePageScreenState extends State<HomePageScreen> {
+  String searchValue = '';
+  final List<String> _suggestions = [
+    'youssef',
+    'Salah',
+    'Asmaa',
+    'kholoud',
+    'Donia',
+    'Mustafa'
+  ];
+
+  Future<List<String>> _fetchSuggestions(String searchValue) async {
+    await Future.delayed(const Duration(milliseconds: 750));
+
+    return _suggestions.where((element) {
+      return element.toLowerCase().contains(searchValue.toLowerCase());
+    }).toList();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      drawer: NavBar(),
-      appBar: AppBar(
-        leading: Builder(builder: (context) {
-          return IconButton(
-            onPressed: () {
-              Scaffold.of(context).openDrawer();
-            },
-            icon: const Icon(
-              Icons.menu,
+    return MaterialApp(
+      title: 'Search workers',
+      theme: ThemeData(primarySwatch: Colors.cyan),
+      home: Scaffold(
+        appBar: EasySearchBar(
+            title: const Text('Search workers'),
+            onSearch: (value) => setState(() => searchValue = value),
+            actions: [
+            ],
+            asyncSuggestions: (value) async => await _fetchSuggestions(value)),
+        drawer: Drawer(
+            child: ListView(padding: EdgeInsets.zero, children: [
+          const DrawerHeader(
+            decoration: BoxDecoration(
               color: Colors.cyan,
             ),
-          );
-        }),
-        title: const Text("Safety  Helmet",
-            style: TextStyle(
-                color: Colors.cyan, fontSize: 35, fontWeight: FontWeight.w700)),
-        centerTitle: true,
-        backgroundColor: Colors.white,
-        elevation: 20,
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Container(
-              margin: EdgeInsets.only(bottom: 22),
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(15),
-                color: Color.fromARGB(255, 132, 255, 239),
-              ),
-              height: 322,
-              width: double.infinity,
-              child: Column(
-                children: const [
-                  Text(
-                    "Home Page",
-                    style: TextStyle(color: Colors.white, fontSize: 44),
-                  ),
-                  Image(
-                    fit: BoxFit.cover,
-                    height: 250,
-                    image: AssetImage(
-                      "assets/images/myappLogo.png",
-                    ),
-                  )
-                ],
+            child: Text(
+              'Smart Safety Helmet',
+              style: TextStyle(
+                fontSize: 26.0,
+                letterSpacing: 2.0,
+                color: Colors.white,
+                fontFamily: 'Ubuntu',
               ),
             ),
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                children: [
-                  Container(
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15),
-                      color: Colors.cyan,
-                    ),
-                    height: 100,
-                    width: 150,
-                    child: const Text(
-                      "Monitoring",
-                      style: TextStyle(color: Colors.white, fontSize: 27),
-                    ),
-                  ),
-                  Container(
-                    margin: EdgeInsets.symmetric(horizontal: 23),
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15),
-                      color: Colors.cyan,
-                    ),
-                    height: 100,
-                    width: 150,
-                    child: const Text(
-                      "Emergency",
-                      style: TextStyle(color: Colors.white, fontSize: 27),
-                    ),
-                  ),
-                  Container(
-                    margin: EdgeInsets.symmetric(horizontal: 23),
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15),
-                      color: Colors.cyan,
-                    ),
-                    height: 100,
-                    width: 150,
-                    child: const Text(
-                      "Tracking",
-                      style: TextStyle(color: Colors.white, fontSize: 27),
-                    ),
-                  ),
-                ],
+          ),
+          ListTile(
+            title: const Text('Worker1: Asmaa', style: TextStyle(
+                fontSize: 16.0,
+                letterSpacing: 2.0,
+                color: Colors.black,
+                fontFamily: 'Ubuntu',
+              ),),
+            onTap: () => Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => FetchData()),
+            ),
+          ),
+          ListTile(
+            title: const Text('Worker2: Yousseif', style: TextStyle(
+                fontSize: 16.0,
+                letterSpacing: 2.0,
+                color: Colors.black,
+                fontFamily: 'Ubuntu',
+              ),),
+            onTap: () => Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => FetchData()),
+            ),
+          ),
+          ListTile(
+            title: const Text('Worker3: Salah',style: TextStyle(
+                fontSize: 16.0,
+                letterSpacing: 2.0,
+                color: Colors.black,
+                fontFamily: 'Ubuntu',
+              ),),
+            onTap: () => Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => FetchData()),
+            ),
+          ),
+          Divider(),
+          ListTile(
+            leading: Icon(
+              Icons.info,
+              color: navBarColor,
+            ),
+            title: Text(
+              'About Us',
+              style: TextStyle(
+                fontSize: 16.0,
+                //fontWeight: FontWeight.bold,
+                letterSpacing: 2.0,
+                color: Colors.black,
+                fontFamily: 'Ubuntu',
               ),
             ),
-            Container(
-              margin: EdgeInsets.only(top: 20),
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(15),
-                color: Color.fromARGB(255, 128, 248, 238),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => AboutScreen()),
+              );
+            },
+          ),
+          ListTile(
+            title: Text(
+              'Logout',
+              style: TextStyle(
+                fontSize: 16.0,
+                letterSpacing: 2.0,
+                color: Colors.black,
+                fontFamily: 'Ubuntu',
               ),
-              height: 322,
-              width: double.infinity,
-              child: Column(
-                children: [
-                  const Text(
-                    "About us",
-                    style: TextStyle(color: Colors.white, fontSize: 44),
-                  ),
-                  Image.asset(
-                    "assets/images/aboutus.PNG",
-                    fit: BoxFit.cover,
-                    height: 150,
-                  ),
-                  const Text(
-                    "We are engineering students who developed a smart safety helmet with sensors to monitor surrounding data from environment and display the worker position in the cases of emergency ,..etc",
-                    style: TextStyle(color: Colors.white, fontSize: 18),
-                  ),
-                ],
+            ),
+            leading: const Icon(Icons.exit_to_app),
+            onTap: () async {
+              navigateAndFinish(context, SignInScreen());
+              await CachHelper.removeAllData();
+            },
+          ),
+        ])),
+        body: Center(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Icon(Icons.person),
+              Text(
+                'recent search result:',
+                style: TextStyle(
+                fontSize: 18.0,
+                letterSpacing: 2.0,
+                color: Colors.black,
+                fontFamily: 'Ubuntu',
               ),
-            )
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        backgroundColor: Colors.black54,
-        child: const Icon(
-          Icons.health_and_safety,
+              ),
+
+              TextButton(
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (BuildContext context) => FetchData()));
+                  },
+                  child: Text(
+                    ' $searchValue',
+                    style: TextStyle(color: Colors.blue),
+                  )),
+            ],
+          ),
         ),
       ),
     );
