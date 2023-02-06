@@ -7,12 +7,22 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 // import 'package:http/http.dart' as http;
 
-class Try extends StatelessWidget {
+class Try extends StatefulWidget {
   Try({super.key});
+
+  @override
+  State<Try> createState() => _TryState();
+}
+
+class _TryState extends State<Try> {
   final dataBase = FirebaseDatabase.instance.reference();
+
   Query dbRef = FirebaseDatabase.instance.ref().child('ALRET');
+
   Map<String, dynamic> data = {};
+
   void read() async {
+
     await dbRef.get().then((value) {
       value.children.forEach((element) {
         data[element.key.toString()] = element.value.toString();
@@ -20,15 +30,18 @@ class Try extends StatelessWidget {
       });
     });
     print(data);
+  setState(() {
+
+  });
   }
 
+  @override
+  void initState() {
+    // TODO: implement initState
+    read();
+    super.initState();
+  }
   // Future<http.Response> fetchAlbum() {
-  //   final response = http.get(Uri.parse(
-  //       'https://smarthelmet-de844-default-rtdb.europe-west1.firebasedatabase.app/'));
-  //   log(response.toString());
-  //   return response;
-  // }
-
   @override
   Widget build(BuildContext context) {
     final test = dataBase.child("write now/");
@@ -47,24 +60,14 @@ class Try extends StatelessWidget {
         margin: EdgeInsets.only(bottom: 22),
         alignment: Alignment.center,
         decoration: BoxDecoration(
-          
+
           color: Colors.cyan,
         ),
         height: 322,
         width: double.infinity,
         child:  Container(
         height: double.infinity,
-        child: FirebaseAnimatedList(
-          query: dbRef,
-          itemBuilder: (BuildContext context, DataSnapshot snapshot, Animation<double> animation, int index) {
- 
-            Map student = snapshot.value as Map;
-            student['key'] = snapshot.key;
- 
-            return listItem(student: student, context: context );
- 
-          },
-        ),
+        child: listItem(student: data, context: context)
       )
         // child: Column(
         //   children: [
@@ -81,6 +84,7 @@ class Try extends StatelessWidget {
       ),
     );
   }
+
   Widget listItem({required Map student, required context}) {
     return Container(
       margin: const EdgeInsets.all(10),
@@ -92,21 +96,21 @@ class Try extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            student['CO'],
+            student['CO']??"",
             style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
           ),
           const SizedBox(
             height: 5,
           ),
           Text(
-            student['gas'],
+            student['gas']??"",
             style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
           ),
           const SizedBox(
             height: 5,
           ),
           Text(
-            student['temp'],
+            student['temp']??"",
             style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
           ),
           Row(
@@ -149,4 +153,16 @@ class Try extends StatelessWidget {
     );
   }
 }
+/*
+FirebaseAnimatedList(
+          query: dbRef,
+          itemBuilder: (BuildContext context, DataSnapshot snapshot, Animation<double> animation, int index) {
 
+            // Map student = snapshot.value as Map;
+            // student['key'] = snapshot.key;
+
+            return listItem(student: data, context: context );
+
+          },
+        ),
+ */
