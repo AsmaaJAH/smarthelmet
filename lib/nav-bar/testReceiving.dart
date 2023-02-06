@@ -22,6 +22,10 @@ class _TryState extends State<Try> {
   Map<String, dynamic> data = {};
 
   void read() async {
+    dbRef.onValue.listen((event) {
+     data = event.snapshot.value as Map <String, dynamic> ;
+      print(data);
+    });
 
     await dbRef.get().then((value) {
       value.children.forEach((element) {
@@ -30,9 +34,7 @@ class _TryState extends State<Try> {
       });
     });
     print(data);
-  setState(() {
-
-  });
+    setState(() {});
   }
 
   @override
@@ -41,6 +43,7 @@ class _TryState extends State<Try> {
     read();
     super.initState();
   }
+
   // Future<http.Response> fetchAlbum() {
   @override
   Widget build(BuildContext context) {
@@ -48,6 +51,26 @@ class _TryState extends State<Try> {
 
     //final readDatabase = fetchAlbum();
     return Scaffold(
+      appBar: AppBar(
+        title: const Text(
+          'Worker 1',
+          style: TextStyle(
+            fontSize: 22.0,
+            fontWeight: FontWeight.bold,
+            letterSpacing: 2.0,
+            color: Colors.white,
+            fontFamily: 'Ubuntu',
+          ),
+        ),
+        backgroundColor: Colors.cyan,
+        elevation: 0.0,
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: const Icon(Icons.arrow_back_ios_new),
+        ),
+      ),
       floatingActionButton: FloatingActionButton(onPressed: () {
         read();
         test
@@ -56,113 +79,57 @@ class _TryState extends State<Try> {
             .catchError((onError) => print("error ${onError.toString()}"));
       }),
       body: Container(
-        padding: const EdgeInsets.all(20.0),
-        margin: EdgeInsets.only(bottom: 22),
-        alignment: Alignment.center,
-        decoration: BoxDecoration(
-
-          color: Colors.cyan,
-        ),
-        height: 322,
-        width: double.infinity,
-        child:  Container(
-        height: double.infinity,
-        child: listItem(student: data, context: context)
-      )
-        // child: Column(
-        //   children: [
-        //     Text(
-        //       "Received Data from Sensors",
-        //       style: TextStyle(color: Colors.white, fontSize: 44),
-        //     ),
-        //     Text(
-        //       data.toString(),
-        //       style: TextStyle(color: Colors.white, fontSize: 18),
-        //     ),
-        //   ],
-        // ),
-      ),
+          padding: const EdgeInsets.all(20.0),
+          margin: EdgeInsets.only(bottom: 22),
+          alignment: Alignment.center,
+          decoration: BoxDecoration(
+            color: Colors.cyan,
+          ),
+          height: 322,
+          width: double.infinity,
+          child: Container(
+              height: double.infinity,
+              child: listItem(sensors: data, context: context))),
     );
   }
 
-  Widget listItem({required Map student, required context}) {
+  Widget listItem({required Map sensors, required context}) {
     return Container(
       margin: const EdgeInsets.all(10),
       padding: const EdgeInsets.all(10),
       height: 110,
-      color: Colors.amberAccent,
+      color: Colors.white,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            student['CO']??"",
+            "Received Data from Sensors",
+            style: TextStyle(color: Colors.cyan, fontSize: 44),
+          ),
+          const SizedBox(
+            height: 25,
+          ),
+          Text(
+            sensors['CO'] ?? "",
             style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
           ),
           const SizedBox(
             height: 5,
           ),
           Text(
-            student['gas']??"",
+            sensors['gas'] ?? "",
             style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
           ),
           const SizedBox(
             height: 5,
           ),
           Text(
-            student['temp']??"",
+            sensors['temp'] ?? "",
             style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              GestureDetector(
-                onTap: () {
-                 //Navigator.push(context, MaterialPageRoute(builder: (_) => UpdateRecord(studentKey: student['key'])));
-                },
-                child: Row(
-                  children: [
-                    Icon(
-                      Icons.edit,
-                      color: Theme.of(context).primaryColor,
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(
-                width: 6,
-              ),
-              GestureDetector(
-                onTap: () {
-                 // reference.child(student['key']).remove();
-                },
-                child: Row(
-                  children: [
-                    Icon(
-                      Icons.delete,
-                      color: Colors.red[700],
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          )
         ],
       ),
     );
   }
 }
-/*
-FirebaseAnimatedList(
-          query: dbRef,
-          itemBuilder: (BuildContext context, DataSnapshot snapshot, Animation<double> animation, int index) {
-
-            // Map student = snapshot.value as Map;
-            // student['key'] = snapshot.key;
-
-            return listItem(student: data, context: context );
-
-          },
-        ),
- */
