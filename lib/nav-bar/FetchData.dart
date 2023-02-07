@@ -19,10 +19,12 @@ class _FetchDataState extends State<FetchData> {
   final dataBase = FirebaseDatabase.instance.ref();
 
   Query dbRef = FirebaseDatabase.instance.ref().child('ALRET');
-  Map<String, dynamic> data = {};
+  Map<Object?, Object?> data = {};
   void readRealTimeDatabase() async {
     await dbRef.onValue.listen((event) {
-      data = event.snapshot.value as Map<String, dynamic>;
+      print(event.snapshot.value);
+      data = event.snapshot.value as Map<Object?, Object?>;
+
       setState(() {});
     });
   }
@@ -118,8 +120,9 @@ class _FetchDataState extends State<FetchData> {
             height: 5,
           ),
           Text(
-            sensors['temp']?? "",
-            // sensors['teml'] ?? "",
+            sensors['temp'] == null ? "" : sensors['temp'],
+            // sensors['temp']?? "",
+
             style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
           ),
         ],

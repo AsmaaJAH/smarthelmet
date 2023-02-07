@@ -79,7 +79,7 @@ class NavBar extends StatelessWidget {
             children: [
               ListTile(
                 title: Text(
-                  "Test: Receiving data",
+                  "Fetching Database",
                   style: TextStyle(
                     fontSize: 14.0,
                     //fontWeight: FontWeight.bold,
@@ -164,7 +164,7 @@ class NavBar extends StatelessWidget {
               ),
               ListTile(
                 title: Text(
-                  "Utrasonic Sensor",
+                  "Object detection",
                   style: TextStyle(
                     fontSize: 14.0,
                     //fontWeight: FontWeight.bold,
