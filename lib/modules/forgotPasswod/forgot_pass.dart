@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
+import '../../shared/functions/shared_function.dart';
 import '../../shared/functions/snackbar.dart';
 import '../SignIn/SignIn.dart';
 
@@ -40,8 +40,23 @@ class _ForgotPassState extends State<ForgotPass> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        title: const Text("Reset Password"),
+        leading: IconButton(
+            onPressed: () {
+              navigateAndFinish(context, SignInScreen());
+            },
+            icon: Icon(
+              Icons.arrow_back,
+              color: Colors.lightBlueAccent,
+            )),
+        title: Center(
+            child: Text(
+          "Reset Password",
+          style:
+              TextStyle(color: Colors.lightBlue, fontWeight: FontWeight.bold),
+        )),
+        backgroundColor: Colors.white,
         elevation: 0,
       ),
       body: Center(
@@ -79,7 +94,8 @@ class _ForgotPassState extends State<ForgotPass> {
                 ElevatedButton(
                   onPressed: () async {
                     if (formkey.currentState!.validate()) {
-                      resetpass();
+                      await resetpass();
+                      navigateAndFinish(context, SignInScreen());
                     } else {
                       showSnackBar(context, "Error");
                     }
