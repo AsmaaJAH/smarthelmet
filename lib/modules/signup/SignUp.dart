@@ -4,7 +4,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:smarthelmet/modules/SignIn/SignIn.dart';
 import 'package:smarthelmet/shared/functions/shared_function.dart';
-
 import '../../models/userModel.dart';
 import '../../shared/functions/passwordcheck.dart';
 
@@ -21,7 +20,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
     required password,
     required userName,
     required phone,
-    required role,
   }) async {
     setState(() {
       Loading = true;
@@ -30,20 +28,18 @@ class _SignUpScreenState extends State<SignUpScreen> {
         .createUserWithEmailAndPassword(email: email, password: password)
         .then((value) {
       UserModel user =
-          UserModel(email, password, value.user!.uid, userName, phone, role);
+          UserModel(email, password, value.user!.uid, userName, phone);
       FirebaseFirestore.instance
           .collection("Users")
           .doc(value.user!.uid)
           .set(user.toMap());
     });
-    
+
     setState(() {
       Loading = false;
     });
   }
 
-  int _radioSelected = 2;
-  String role = "worker";
   var usernameController = TextEditingController();
   var emailController = TextEditingController();
   var passwordController = TextEditingController();
@@ -88,6 +84,25 @@ class _SignUpScreenState extends State<SignUpScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        leading: IconButton(
+            onPressed: () {
+              navigateAndFinish(context, SignInScreen());
+            },
+            icon: Icon(
+              Icons.arrow_back,
+              color: Colors.lightBlueAccent,
+            )),
+        title: Center(
+            child: Text(
+          "Sign up",
+          style:
+              TextStyle(color: Colors.lightBlue, fontWeight: FontWeight.bold),
+        )),
+        backgroundColor: Colors.white,
+        elevation: 0,
+      ),
       body: SingleChildScrollView(
         child: Form(
           key: formKey,
@@ -95,8 +110,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
             padding: const EdgeInsets.all(16.0),
             child: Column(
               children: [
-                const SizedBox(
-                  height: 20,
+                Container(
+                  height: MediaQuery.of(context).size.height * .001,
                 ),
                 const Center(
                   child: CircleAvatar(
@@ -184,61 +199,37 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               : const Icon(Icons.visibility_off))),
                 ),
                 const SizedBox(
-                  height: 10,
+                  height: 8,
                 ),
                 CheckCard("Has Uppercase", hasUpper),
                 const SizedBox(
-                  height: 10,
+                  height: 8,
                 ),
                 CheckCard("Has Lowercase", hasLower),
                 const SizedBox(
-                  height: 10,
+                  height: 8,
                 ),
                 CheckCard("Has Special Character", hsaSpecial),
                 const SizedBox(
-                  height: 10,
+                  height: 8,
                 ),
                 CheckCard("At least one number", hasDigit),
                 const SizedBox(
-                  height: 10,
+                  height: 8,
                 ),
                 CheckCard("At least 8 digits", is8digits),
                 const SizedBox(
-                  height: 10,
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                Row(
-                  children: [
-                    const Text('Have an account? '),
-                    TextButton(
-                        onPressed: () {
-                          Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (BuildContext context) =>
-                                      SignInScreen()));
-                        },
-                        child: const Text(
-                          'Sign in',
-                          style: TextStyle(color: Colors.blue),
-                        )),
-                  ],
-                ),
-                const SizedBox(
-                  height: 20,
+                  height: 12,
                 ),
                 InkWell(
                   onTap: () {
                     if (formKey.currentState!.validate()) {
-                      print("All done");
                       createUser(
-                          email: emailController.text,
-                          password: passwordController.text,
-                          userName: usernameController.text,
-                          phone: phoneController.text,
-                          role: role);
+                        email: emailController.text,
+                        password: passwordController.text,
+                        userName: usernameController.text,
+                        phone: phoneController.text,
+                      );
                       navigateAndFinish(context, SignInScreen());
                     }
                   },
@@ -265,6 +256,25 @@ class _SignUpScreenState extends State<SignUpScreen> {
               ],
             ),
           ),
+        ),
+      ),
+      bottomNavigationBar: Container(
+        height: 50,
+        color: Colors.white,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Text('Already have an account? '),
+            TextButton(
+                onPressed: () {
+                  navigateAndFinish(context, SignInScreen());
+                },
+                child: const Text(
+                  'Sign in',
+                  style: TextStyle(
+                      decoration: TextDecoration.underline, color: Colors.blue),
+                )),
+          ],
         ),
       ),
     );

@@ -43,6 +43,8 @@ dependencies:
   firebase_database: ^10.0.9
   http: ^0.13.5
   easy_search_bar: ^2.4.2
+  google_sign_in: ^5.4.4
+  flutter_svg: ^1.0.0
   
 
 dev_dependencies:
