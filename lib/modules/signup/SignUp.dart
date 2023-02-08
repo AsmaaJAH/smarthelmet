@@ -24,11 +24,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
     setState(() {
       Loading = true;
     });
+    // FirebaseAuth.instance.sendPasswordResetEmail(email: email);
     await FirebaseAuth.instance
         .createUserWithEmailAndPassword(email: email, password: password)
         .then((value) {
-      UserModel user =
-          UserModel(email, password, value.user!.uid, userName, phone);
+      UserModel user = UserModel(email, value.user!.uid, userName, phone);
       FirebaseFirestore.instance
           .collection("Users")
           .doc(value.user!.uid)
@@ -44,8 +44,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
   var emailController = TextEditingController();
   var passwordController = TextEditingController();
   var phoneController = TextEditingController();
-  var prefixIcon = Icons.lock;
-  var suffexIcon = Icons.visibility_off;
   var secure = true;
   var formKey = GlobalKey<FormState>();
 
@@ -81,11 +79,20 @@ class _SignUpScreenState extends State<SignUpScreen> {
     });
   }
 
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    usernameController.dispose();
+    phoneController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
+        centerTitle: true,
         leading: IconButton(
             onPressed: () {
               navigateAndFinish(context, SignInScreen());
@@ -94,12 +101,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
               Icons.arrow_back,
               color: Colors.lightBlueAccent,
             )),
-        title: Center(
-            child: Text(
+        title: Text(
           "Sign up",
           style:
-              TextStyle(color: Colors.lightBlue, fontWeight: FontWeight.bold),
-        )),
+          TextStyle(color: Colors.lightBlue, fontWeight: FontWeight.bold),
+        ),
         backgroundColor: Colors.white,
         elevation: 0,
       ),
@@ -120,8 +126,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     backgroundColor: Colors.transparent,
                   ),
                 ),
-                const SizedBox(
-                  height: 20,
+                Container(
+                  height: MediaQuery.of(context).size.height * .03,
                 ),
                 TextFormField(
                     controller: usernameController,
@@ -133,8 +139,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         labelText: 'User name',
                         border: OutlineInputBorder(),
                         suffixIcon: Icon(Icons.person))),
-                const SizedBox(
-                  height: 10,
+                Container(
+                  height: MediaQuery.of(context).size.height * .02,
                 ),
                 TextFormField(
                     controller: phoneController,
@@ -150,8 +156,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         labelText: 'Phone number',
                         border: OutlineInputBorder(),
                         suffixIcon: Icon(Icons.phone))),
-                const SizedBox(
-                  height: 10,
+                Container(
+                  height: MediaQuery.of(context).size.height * .02,
                 ),
                 TextFormField(
                   controller: emailController,
@@ -170,8 +176,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       border: OutlineInputBorder(),
                       suffixIcon: Icon(Icons.email)),
                 ),
-                const SizedBox(
-                  height: 10,
+                Container(
+                  height: MediaQuery.of(context).size.height * .02,
                 ),
                 TextFormField(
                   controller: passwordController,
@@ -198,8 +204,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               ? const Icon(Icons.visibility)
                               : const Icon(Icons.visibility_off))),
                 ),
-                const SizedBox(
-                  height: 8,
+                Container(
+                  height: MediaQuery.of(context).size.height * .02,
                 ),
                 CheckCard("Has Uppercase", hasUpper),
                 const SizedBox(
@@ -218,8 +224,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   height: 8,
                 ),
                 CheckCard("At least 8 digits", is8digits),
-                const SizedBox(
-                  height: 12,
+                Container(
+                  height: MediaQuery.of(context).size.height * .03,
                 ),
                 InkWell(
                   onTap: () {
