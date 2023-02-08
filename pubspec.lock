@@ -42,13 +42,8 @@ packages:
       name: characters
       url: "https://pub.dartlang.org"
     source: hosted
-<<<<<<< HEAD
     version: "1.2.0"
   charcode:
-=======
-    version: "1.2.1"
-    charcode:
->>>>>>> parent of 31ed92a (layout update)
     dependency: transitive
     description:
       name: charcode
