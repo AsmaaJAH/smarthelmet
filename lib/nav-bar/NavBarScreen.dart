@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:smarthelmet/modules/SignIn/SignIn.dart';
 import 'package:smarthelmet/nav-bar/Gas.dart';
 import 'package:smarthelmet/nav-bar/Tempreture.dart';
 import 'package:smarthelmet/nav-bar/UltrasonicSensor.dart';
 import 'package:smarthelmet/shared/constants/Constants.dart';
 import 'package:smarthelmet/shared/functions/shared_function.dart';
+
+import '../modules/forgotPasswod/aboutUs/aboutus.dart';
 import '../modules/home-page/HomePage.dart';
+import '../shared/network/local/cache_helper.dart';
 import 'Alerts.dart';
 import 'FallDeteting.dart';
+import 'Logout.dart';
 import 'Tracking.dart';
 import 'FetchData.dart';
 
@@ -48,7 +53,11 @@ class NavBar extends StatelessWidget {
               ),
             ),
             onTap: () {
-              navigateAndFinish(context, HomePageScreen());
+              //  Update the state of the app
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => HomePageScreen()),
+              );
             },
           ),
           ExpansionTile(
@@ -236,6 +245,45 @@ class NavBar extends StatelessWidget {
                 ),
               ),
             ),
+          ),
+          Divider(),
+          ListTile(
+            leading: Icon(
+              Icons.info,
+              color: navBarColor,
+            ),
+            title: Text(
+              'About Us',
+              style: TextStyle(
+                fontSize: 16.0,
+                //fontWeight: FontWeight.bold,
+                letterSpacing: 2.0,
+                color: Colors.grey[800],
+                fontFamily: 'Ubuntu',
+              ),
+            ),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => AboutScreen()),
+              );
+            },
+          ),
+          ListTile(
+            title: Text(
+              'Logout',
+              style: TextStyle(
+                fontSize: 16.0,
+                letterSpacing: 2.0,
+                color: Colors.grey[800],
+                fontFamily: 'Ubuntu',
+              ),
+            ),
+            leading: const Icon(Icons.exit_to_app),
+            onTap: () async {
+              navigateAndFinish(context, SignInScreen());
+              await CachHelper.removeAllData();
+            },
           ),
         ],
       ),
