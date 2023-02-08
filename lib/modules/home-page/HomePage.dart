@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
-import '../../nav-bar/NavBarScreen.dart';
-
+import 'package:smarthelmet/modules/home-page/workers.dart';
+import '../AboutUs/aboutus.dart';
+import 'workercard.dart';
 import 'package:easy_search_bar/easy_search_bar.dart';
-import 'package:flutter/material.dart';
-
-import '../../nav-bar/FetchData.dart';
 import '../../shared/constants/Constants.dart';
 import '../../shared/functions/shared_function.dart';
 import '../../shared/network/local/cache_helper.dart';
 import '../SignIn/SignIn.dart';
-import '../forgotPasswod/aboutUs/aboutus.dart';
+import '../profile/profile.dart';
 
 class HomePageScreen extends StatefulWidget {
   const HomePageScreen({Key? key}) : super(key: key);
@@ -40,14 +38,14 @@ class _HomePageScreenState extends State<HomePageScreen> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Search workers',
       theme: ThemeData(primarySwatch: Colors.cyan),
       home: Scaffold(
         appBar: EasySearchBar(
             title: const Text('Search workers'),
             onSearch: (value) => setState(() => searchValue = value),
-            actions: [
-            ],
+            actions: [],
             asyncSuggestions: (value) async => await _fetchSuggestions(value)),
         drawer: Drawer(
             child: ListView(padding: EdgeInsets.zero, children: [
@@ -66,42 +64,29 @@ class _HomePageScreenState extends State<HomePageScreen> {
             ),
           ),
           ListTile(
-            title: const Text('Worker1: Asmaa', style: TextStyle(
-                fontSize: 16.0,
-                letterSpacing: 2.0,
-                color: Colors.black,
-                fontFamily: 'Ubuntu',
-              ),),
-            onTap: () => Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => FetchData()),
-            ),
+              title: Row(
+                children: [
+                  Icon(Icons.person),
+                  SizedBox(
+                    width: 18,
+                  ),
+                  Text(
+                    'Profile Page',
+                    style: TextStyle(
+                      fontSize: 16.0,
+                      letterSpacing: 2.0,
+                      color: Colors.black,
+                      fontFamily: 'Ubuntu',
+                    ),
+                  ),
+                ],
+              ),
+              onTap: () {
+                navigateTo(context, ProfilePage());
+              }),
+          Container(
+            height: MediaQuery.of(context).size.height * .5,
           ),
-          ListTile(
-            title: const Text('Worker2: Yousseif', style: TextStyle(
-                fontSize: 16.0,
-                letterSpacing: 2.0,
-                color: Colors.black,
-                fontFamily: 'Ubuntu',
-              ),),
-            onTap: () => Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => FetchData()),
-            ),
-          ),
-          ListTile(
-            title: const Text('Worker3: Salah',style: TextStyle(
-                fontSize: 16.0,
-                letterSpacing: 2.0,
-                color: Colors.black,
-                fontFamily: 'Ubuntu',
-              ),),
-            onTap: () => Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => FetchData()),
-            ),
-          ),
-          Divider(),
           ListTile(
             leading: Icon(
               Icons.info,
@@ -118,10 +103,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
               ),
             ),
             onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => AboutScreen()),
-              );
+              navigateTo(context, AboutScreen());
             },
           ),
           ListTile(
@@ -141,35 +123,13 @@ class _HomePageScreenState extends State<HomePageScreen> {
             },
           ),
         ])),
-        body: Center(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Icon(Icons.person),
-              Text(
-                'recent search result:',
-                style: TextStyle(
-                fontSize: 18.0,
-                letterSpacing: 2.0,
-                color: Colors.black,
-                fontFamily: 'Ubuntu',
-              ),
-              ),
-
-              TextButton(
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (BuildContext context) => FetchData()));
-                  },
-                  child: Text(
-                    ' $searchValue',
-                    style: TextStyle(color: Colors.blue),
-                  )),
-            ],
-          ),
-        ),
+        body: ListView.builder(
+            itemCount: Workers.length,
+            itemBuilder: (BuildContext context, int index) {
+              return WorkerCard(
+                Index: index,
+              );
+            }),
       ),
     );
   }

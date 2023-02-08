@@ -22,20 +22,16 @@ class _SignInScreenState extends State<SignInScreen> {
   bool secure = true;
   var formKey = GlobalKey<FormState>();
 
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        title: Center(
-            child: Text(
-          "Log in",
-          style:
-              TextStyle(color: Colors.lightBlue, fontWeight: FontWeight.bold),
-        )),
-        backgroundColor: Colors.white,
-        elevation: 0,
-      ),
       body: SingleChildScrollView(
         child: Form(
           key: formKey,
@@ -44,7 +40,7 @@ class _SignInScreenState extends State<SignInScreen> {
             child: Column(
               children: [
                 Container(
-                  height: MediaQuery.of(context).size.height * .05,
+                  height: MediaQuery.of(context).size.height * .03,
                 ),
                 const Center(
                   child: CircleAvatar(
@@ -73,8 +69,8 @@ class _SignInScreenState extends State<SignInScreen> {
                       border: OutlineInputBorder(),
                       suffixIcon: Icon(Icons.email)),
                 ),
-                const SizedBox(
-                  height: 30,
+                Container(
+                  height: MediaQuery.of(context).size.height * .03,
                 ),
                 TextFormField(
                   controller: passwordController,
@@ -97,8 +93,8 @@ class _SignInScreenState extends State<SignInScreen> {
                               ? const Icon(Icons.visibility)
                               : const Icon(Icons.visibility_off))),
                 ),
-                const SizedBox(
-                  height: 50,
+                Container(
+                  height: MediaQuery.of(context).size.height * .1,
                 ),
                 TextButton(
                     onPressed: (() {
@@ -109,8 +105,8 @@ class _SignInScreenState extends State<SignInScreen> {
                       style: TextStyle(
                           fontSize: 15, decoration: TextDecoration.underline),
                     )),
-                    const SizedBox(
-                  height: 15,
+                Container(
+                  height: MediaQuery.of(context).size.height * .01,
                 ),
                 InkWell(
                   onTap: () async {
@@ -146,16 +142,28 @@ class _SignInScreenState extends State<SignInScreen> {
                     )),
                   ),
                 ),
-                const SizedBox(
-                  height: 35,
+                Container(
+                  height: MediaQuery.of(context).size.height * .04,
                 ),
-                const Center(
-                  child: Text(
-                    "----Or Sign in with----",
-                    style: TextStyle(
-                      fontSize: 12,
+                Row(
+                  children: [
+                    Expanded(
+                        child: Divider(
+                      thickness: 0.6,
+                      color: Colors.lightBlueAccent,
+                    )),
+                    Text(
+                      " Or Sign in with ",
+                      style: TextStyle(
+                        fontSize: 12,
+                      ),
                     ),
-                  ),
+                    Expanded(
+                        child: Divider(
+                      thickness: 0.6,
+                      color: Colors.lightBlueAccent,
+                    )),
+                  ],
                 ),
                 const SizedBox(
                   height: 20,
@@ -210,7 +218,6 @@ class _SignInScreenState extends State<SignInScreen> {
                   ),
                 )
               ],
-            
             ),
           ),
         ),
