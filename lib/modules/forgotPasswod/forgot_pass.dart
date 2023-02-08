@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import '../../shared/functions/component.dart';
 import '../../shared/functions/shared_function.dart';
-import '../../shared/functions/snackbar.dart';
 import '../SignIn/SignIn.dart';
 
 class ForgotPass extends StatefulWidget {
@@ -32,7 +32,7 @@ class _ForgotPassState extends State<ForgotPass> {
       Navigator.pushReplacement(context,
           MaterialPageRoute(builder: (BuildContext context) => SignInScreen()));
     } on FirebaseAuthException catch (e) {
-      showSnackBar(context, "Erroe : ${e.code}");
+      showToast(color: Colors.lightBlue, text: "Erroe : ${e.code}", time: 5);
     }
     Loading = false;
   }
@@ -42,6 +42,7 @@ class _ForgotPassState extends State<ForgotPass> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
+        centerTitle: true,
         leading: IconButton(
             onPressed: () {
               navigateAndFinish(context, SignInScreen());
@@ -50,12 +51,11 @@ class _ForgotPassState extends State<ForgotPass> {
               Icons.arrow_back,
               color: Colors.lightBlueAccent,
             )),
-        title: Center(
-            child: Text(
+        title: Text(
           "Reset Password",
           style:
-              TextStyle(color: Colors.lightBlue, fontWeight: FontWeight.bold),
-        )),
+          TextStyle(color: Colors.lightBlue, fontWeight: FontWeight.bold),
+        ),
         backgroundColor: Colors.white,
         elevation: 0,
       ),
@@ -97,7 +97,8 @@ class _ForgotPassState extends State<ForgotPass> {
                       await resetpass();
                       navigateAndFinish(context, SignInScreen());
                     } else {
-                      showSnackBar(context, "Error");
+                      showToast(
+                          color: Colors.lightBlue, text: "Error", time: 5);
                     }
                   },
                   child: Container(
