@@ -6,12 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:smarthelmet/nav-bar/NavBarScreen.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_database/firebase_database.dart';
-
-import 'package:rflutter_alert/rflutter_alert.dart';
-
-import '../shared/functions/CircleProgress.dart';
 // import 'package:http/http.dart' as http;
 
 class FetchData extends StatefulWidget {
@@ -21,10 +15,8 @@ class FetchData extends StatefulWidget {
   State<FetchData> createState() => _FetchDataState();
 }
 
-class _FetchDataState extends State<FetchData>  with TickerProviderStateMixin {
+class _FetchDataState extends State<FetchData> {
   final dataBase = FirebaseDatabase.instance.ref();
-  late Animation<double> tempAnimation;
-  late AnimationController progressController;
 
   Query dbRef = FirebaseDatabase.instance.ref().child('ALRET');
   Map<Object?, Object?> data = {};
@@ -43,21 +35,6 @@ class _FetchDataState extends State<FetchData>  with TickerProviderStateMixin {
     readRealTimeDatabase();
     super.initState();
   }
-
-  _FetchDataInit(double temp, double humid) {
-    progressController = AnimationController(
-        vsync: this, duration: Duration(milliseconds: 5000)); //5s
-
-    tempAnimation =
-        Tween<double>(begin: -50, end: temp).animate(progressController)
-          ..addListener(() {
-            setState(() {});
-          });
-
-
-    progressController.forward();
-  }
-
 
   @override
   Widget build(BuildContext context) {
@@ -96,64 +73,26 @@ class _FetchDataState extends State<FetchData>  with TickerProviderStateMixin {
             .then((value) => print('done'))
             .catchError((onError) => print("error ${onError.toString()}"));
       }),
-      body: Column(
-        children: [
-          Center(
-          child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: <Widget>[
-                    CustomPaint(
-                      foregroundPainter:
-                          CircleProgress(tempAnimation.value, true),
-                      child: Container(
-                        width: 200,
-                        height: 200,
-                        child: Center(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              Text('Temperature'),
-                              Text(
-                                '${tempAnimation.value.toInt()}',
-                                style: TextStyle(
-                                    fontSize: 50, fontWeight: FontWeight.bold),
-                              ),
-                              Text(
-                                '°C',
-                                style: TextStyle(
-                                    fontSize: 20, fontWeight: FontWeight.bold),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-    
-          Container(
-              padding: const EdgeInsets.all(20.0),
-              margin: EdgeInsets.only(bottom: 22),
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                color: Colors.cyan,
-              ),
-              height: 322,
-              width: double.infinity,
-              child: Container(
-                  height: double.infinity,
-                  child: listItem(sensors: data, context: context))),
-        ],
-      ),
-     ),
-    ],
-   ),
-   );
+      body: Container(
+          padding: const EdgeInsets.all(20.0),
+          margin: EdgeInsets.only(bottom: 22),
+          alignment: Alignment.center,
+          decoration: BoxDecoration(
+            color: Colors.cyan,
+          ),
+          height: 666,
+          width: double.infinity,
+          child: Container(
+              height: double.infinity,
+              child: listItem(sensors: data, context: context))),
+    );
   }
 
   Widget listItem({required Map sensors, required context}) {
     return Container(
       margin: const EdgeInsets.all(10),
       padding: const EdgeInsets.all(10),
-      height: 110,
+      height: 444,
       color: Colors.white,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -166,26 +105,90 @@ class _FetchDataState extends State<FetchData>  with TickerProviderStateMixin {
           const SizedBox(
             height: 25,
           ),
-          Text(
-            sensors['CO'] ?? "",
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+          Row(
+            children: <Widget>[
+              Text(
+                "CO: ",
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              ),
+              Text(
+                sensors['CO'] ?? "",
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+              ),
+            ],
           ),
           const SizedBox(
             height: 5,
           ),
-          Text(
-            sensors['gas'] ?? "",
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+          Row(
+            children: <Widget>[
+              Text(
+                "HUM: ",
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              ),
+              Text(
+                sensors['HUM'] ?? "",
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+              ),
+            ],
           ),
           const SizedBox(
             height: 5,
           ),
-          Text(
-            sensors['temp'] == null ? "" : sensors['temp'],
-            // sensors['temp']?? "",
-
+          Row(
+            children: <Widget>[
+              Text(
+                "LPG: ",
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              ),
+              Text(
+                sensors['LPG'] ?? "",
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+              ),
+            ],
+          ),
+          const SizedBox(
+            height: 5,
+          ),
+          Row(
+            children: <Widget>[
+              Text(
+                "TEMP: ",
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              ),
+              Text(
+                sensors['TEMP'] ?? "",
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+              ),
+            ],
+          ),
+          const SizedBox(
+            height: 5,
+          ),
+          Row(
+            children: <Widget>[
+              Text(
+                "Gas: ",
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              ),
+              Text(
+                sensors['gas'] ?? "",
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+              ),
+            ],
+          ),
+          const SizedBox(
+            height: 5,
+          ),
+          Row(
+            children:<Widget>[ 
+              Text( "temp: ", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
+            Text(
+             sensors['temp'] ?? "" + "°C",
             style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
           ),
+        ],
+       ),
         ],
       ),
     );
