@@ -45,6 +45,7 @@ dependencies:
   easy_search_bar: ^2.4.2
   google_sign_in: ^5.4.4
   flutter_svg: ^1.0.0
+  rflutter_alert: ^2.0.4
   
 
 dev_dependencies:

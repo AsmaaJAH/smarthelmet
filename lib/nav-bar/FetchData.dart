@@ -6,6 +6,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:smarthelmet/nav-bar/NavBarScreen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
+
+import 'package:rflutter_alert/rflutter_alert.dart';
+
+import '../shared/functions/CircleProgress.dart';
 // import 'package:http/http.dart' as http;
 
 class FetchData extends StatefulWidget {
@@ -15,8 +21,10 @@ class FetchData extends StatefulWidget {
   State<FetchData> createState() => _FetchDataState();
 }
 
-class _FetchDataState extends State<FetchData> {
+class _FetchDataState extends State<FetchData>  with TickerProviderStateMixin {
   final dataBase = FirebaseDatabase.instance.ref();
+  late Animation<double> tempAnimation;
+  late AnimationController progressController;
 
   Query dbRef = FirebaseDatabase.instance.ref().child('ALRET');
   Map<Object?, Object?> data = {};
@@ -35,6 +43,21 @@ class _FetchDataState extends State<FetchData> {
     readRealTimeDatabase();
     super.initState();
   }
+
+  _FetchDataInit(double temp, double humid) {
+    progressController = AnimationController(
+        vsync: this, duration: Duration(milliseconds: 5000)); //5s
+
+    tempAnimation =
+        Tween<double>(begin: -50, end: temp).animate(progressController)
+          ..addListener(() {
+            setState(() {});
+          });
+
+
+    progressController.forward();
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -73,19 +96,57 @@ class _FetchDataState extends State<FetchData> {
             .then((value) => print('done'))
             .catchError((onError) => print("error ${onError.toString()}"));
       }),
-      body: Container(
-          padding: const EdgeInsets.all(20.0),
-          margin: EdgeInsets.only(bottom: 22),
-          alignment: Alignment.center,
-          decoration: BoxDecoration(
-            color: Colors.cyan,
-          ),
-          height: 322,
-          width: double.infinity,
-          child: Container(
-              height: double.infinity,
-              child: listItem(sensors: data, context: context))),
-    );
+      body: Column(
+        children: [
+          Center(
+          child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    CustomPaint(
+                      foregroundPainter:
+                          CircleProgress(tempAnimation.value, true),
+                      child: Container(
+                        width: 200,
+                        height: 200,
+                        child: Center(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Text('Temperature'),
+                              Text(
+                                '${tempAnimation.value.toInt()}',
+                                style: TextStyle(
+                                    fontSize: 50, fontWeight: FontWeight.bold),
+                              ),
+                              Text(
+                                '°C',
+                                style: TextStyle(
+                                    fontSize: 20, fontWeight: FontWeight.bold),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+    
+          Container(
+              padding: const EdgeInsets.all(20.0),
+              margin: EdgeInsets.only(bottom: 22),
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                color: Colors.cyan,
+              ),
+              height: 322,
+              width: double.infinity,
+              child: Container(
+                  height: double.infinity,
+                  child: listItem(sensors: data, context: context))),
+        ],
+      ),
+     ),
+    ],
+   ),
+   );
   }
 
   Widget listItem({required Map sensors, required context}) {
