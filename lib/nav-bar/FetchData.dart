@@ -19,11 +19,48 @@ class _FetchDataState extends State<FetchData> {
   final dataBase = FirebaseDatabase.instance.ref();
 
   Query dbRef = FirebaseDatabase.instance.ref().child('ALRET');
-  Map<Object?, Object?> data = {};
+  Query dbRefCO = FirebaseDatabase.instance.ref().child('CO PPM value:');
+  Query dbRfHUM = FirebaseDatabase.instance.ref().child('Humdity:');
+  Query dRefLPG = FirebaseDatabase.instance.ref().child('LPG PPM value:');
+  Query dbReferenceTEMP = FirebaseDatabase.instance.ref().child('temp:');
+
+  Map<Object?, Object?> data = {},
+      COvalue = {},
+      Humdity = {},
+      LPGvalue = {},
+      temp = {};
   void readRealTimeDatabase() async {
     await dbRef.onValue.listen((event) {
       print(event.snapshot.value);
       data = event.snapshot.value as Map<Object?, Object?>;
+
+      setState(() {});
+    });
+
+    await dbRefCO.onValue.listen((event) {
+      print(event.snapshot.value);
+      COvalue = event.snapshot.value as Map<Object?, Object?>;
+
+      setState(() {});
+    });
+
+    await dbRfHUM.onValue.listen((event) {
+      print(event.snapshot.value);
+      Humdity = event.snapshot.value as Map<Object?, Object?>;
+
+      setState(() {});
+    });
+
+    await dRefLPG.onValue.listen((event) {
+      print(event.snapshot.value);
+      LPGvalue = event.snapshot.value as Map<Object?, Object?>;
+
+      setState(() {});
+    });
+
+    await dbReferenceTEMP.onValue.listen((event) {
+      print(event.snapshot.value);
+      temp = event.snapshot.value as Map<Object?, Object?>;
 
       setState(() {});
     });
@@ -84,11 +121,23 @@ class _FetchDataState extends State<FetchData> {
           width: double.infinity,
           child: Container(
               height: double.infinity,
-              child: listItem(sensors: data, context: context))),
+              child: listItem(
+                  sensors: data,
+                  CO: COvalue,
+                  Humdity: Humdity,
+                  LPG: LPGvalue,
+                  tmp: temp,
+                  context: context))),
     );
   }
 
-  Widget listItem({required Map sensors, required context}) {
+  Widget listItem(
+      {required Map sensors,
+      required Map CO,
+      required Map Humdity,
+      required Map LPG,
+      required Map tmp,
+      required context}) {
     return Container(
       margin: const EdgeInsets.all(10),
       padding: const EdgeInsets.all(10),
@@ -181,14 +230,29 @@ class _FetchDataState extends State<FetchData> {
             height: 5,
           ),
           Row(
-            children:<Widget>[ 
-              Text( "temp: ", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
-            Text(
-             sensors['temp'] ?? "" + "°C",
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+            children: <Widget>[
+              Text(
+                "temp: ",
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              ),
+              Text(
+                sensors['temp'] ?? "" + "°C",
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+              ),
+            ],
           ),
-        ],
-       ),
+          Row(
+            children: <Widget>[
+              Text(
+                "CO PPM value: ",
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              ),
+              Text(
+                CO['CO PPM value'] ?? "",
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+              ),
+            ],
+          ),
         ],
       ),
     );
