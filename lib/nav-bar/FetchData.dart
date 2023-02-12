@@ -21,7 +21,7 @@ class _FetchDataState extends State<FetchData> {
   Query dbRef = FirebaseDatabase.instance.ref().child('ALRET');
   Query dbRefCO = FirebaseDatabase.instance.ref().child('CO PPM value:');
   Query dbRfHUM = FirebaseDatabase.instance.ref().child('Humdity:');
-  Query dRefLPG = FirebaseDatabase.instance.ref().child('LPG PPM value:');
+  Query dRefLPG = FirebaseDatabase.instance.ref().child('LPG PPM valu:');
   Query dbReferenceTEMP = FirebaseDatabase.instance.ref().child('temp:');
 
   Map<Object?, Object?> data = {},
@@ -123,7 +123,7 @@ class _FetchDataState extends State<FetchData> {
               height: double.infinity,
               child: listItem(
                   sensors: data,
-                  CO: COvalue,
+                  co: COvalue,
                   Humdity: Humdity,
                   LPG: LPGvalue,
                   tmp: temp,
@@ -133,7 +133,7 @@ class _FetchDataState extends State<FetchData> {
 
   Widget listItem(
       {required Map sensors,
-      required Map CO,
+      required Map co,
       required Map Humdity,
       required Map LPG,
       required Map tmp,
@@ -248,7 +248,7 @@ class _FetchDataState extends State<FetchData> {
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
               Text(
-                CO['CO PPM value'] ?? "",
+                co[''] ?? "",
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
               ),
             ],
