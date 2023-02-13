@@ -21,26 +21,46 @@ class FetchData extends StatefulWidget {
   State<FetchData> createState() => _FetchDataState();
 }
 
-class _FetchDataState extends State<FetchData>  with TickerProviderStateMixin {
+class _FetchDataState extends State<FetchData> with TickerProviderStateMixin {
   final dataBase = FirebaseDatabase.instance.ref();
   late Animation<double> tempAnimation;
   late AnimationController progressController;
 
-  Query dbRef = FirebaseDatabase.instance.ref().child('ALRET');
-  Map<Object?, Object?> data = {};
-  void readRealTimeDatabase() async {
-    await dbRef.onValue.listen((event) {
-      print(event.snapshot.value);
-      data = event.snapshot.value as Map<Object?, Object?>;
+  Map<Object?, Object?> alertTable = {};
+  Map<Object?, Object?> sensorsTable = {};
 
-      setState(() {});
+  void readRealTimeDatabase() async {
+    tables.forEach((key, value) async {
+      Query dbRef = FirebaseDatabase.instance.ref().child(key);
+      await dbRef.onValue.listen((event) {
+        print(event.snapshot.value);
+        if (key == "ALERT")
+          alertTable = event.snapshot.value as Map<Object?, Object?>;
+        else if (key == "sensors")
+          sensorsTable = event.snapshot.value as Map<Object?, Object?>;
+
+        //print(sensorsTable);
+
+        setState(() {});
+      });
     });
   }
 
+  Map<String, List<String>> tables = {
+    "ALERT": ['HUM', 'LPG', 'CO', 'TEMP'],
+    "sensors": ['CO PPM value', 'Humdity', 'LPG PPM value', 'temp']
+  };
+
   @override
   void initState() {
-    // TODO: implement initState
     readRealTimeDatabase();
+
+    double temp = 20;
+    //temp = sensorsTable['temp'] as double;
+    double humdity = 100;
+    //humidity = sensorsTable['Humdity'] as double;
+
+    _FetchDataInit(temp, humdity);
     super.initState();
   }
 
@@ -54,10 +74,8 @@ class _FetchDataState extends State<FetchData>  with TickerProviderStateMixin {
             setState(() {});
           });
 
-
     progressController.forward();
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -89,105 +107,212 @@ class _FetchDataState extends State<FetchData>  with TickerProviderStateMixin {
           );
         }),
       ),
-      floatingActionButton: FloatingActionButton(onPressed: () {
-        readRealTimeDatabase();
-        test
-            .set({"a": '5000'})
-            .then((value) => print('done'))
-            .catchError((onError) => print("error ${onError.toString()}"));
-      }),
-      body: Column(
-        children: [
-          Center(
-          child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: <Widget>[
-                    CustomPaint(
-                      foregroundPainter:
-                          CircleProgress(tempAnimation.value, true),
-                      child: Container(
-                        width: 200,
-                        height: 200,
-                        child: Center(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              Text('Temperature'),
-                              Text(
-                                '${tempAnimation.value.toInt()}',
-                                style: TextStyle(
-                                    fontSize: 50, fontWeight: FontWeight.bold),
-                              ),
-                              Text(
-                                '°C',
-                                style: TextStyle(
-                                    fontSize: 20, fontWeight: FontWeight.bold),
-                              ),
-                            ],
-                          ),
+      floatingActionButton: FloatingActionButton(
+          foregroundColor: Colors.cyan,
+          onPressed: () {
+            readRealTimeDatabase();
+            test
+                .set({"a": '5000'})
+                .then((value) => print('done'))
+                .catchError((onError) => print("error ${onError.toString()}"));
+          }),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  CustomPaint(
+                    foregroundPainter:
+                        CircleProgress(tempAnimation.value, true),
+                    child: Container(
+                      width: 200,
+                      height: 200,
+                      child: Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Text('Temperature'),
+                            Text(
+                              '${tempAnimation.value.toInt()}',
+                              style: TextStyle(
+                                  fontSize: 50, fontWeight: FontWeight.bold),
+                            ),
+                            Text(
+                              '°C',
+                              style: TextStyle(
+                                  fontSize: 20, fontWeight: FontWeight.bold),
+                            ),
+                          ],
                         ),
                       ),
                     ),
-    
-          Container(
-              padding: const EdgeInsets.all(20.0),
-              margin: EdgeInsets.only(bottom: 22),
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                color: Colors.cyan,
+                  ),
+                  Container(
+                      padding: const EdgeInsets.all(10.0),
+                      margin: EdgeInsets.only(bottom: 22),
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        color: Colors.cyan,
+                      ),
+                      height: 500,
+                      width: double.infinity,
+                      child: Container(
+                          height: double.infinity,
+                          child: listItem(
+                              alert: alertTable,
+                              context: context,
+                              sensors: sensorsTable))),
+                ],
               ),
-              height: 322,
-              width: double.infinity,
-              child: Container(
-                  height: double.infinity,
-                  child: listItem(sensors: data, context: context))),
-        ],
+            ),
+          ],
+        ),
       ),
-     ),
-    ],
-   ),
-   );
+    );
   }
 
-  Widget listItem({required Map sensors, required context}) {
+  Widget listItem(
+      {required Map alert, required context, required Map sensors}) {
     return Container(
-      margin: const EdgeInsets.all(10),
+      margin: const EdgeInsets.fromLTRB(10,1,10,10),
       padding: const EdgeInsets.all(10),
-      height: 110,
+      height: 200,
       color: Colors.white,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            "Received Data from Sensors",
+            "Emergency Alerts",
             style: TextStyle(color: Colors.cyan, fontSize: 44),
+            textAlign: TextAlign.center,
           ),
           const SizedBox(
             height: 25,
           ),
-          Text(
-            sensors['CO'] ?? "",
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
-          ),
-          const SizedBox(
-            height: 5,
-          ),
-          Text(
-            sensors['gas'] ?? "",
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
-          ),
-          const SizedBox(
-            height: 5,
-          ),
-          Text(
-            sensors['temp'] == null ? "" : sensors['temp'],
-            // sensors['temp']?? "",
+          Row(
+            children: [
+              Text(
+                "HUM: ",
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              ),
+              Text(
+                alert['HUM'] == null ? "" : alert['HUM'],
+                // sensors['temp']?? "",
 
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+              ),
+            ],
+          ),
+          const SizedBox(
+            height: 5,
+          ),
+          Row(
+            children: [
+              Text(
+                "CO: ",
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              ),
+              Text(
+                alert['CO'] ?? "",
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+              ),
+            ],
+          ),
+          const SizedBox(
+            height: 5,
+          ),
+          Row(
+            children: [
+              Text(
+                "LPG: ",
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              ),
+              Text(
+                alert['LPG'] ?? "",
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+              ),
+            ],
+          ),
+          const SizedBox(
+            height: 5,
+          ),
+          Row(
+            children: [
+              Text(
+                "TEMP: ",
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              ),
+              Text(
+                alert['TEMP'] == null ? "" : alert['TEMP'] + ' °C',
+                // sensors['temp']?? "",
+
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+              ),
+            ],
+          ),
+          const SizedBox(
+            height: 15,
+          ),
+          Text(
+            "Received Data from Sensors",
+            style: TextStyle(color: Colors.cyan, fontSize: 40),
+            textAlign: TextAlign.center,
+          ),
+          Row(
+            children: [
+              Text(
+                "CO PPM value: ",
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              ),
+              Text(
+                sensors['CO PPM value'] ?? "",
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+              ),
+            ],
+          ),
+          Row(
+            children: [
+              Text(
+                "Humdity: ",
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              ),
+              Text(
+                sensors['Humdity'] ?? "",
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+              ),
+            ],
+          ),
+          Row(
+            children: [
+              Text(
+                "LPG PPM value: ",
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              ),
+              Text(
+                sensors['LPG PPM value'] ?? "",
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+              ),
+            ],
+          ),
+          Row(
+            children: [
+              Text(
+                "temp: ",
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              ),
+              Text(
+                sensors['temp'] ?? "",
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+              ),
+            ],
           ),
         ],
       ),
     );
   }
 }
+    // "ALERT": ['HUM', 'LPG', 'CO', 'TEMP'],
+    // "sensors": ['CO PPM value', 'Humdity', 'LPG PPM value', 'temp']
