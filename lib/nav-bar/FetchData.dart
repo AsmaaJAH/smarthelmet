@@ -6,12 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:smarthelmet/nav-bar/NavBarScreen.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_database/firebase_database.dart';
-
-import 'package:rflutter_alert/rflutter_alert.dart';
-
-import '../shared/functions/CircleProgress.dart';
 // import 'package:http/http.dart' as http;
 
 class FetchData extends StatefulWidget {
@@ -23,8 +17,6 @@ class FetchData extends StatefulWidget {
 
 class _FetchDataState extends State<FetchData> with TickerProviderStateMixin {
   final dataBase = FirebaseDatabase.instance.ref();
-  late Animation<double> tempAnimation;
-  late AnimationController progressController;
 
   Map<Object?, Object?> alertTable = {};
   Map<Object?, Object?> sensorsTable = {};
