@@ -1,10 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:smarthelmet/modules/home-page/workers.dart';
 import 'package:smarthelmet/shared/functions/shared_function.dart';
 import '../../nav-bar/FetchData.dart';
 
 class WorkerCard extends StatefulWidget {
-  int? Index;
+  String? Index;
   WorkerCard({required this.Index});
 
   @override
@@ -20,7 +21,7 @@ class _WorkerCardState extends State<WorkerCard> {
         navigateAndFinish(
             context,
             FetchData(
-              index: widget.Index!,
+              index: map[widget.Index]!.workername,
             ));
       },
       child: Container(
@@ -50,7 +51,7 @@ class _WorkerCardState extends State<WorkerCard> {
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(20),
                     child: Image.asset(
-                      Workers[widget.Index!].imgpath,
+                      map[widget.Index]!.imgpath,
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -70,7 +71,7 @@ class _WorkerCardState extends State<WorkerCard> {
                           horizontal: 20,
                         ),
                         child: Text(
-                          'Name : ${Workers[widget.Index!].workername}',
+                          'Name : ${map[widget.Index]!.workername}',
                           style: TextStyle(
                               fontSize: 18, fontWeight: FontWeight.bold),
                         ),
@@ -79,7 +80,7 @@ class _WorkerCardState extends State<WorkerCard> {
                       Padding(
                         padding: EdgeInsets.symmetric(horizontal: 20),
                         child: Text(
-                          'age     : ${Workers[widget.Index!].age}',
+                          'age     : ${map[widget.Index]!.age}',
                           style: TextStyle(
                               fontSize: 18, fontWeight: FontWeight.bold),
                         ),

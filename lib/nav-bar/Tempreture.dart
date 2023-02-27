@@ -20,7 +20,7 @@ class _TempretureScreenState extends State<TempretureScreen> with TickerProvider
   void initState() {
     super.initState();
  double temp = 20;
-    //temp = sensorsTable['temp'] as double;
+    // temp = sensorsTable['temp'] as double;
     double humdity = 100;
     //humidity = sensorsTable['Humdity'] as double;
 

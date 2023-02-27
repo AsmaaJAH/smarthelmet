@@ -22,7 +22,7 @@ import 'UnderGroundScreen.dart';
 // import 'package:rflutter_alert/rflutter_alert.dart';
 
 class FetchData extends StatefulWidget {
-  int index;
+  String index;
   FetchData({required this.index});
 
   @override
@@ -103,15 +103,23 @@ class _FetchDataState extends State<FetchData> with TickerProviderStateMixin {
         //     fontFamily: 'Ubuntu',
         //   ),
         // ),
+        title: Text("Worker's Received Data", style: TextStyle(
+            fontSize: 22.0,
+            fontWeight: FontWeight.bold,
+            letterSpacing: 2.0,
+            color: Colors.cyan,
+            fontFamily: 'Ubuntu',
+          ),),
         leading: IconButton(
+      
             onPressed: () {
               navigateAndFinish(context, HomePageScreen());
             },
             icon: Icon(
               Icons.arrow_back,
-              color: Colors.white,
+              color: Colors.cyan,
             )),
-        backgroundColor: Colors.grey,
+        backgroundColor: Colors.white,
         elevation: 0.0,
         // leading: Builder(builder: (context) {
         //   return IconButton(
@@ -136,12 +144,14 @@ class _FetchDataState extends State<FetchData> with TickerProviderStateMixin {
       //     }),
       body: SingleChildScrollView(
         child: Column(
-          children: <Widget>[
+          children:
+          
+           <Widget>[
             Container(
                 height: size.height * .3,
                 width: double.infinity,
                 decoration: BoxDecoration(
-                    color: Colors.grey,
+                    color: Colors.cyan,
                     borderRadius: BorderRadius.only(
                       bottomLeft: Radius.circular(50),
                       bottomRight: Radius.circular(50),
@@ -157,7 +167,7 @@ class _FetchDataState extends State<FetchData> with TickerProviderStateMixin {
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(20),
                           child: Image.asset(
-                            Workers[widget.index].imgpath,
+                            map[widget.index]!.imgpath,
                             fit: BoxFit.cover,
                           ),
                         ),
@@ -167,7 +177,7 @@ class _FetchDataState extends State<FetchData> with TickerProviderStateMixin {
                       top: size.height * .1,
                       left: size.width * .5,
                       child: Text(
-                        'Name : ${Workers[widget.index].workername}',
+                        'Name : ${map[widget.index]!.workername}',
                         style: TextStyle(
                             fontSize: 20, fontWeight: FontWeight.bold),
                       ),
@@ -176,13 +186,26 @@ class _FetchDataState extends State<FetchData> with TickerProviderStateMixin {
                       top: size.height * .16,
                       left: size.width * .5,
                       child: Text(
-                        'age     : ${Workers[widget.index].age}',
+                        'age     : ${map[widget.index]!.age }',
                         style: TextStyle(
                             fontSize: 20, fontWeight: FontWeight.bold),
                       ),
                     ),
+                  
+                  
                   ],
                 )),
+
+          
+                SingleChildScrollView(
+                 child: Container(
+                            height: 250,
+                            child: listItem(
+                                alert: alertTable,
+                                context: context,
+                                sensors: sensorsTable)
+                                ),
+               ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
@@ -211,7 +234,7 @@ class _FetchDataState extends State<FetchData> with TickerProviderStateMixin {
                                 )),
                           ),
                           Text(
-                            'Temperature : ${tempAnimation.value.toInt()} °C',
+                            'Temperature : ${sensorsTable['temp']} °C',
                             style: TextStyle(
                                 fontSize: 15, fontWeight: FontWeight.bold),
                           ),
@@ -454,89 +477,94 @@ class _FetchDataState extends State<FetchData> with TickerProviderStateMixin {
     );
   }
 
-  // Widget listItem(
-  //     {required Map alert, required context, required Map sensors}) {
-  //   return Container(
-  //     margin: const EdgeInsets.fromLTRB(10, 1, 10, 10),
-  //     padding: const EdgeInsets.all(10),
-  //     height: 200,
-  //     color: Colors.white,
-  //     child: Column(
-  //       mainAxisAlignment: MainAxisAlignment.center,
-  //       crossAxisAlignment: CrossAxisAlignment.start,
-  //       children: [
-  //         Text(
-  //           "Emergency Alerts",
-  //           style: TextStyle(color: Colors.cyan, fontSize: 44),
-  //           textAlign: TextAlign.center,
-  //         ),
-  //         const SizedBox(
-  //           height: 25,
-  //         ),
-  //         Row(
-  //           children: [
-  //             Text(
-  //               "HUM: ",
-  //               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-  //             ),
-  //             Text(
-  //               alert['HUM'] == null ? "" : alert['HUM'],
-  //               // sensors['temp']?? "",
+  Widget listItem(
+      {required Map alert, required context, required Map sensors}) {
+    return Container(
+      margin: const EdgeInsets.fromLTRB(10, 1, 10, 10),
+      padding: const EdgeInsets.fromLTRB(10,1,10,10),
+      color: Colors.white,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            "Emergency Alerts",
+            style: TextStyle(color: Colors.cyan, fontSize: 44),
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(
+            height: 25,
+          ),
+          Row(
+            children: [
+              Text(
+                "HUM: ",
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              ),
+              Text(
+                alert['HUM'] == null ? "" : alert['HUM'],
+                // sensors['temp']?? "",
 
-  //               style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
-  //             ),
-  //           ],
-  //         ),
-  //         const SizedBox(
-  //           height: 5,
-  //         ),
-  //         Row(
-  //           children: [
-  //             Text(
-  //               "CO: ",
-  //               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-  //             ),
-  //             Text(
-  //               alert['CO'] ?? "",
-  //               style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
-  //             ),
-  //           ],
-  //         ),
-  //         const SizedBox(
-  //           height: 5,
-  //         ),
-  //         Row(
-  //           children: [
-  //             Text(
-  //               "LPG: ",
-  //               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-  //             ),
-  //             Text(
-  //               alert['LPG'] ?? "",
-  //               style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
-  //             ),
-  //           ],
-  //         ),
-  //         const SizedBox(
-  //           height: 5,
-  //         ),
-  //         Row(
-  //           children: [
-  //             Text(
-  //               "TEMP: ",
-  //               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-  //             ),
-  //             Text(
-  //               alert['TEMP'] == null ? "" : alert['TEMP'] + ' °C',
-  //               // sensors['temp']?? "",
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+              ),
+            ],
+          ),
+          const SizedBox(
+            height: 5,
+          ),
+          Row(
+            children: [
+              Text(
+                "CO: ",
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              ),
+              Text(
+                alert['CO'] ?? "",
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+              ),
+            ],
+          ),
+          const SizedBox(
+            height: 5,
+          ),
+          Row(
+            children: [
+              Text(
+                "LPG: ",
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              ),
+              Text(
+                alert['LPG'] ?? "",
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+              ),
+            ],
+          ),
+          const SizedBox(
+            height: 5,
+          ),
+          Row(
+            children: [
+              Text(
+                "TEMP: ",
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              ),
+              Text(
+                alert['TEMP'] == null ? "" : alert['TEMP'] + ' °C',
+                // sensors['temp']?? "",
 
-  //               style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
-  //             ),
-  //           ],
-  //         ),
-  //         const SizedBox(
-  //           height: 15,
-  //         ),
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+              ),
+            ],
+          ),
+          const SizedBox(
+            height: 15,
+          ),
+        ]
+      ));     
+          }
+
+
+
   //         Text(
   //           "Received Data from Sensors",
   //           style: TextStyle(color: Colors.cyan, fontSize: 40),

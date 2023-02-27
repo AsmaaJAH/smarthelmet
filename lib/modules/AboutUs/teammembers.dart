@@ -12,43 +12,43 @@ class TeamMembers {
 
 List<TeamMembers> Members = [
   TeamMembers(
-      imgpath: "assets/Team/1PNG.PNG",
-      name: "Olla AbdulNasser",
-      team: "Hardware",
-      qual: "----"),
-  TeamMembers(
-      imgpath: "assets/Team/2PNG.PNG",
-      name: "Nada Ahmed",
-      team: "Hardware",
-      qual: "----"),
-  TeamMembers(
-      imgpath: "assets/Team/3PNG.PNG",
-      name: "Noha Mohammed",
-      team: "Hardware",
-      qual: "----"),
-  TeamMembers(
-      imgpath: "assets/Team/4PNG.PNG",
-      name: "Khloud Mousad",
-      team: "Hardware",
-      qual: "-------"),
-  TeamMembers(
-      imgpath: "assets/Team/5PNG.PNG",
-      name: "Mohamed Hazem",
-      team: "Hardware",
-      qual: "----"),
-  TeamMembers(
-      imgpath: "assets/Team/6PNG.PNG",
-      name: "Mohamed Hamdy",
-      team: "Hardware",
-      qual: "---"),
-  TeamMembers(
-      imgpath: "assets/Team/7.PNG",
+      imgpath: "assets/Team/1.jpg",
       name: "Asmaa Gamal",
       team: "Software",
       qual: "---"),
   TeamMembers(
-      imgpath: "assets/Team/8PNG.PNG",
+      imgpath: "assets/Team/2.PNG",
       name: "Youssouf Mohamed",
       team: "Software",
       qual: "----"),
+  TeamMembers(
+      imgpath: "assets/Team/3.PNG",
+      name: "Olla AbdulNasser",
+      team: "Hardware",
+      qual: "----"),
+  TeamMembers(
+      imgpath: "assets/Team/4.PNG",
+      name: "Nada Ahmed",
+      team: "Hardware",
+      qual: "----"),
+  TeamMembers(
+      imgpath: "assets/Team/5.PNG",
+      name: "Noha Mohammed",
+      team: "Hardware",
+      qual: "----"),
+  TeamMembers(
+      imgpath: "assets/Team/6.PNG",
+      name: "Khloud Mousad",
+      team: "Hardware",
+      qual: "-------"),
+  TeamMembers(
+      imgpath: "assets/Team/7.PNG",
+      name: "Mohamed Hazem",
+      team: "Hardware",
+      qual: "----"),
+  TeamMembers(
+      imgpath: "assets/Team/8.PNG",
+      name: "Mohamed Hamdy",
+      team: "Hardware",
+      qual: "---"),
 ];

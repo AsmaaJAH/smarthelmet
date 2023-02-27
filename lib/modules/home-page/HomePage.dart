@@ -1,6 +1,6 @@
-
 import 'package:flutter/material.dart';
 import 'package:smarthelmet/modules/home-page/workers.dart';
+import 'package:smarthelmet/shared/network/local/cache_helper.dart';
 import 'workercard.dart';
 
 class HomePageScreen extends StatefulWidget {
@@ -11,7 +11,6 @@ class HomePageScreen extends StatefulWidget {
 }
 
 class _HomePageScreenState extends State<HomePageScreen> {
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -23,12 +22,12 @@ class _HomePageScreenState extends State<HomePageScreen> {
           centerTitle: true,
           title: Text('Workers'),
         ),
-        body:
-         ListView.builder(
+        body: ListView.builder(
             itemCount: Workers.length,
             itemBuilder: (BuildContext context, int index) {
+              CachHelper.saveData(key: "index", value: index);
               return WorkerCard(
-                Index: index,
+                Index: "index",
               );
             }),
       ),
