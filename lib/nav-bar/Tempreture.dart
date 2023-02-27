@@ -30,10 +30,10 @@ class _TempretureScreenState extends State<TempretureScreen> with TickerProvider
 
    _FetchDataInit(double temp, double humid) {
     progressController = AnimationController(
-        vsync: this, duration: Duration(milliseconds: 5000)); //5s
+        vsync: this, duration: Duration(milliseconds: 50)); //5s
 
     tempAnimation =
-        Tween<double>(begin: -50, end: temp).animate(progressController)
+        Tween<double>(begin: 0, end: temp).animate(progressController)
           ..addListener(() {
             setState(() {});
           });

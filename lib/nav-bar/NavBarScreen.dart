@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:smarthelmet/nav-bar/Gas.dart';
 import 'package:smarthelmet/nav-bar/Tempreture.dart';
-import 'package:smarthelmet/nav-bar/UltrasonicSensor.dart';
+import 'package:smarthelmet/nav-bar/UnderGroundScreen.dart';
 import 'package:smarthelmet/shared/constants/Constants.dart';
 import 'package:smarthelmet/shared/functions/shared_function.dart';
 import '../modules/home-page/HomePage.dart';
@@ -68,28 +68,28 @@ class NavBar extends StatelessWidget {
             //leading: Icon(Icons.person), //add icon
             childrenPadding: EdgeInsets.only(left: 50), //children padding
             children: [
-              ListTile(
-                title: Text(
-                  "Fetching Database",
-                  style: TextStyle(
-                    fontSize: 14.0,
-                    //fontWeight: FontWeight.bold,
-                    letterSpacing: 2.0,
-                    color: Colors.grey[700],
-                    fontFamily: 'Ubuntu',
-                  ),
-                ),
-                onTap: () {
-                  //action on press
-                  // Update the state of the app
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => FetchData()),
-                  );
-                  // Then close the drawer
-                  //Navigator.pop(context);
-                },
-              ),
+              // ListTile(
+              //   title: Text(
+              //     "Fetching Database",
+              //     style: TextStyle(
+              //       fontSize: 14.0,
+              //       //fontWeight: FontWeight.bold,
+              //       letterSpacing: 2.0,
+              //       color: Colors.grey[700],
+              //       fontFamily: 'Ubuntu',
+              //     ),
+              //   ),
+              //   onTap: () {
+              //     //action on press
+              //     // Update the state of the app
+              //     Navigator.push(
+              //       context,
+              //       MaterialPageRoute(builder: (context) => FetchData()),
+              //     );
+              //     // Then close the drawer
+              //     //Navigator.pop(context);
+              //   },
+              // ),
 
               ListTile(
                 title: Text(
@@ -169,7 +169,7 @@ class NavBar extends StatelessWidget {
                   // Update the state of the app
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => UltraScreen()),
+                    MaterialPageRoute(builder: (context) => UnderGroundScreen()),
                   );
                   // Then close the drawer
                   //Navigator.pop(context);

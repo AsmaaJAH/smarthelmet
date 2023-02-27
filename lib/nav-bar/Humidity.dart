@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
-class UltraScreen extends StatelessWidget {
+class HumidityScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'Ultrasonic Sensors',
+          'Humidity',
           style: TextStyle(
             fontSize: 22.0,
             fontWeight: FontWeight.bold,

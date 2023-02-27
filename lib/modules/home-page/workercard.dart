@@ -18,8 +18,10 @@ class _WorkerCardState extends State<WorkerCard> {
     return InkWell(
       onTap: () {
         navigateAndFinish(
-          context,FetchData()
-        );
+            context,
+            FetchData(
+              index: widget.Index!,
+            ));
       },
       child: Container(
         margin: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
@@ -35,7 +37,7 @@ class _WorkerCardState extends State<WorkerCard> {
                     boxShadow: [
                       BoxShadow(
                           offset: Offset(0, 15),
-                          blurRadius: 25,
+                          blurRadius: 30,
                           color: Colors.black12),
                     ])),
             Positioned(
@@ -55,32 +57,32 @@ class _WorkerCardState extends State<WorkerCard> {
                 )),
             Positioned(
                 bottom: 0,
-                right: 0,
+                left: size.width * .3,
                 child: SizedBox(
                   height: 80,
                   width: size.width - 100,
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Spacer(),
                       Padding(
                         padding: EdgeInsets.symmetric(
-                          horizontal: 30,
+                          horizontal: 20,
                         ),
-                        child: Text(Workers[widget.Index!].workername,
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold
-                        ),),
+                        child: Text(
+                          'Name : ${Workers[widget.Index!].workername}',
+                          style: TextStyle(
+                              fontSize: 18, fontWeight: FontWeight.bold),
+                        ),
                       ),
                       Spacer(),
                       Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 60),
-                        child: Text("${Workers[widget.Index!].age}",
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold
-                        ),),
+                        padding: EdgeInsets.symmetric(horizontal: 20),
+                        child: Text(
+                          'age     : ${Workers[widget.Index!].age}',
+                          style: TextStyle(
+                              fontSize: 18, fontWeight: FontWeight.bold),
+                        ),
                       ),
                       Spacer()
                     ],

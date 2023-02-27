@@ -1,13 +1,9 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
-
-import 'package:smarthelmet/modules/home-page/HomePage.dart';
-
 import 'package:smarthelmet/modules/SignIn/SignIn.dart';
-import 'package:smarthelmet/modules/signup/SignUp.dart';
-
 // ignore_for_file: prefer_equal_for_default_values
 import 'package:firebase_core/firebase_core.dart';
+import 'package:smarthelmet/pageview.dart';
 import 'package:smarthelmet/shared/network/local/cache_helper.dart';
 import 'firebase_options.dart';
 
@@ -22,7 +18,7 @@ Future<void> main() async {
   var userID = await CachHelper.getData(key: "uid");
   Widget startWidget = SignInScreen();
   if (userID != null) {
-    startWidget = HomePageScreen();
+    startWidget = PageViewScreen();
   }
   runApp(MyApp(startWidget: startWidget));
 }

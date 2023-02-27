@@ -6,12 +6,12 @@ class worker {
 }
 
 List<worker> Workers = [
-  worker(imgpath: "assets/Workers/1.jpg", workername: "workername1", age: 30),
-  worker(imgpath: "assets/Workers/2.jpg", workername: "workername2", age: 30),
-  worker(imgpath: "assets/Workers/3.jpg", workername: "workername3", age: 30),
-  worker(imgpath: "assets/Workers/4.jpg", workername: "workername4", age: 30),
-  worker(imgpath: "assets/Workers/5.jpg", workername: "workername5", age: 30),
-  worker(imgpath: "assets/Workers/6.jpg", workername: "workername6", age: 30),
-  worker(imgpath: "assets/Workers/7.jpg", workername: "workername7", age: 30),
-  worker(imgpath: "assets/Workers/8.jpg", workername: "workername8", age: 30),
+  worker(imgpath: "assets/Workers/1.jpg", workername: "Ahmed", age: 30),
+  worker(imgpath: "assets/Workers/2.jpg", workername: "Muhammed", age: 30),
+  worker(imgpath: "assets/Workers/3.jpg", workername: "Omar", age: 30),
+  worker(imgpath: "assets/Workers/4.jpg", workername: "Ahmed Omar", age: 30),
+  worker(imgpath: "assets/Workers/5.jpg", workername: "Ziad", age: 30),
+  worker(imgpath: "assets/Workers/6.jpg", workername: "Muhammed Nour", age: 30),
+  worker(imgpath: "assets/Workers/7.jpg", workername: "Abd Allah", age: 30),
+  worker(imgpath: "assets/Workers/8.jpg", workername: "Abd Allah Fawzy", age: 30),
 ];
