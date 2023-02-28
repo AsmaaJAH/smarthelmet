@@ -82,388 +82,334 @@ class _FetchDataState extends State<FetchData> with TickerProviderStateMixin {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Color.fromARGB(203, 255, 255, 255),
-      // drawer: NavBar(),
-      appBar: AppBar(
-        // title:  Text(
-        //   Workers[widget.index].workername,
-        //   style: TextStyle(
-        //     fontSize: 22.0,
-        //     fontWeight: FontWeight.bold,
-        //     letterSpacing: 2.0,
-        //     color: Colors.white,
-        //     fontFamily: 'Ubuntu',
-        //   ),
-        // ),
-        title: Text("Worker's Received Data", style: TextStyle(
-            fontSize: 22.0,
-            fontWeight: FontWeight.bold,
-            letterSpacing: 2.0,
-            color: Colors.cyan,
-            fontFamily: 'Ubuntu',
-          ),),
-        leading: IconButton(
-      
-            onPressed: () {
-              navigateAndFinish(context, HomePageScreen());
-            },
-            icon: Icon(
-              Icons.arrow_back,
-              color: Colors.cyan,
-            )),
-        backgroundColor: Colors.white,
-        elevation: 0.0,
-        // leading: Builder(builder: (context) {
-        //   return IconButton(
-        //     onPressed: () {
-        //       Scaffold.of(context).openDrawer();
-        //     },
-        //     icon: const Icon(
-        //       Icons.menu,
-        //       color: Colors.white,
-        //     ),
-        //   );
-        // }),
-      ),
-      // floatingActionButton: FloatingActionButton(
-      //     backgroundColor: Colors.grey,
-      //     onPressed: () {
-      //       readRealTimeDatabase();
-      //       test
-      //           .set({"a": '5000'})
-      //           .then((value) => print('done'))
-      //           .catchError((onError) => print("error ${onError.toString()}"));
-      //     }),
-      body: SingleChildScrollView(
-        child: Column(
-          children:
-          
-           <Widget>[
-            Container(
-                height: size.height * .3,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                    color: Colors.cyan,
-                    borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(50),
-                      bottomRight: Radius.circular(50),
-                    )),
-                child: Stack(
-                  children: [
-                    Positioned(
-                      top: size.height * .02,
-                      left: size.width * .05,
-                      child: SizedBox(
-                        height: size.height * .25,
-                        width: size.width * .35,
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(20),
-                          child: Image.asset(
-                            map[widget.index]!.imgpath,
-                            fit: BoxFit.cover,
-                          ),
+      body: ListView(
+        children:
+         <Widget>[
+          Container(
+              height: size.height * .3,
+              width: double.infinity,
+              decoration: BoxDecoration(
+                  color: Colors.cyan,
+                  borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(50),
+                    bottomRight: Radius.circular(50),
+                  )),
+              child: Stack(
+                children: [
+                  Positioned(
+                    top: size.height * .02,
+                    left: size.width * .05,
+                    child: SizedBox(
+                      height: size.height * .25,
+                      width: size.width * .35,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(20),
+                        child: Image.asset(
+                          map[widget.index]!.imgpath,
+                          fit: BoxFit.cover,
                         ),
                       ),
                     ),
-                    Positioned(
-                      top: size.height * .1,
-                      left: size.width * .5,
-                      child: Text(
-                        'Name : ${map[widget.index]!.workername}',
-                        style: TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.bold),
-                      ),
+                  ),
+                  Positioned(
+                    top: size.height * .1,
+                    left: size.width * .5,
+                    child: Text(
+                      'Name : ${map[widget.index]!.workername}',
+                      style: TextStyle(
+                          fontSize: 20, fontWeight: FontWeight.bold),
                     ),
-                    Positioned(
-                      top: size.height * .16,
-                      left: size.width * .5,
-                      child: Text(
-                        'age     : ${map[widget.index]!.age }',
-                        style: TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.bold),
-                      ),
+                  ),
+                  Positioned(
+                    top: size.height * .16,
+                    left: size.width * .5,
+                    child: Text(
+                      'age     : ${map[widget.index]!.age }',
+                      style: TextStyle(
+                          fontSize: 20, fontWeight: FontWeight.bold),
                     ),
-                  
-                  
-                  ],
-                )),
+                  ),
 
-          
-                SingleChildScrollView(
-                 child: Container(
-                            height: 250,
-                            child: listItem(
-                                alert: alertTable,
-                                context: context,
-                                sensors: sensorsTable)
-                                ),
-               ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(18.0),
-                  child: InkWell(
-                    onTap: () {
-                      navigateTo(context, TempretureScreen());
-                    },
-                    child: Container(
-                      height: 150,
-                      width: MediaQuery.of(context).size.width * 0.4,
-                      decoration: BoxDecoration(
-                          color: Color.fromARGB(255, 236, 235, 235),
-                          borderRadius: BorderRadius.circular(15)),
-                      child: Column(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: SizedBox(
-                                height: 100,
-                                width: 100,
-                                child: Image.asset(
-                                  'assets/images/temperature-icon-png-1.png',
-                                  color: Colors.blue,
-                                )),
-                          ),
-                          Text(
-                            'Temperature : ${sensorsTable['temp']} °C',
-                            style: TextStyle(
-                                fontSize: 15, fontWeight: FontWeight.bold),
-                          ),
-                        ],
-                      ),
+
+                ],
+              )),
+
+
+              SingleChildScrollView(
+               child: Container(
+                          height: 250,
+                          child: listItem(
+                              alert: alertTable,
+                              context: context,
+                              sensors: sensorsTable)
+                              ),
+             ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(18.0),
+                child: InkWell(
+                  onTap: () {
+                    navigateTo(context, TempretureScreen());
+                  },
+                  child: Container(
+                    height: 150,
+                    width: MediaQuery.of(context).size.width * 0.4,
+                    decoration: BoxDecoration(
+                        color: Color.fromARGB(255, 236, 235, 235),
+                        borderRadius: BorderRadius.circular(15)),
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: SizedBox(
+                              height: 100,
+                              width: 100,
+                              child: Image.asset(
+                                'assets/images/temperature-icon-png-1.png',
+                                color: Colors.blue,
+                              )),
+                        ),
+                        Text(
+                          'Temperature : ${sensorsTable['temp']} °C',
+                          style: TextStyle(
+                              fontSize: 15, fontWeight: FontWeight.bold),
+                        ),
+                      ],
                     ),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(18.0),
-                  child: InkWell(
-                    onTap: () {
-                      navigateTo(context, HumidityScreen());
-                    },
-                    child: Container(
-                      height: 150,
-                      width: MediaQuery.of(context).size.width * 0.4,
-                      decoration: BoxDecoration(
-                          color: Color.fromARGB(255, 236, 235, 235),
-                          borderRadius: BorderRadius.circular(15)),
-                      child: Column(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: SizedBox(
-                                height: 100,
-                                width: 100,
-                                child: Image.asset(
-                                  'assets/images/humidity.png',
-                                  color: Colors.blue,
-                                )),
-                          ),
-                          Text(
-                            'Humidity : ${sensorsTable['Humdity']} %',
-                            style: TextStyle(
-                                fontSize: 15, fontWeight: FontWeight.bold),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                )
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 18),
-                  child: InkWell(
-                    onTap: () {
-                      navigateTo(context, GasScreen());
-                    },
-                    child: Container(
-                      height: 150,
-                      width: MediaQuery.of(context).size.width * 0.4,
-                      decoration: BoxDecoration(
-                          color: Color.fromARGB(255, 236, 235, 235),
-                          borderRadius: BorderRadius.circular(15)),
-                      child: Column(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: SizedBox(
-                                height: 100,
-                                width: 100,
-                                child: Image.asset(
-                                  'assets/images/icons8-gas-mask-64.png',
-                                  scale: sqrt1_2,
-                                  color: Colors.blueAccent,
-                                )),
-                          ),
-                          Text(
-                            'Gas Detection ',
-                            style: TextStyle(
-                                fontSize: 15, fontWeight: FontWeight.bold),
-                          ),
-                        ],
-                      ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(18.0),
+                child: InkWell(
+                  onTap: () {
+                    navigateTo(context, HumidityScreen());
+                  },
+                  child: Container(
+                    height: 150,
+                    width: MediaQuery.of(context).size.width * 0.4,
+                    decoration: BoxDecoration(
+                        color: Color.fromARGB(255, 236, 235, 235),
+                        borderRadius: BorderRadius.circular(15)),
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: SizedBox(
+                              height: 100,
+                              width: 100,
+                              child: Image.asset(
+                                'assets/images/humidity.png',
+                                color: Colors.blue,
+                              )),
+                        ),
+                        Text(
+                          'Humidity : ${sensorsTable['Humdity']} %',
+                          style: TextStyle(
+                              fontSize: 15, fontWeight: FontWeight.bold),
+                        ),
+                      ],
                     ),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 18),
-                  child: InkWell(
-                    onTap: () {
-                      navigateTo(context, FallDetection());
-                    },
-                    child: Container(
-                      height: 150,
-                      width: MediaQuery.of(context).size.width * 0.4,
-                      decoration: BoxDecoration(
-                          color: Color.fromARGB(255, 236, 235, 235),
-                          borderRadius: BorderRadius.circular(15)),
-                      child: Column(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: SizedBox(
-                                height: 95,
-                                width: 100,
-                                child: Image.asset(
-                                  'assets/images/icons8-error-100.png',
-                                  color: Colors.blue,
-                                )),
-                          ),
-                          SizedBox(
-                            height: 4,
-                          ),
-                          Text(
-                            'Fall detector',
-                            style: TextStyle(
-                                fontSize: 15, fontWeight: FontWeight.bold),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                )
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(18.0),
-                  child: InkWell(
-                    onTap: () {
-                      navigateTo(context, Tracking());
-                    },
-                    child: Container(
-                      height: 150,
-                      width: MediaQuery.of(context).size.width * 0.4,
-                      decoration: BoxDecoration(
-                          color: Color.fromARGB(255, 236, 235, 235),
-                          borderRadius: BorderRadius.circular(15)),
-                      child: Column(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: SizedBox(
-                                height: 100,
-                                width: 100,
-                                child: Image.asset(
-                                  'assets/images/icons8-google-maps-old-100.png',
-                                  color: Colors.blue,
-                                )),
-                          ),
-                          Text(
-                            'GPS Tracking',
-                            style: TextStyle(
-                                fontSize: 15, fontWeight: FontWeight.bold),
-                          ),
-                        ],
-                      ),
+              )
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 18),
+                child: InkWell(
+                  onTap: () {
+                    navigateTo(context, GasScreen());
+                  },
+                  child: Container(
+                    height: 150,
+                    width: MediaQuery.of(context).size.width * 0.4,
+                    decoration: BoxDecoration(
+                        color: Color.fromARGB(255, 236, 235, 235),
+                        borderRadius: BorderRadius.circular(15)),
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: SizedBox(
+                              height: 100,
+                              width: 100,
+                              child: Image.asset(
+                                'assets/images/icons8-gas-mask-64.png',
+                                scale: sqrt1_2,
+                                color: Colors.blueAccent,
+                              )),
+                        ),
+                        Text(
+                          'Gas Detection ',
+                          style: TextStyle(
+                              fontSize: 15, fontWeight: FontWeight.bold),
+                        ),
+                      ],
                     ),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(18.0),
-                  child: InkWell(
-                    onTap: () {
-                      navigateTo(context, UnderGroundScreen());
-                    },
-                    child: Container(
-                      height: 150,
-                      width: MediaQuery.of(context).size.width * 0.4,
-                      decoration: BoxDecoration(
-                          color: Color.fromARGB(255, 236, 235, 235),
-                          borderRadius: BorderRadius.circular(15)),
-                      child: Column(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: SizedBox(
-                                height: 100,
-                                width: 100,
-                                child: Image.asset(
-                                  'assets/images/icons8-road-map-66.png',
-                                  scale: sqrt1_2,
-                                  color: Colors.blue,
-                                )),
-                          ),
-                          Text(
-                            'Under ground tracking',
-                            style: TextStyle(
-                                fontSize: 14, fontWeight: FontWeight.bold),
-                          ),
-                        ],
-                      ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 18),
+                child: InkWell(
+                  onTap: () {
+                    navigateTo(context, FallDetection());
+                  },
+                  child: Container(
+                    height: 150,
+                    width: MediaQuery.of(context).size.width * 0.4,
+                    decoration: BoxDecoration(
+                        color: Color.fromARGB(255, 236, 235, 235),
+                        borderRadius: BorderRadius.circular(15)),
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: SizedBox(
+                              height: 95,
+                              width: 100,
+                              child: Image.asset(
+                                'assets/images/icons8-error-100.png',
+                                color: Colors.blue,
+                              )),
+                        ),
+                        SizedBox(
+                          height: 4,
+                        ),
+                        Text(
+                          'Fall detector',
+                          style: TextStyle(
+                              fontSize: 15, fontWeight: FontWeight.bold),
+                        ),
+                      ],
                     ),
                   ),
-                )
-              ],
-            ),
-            // CustomPaint(
-            //   foregroundPainter:
-            //       CircleProgress(tempAnimation.value, true),
-            //   child: Container(
-            //     width: 200,
-            //     height: 200,
-            //     child: Center(
-            //       child: Column(
-            //         mainAxisAlignment: MainAxisAlignment.center,
-            //         children: <Widget>[
-            //           Text('Temperature'),
-            //           Text(
-            //             '${tempAnimation.value.toInt()}',
-            //             style: TextStyle(
-            //                 fontSize: 50, fontWeight: FontWeight.bold),
-            //           ),
-            //           Text(
-            //             '°C',
-            //             style: TextStyle(
-            //                 fontSize: 20, fontWeight: FontWeight.bold),
-            //           ),
-            //         ],
-            //       ),
-            //     ),
-            //   ),
-            // ),
-            // Container(
-            //     padding: const EdgeInsets.all(10.0),
-            //     margin: EdgeInsets.only(bottom: 22),
-            //     alignment: Alignment.center,
-            //     decoration: BoxDecoration(
-            //       color: Colors.cyan,
-            //     ),
-            //     height: 500,
-            //     width: double.infinity,
-            //     child: Container(
-            //         height: double.infinity,
-            //         child: listItem(
-            //             alert: alertTable,
-            //             context: context,
-            //             sensors: sensorsTable))),
-          ],
-        ),
+                ),
+              )
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(18.0),
+                child: InkWell(
+                  onTap: () {
+                    navigateTo(context, Tracking());
+                  },
+                  child: Container(
+                    height: 150,
+                    width: MediaQuery.of(context).size.width * 0.4,
+                    decoration: BoxDecoration(
+                        color: Color.fromARGB(255, 236, 235, 235),
+                        borderRadius: BorderRadius.circular(15)),
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: SizedBox(
+                              height: 100,
+                              width: 100,
+                              child: Image.asset(
+                                'assets/images/icons8-google-maps-old-100.png',
+                                color: Colors.blue,
+                              )),
+                        ),
+                        Text(
+                          'GPS Tracking',
+                          style: TextStyle(
+                              fontSize: 15, fontWeight: FontWeight.bold),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(18.0),
+                child: InkWell(
+                  onTap: () {
+                    navigateTo(context, UnderGroundScreen());
+                  },
+                  child: Container(
+                    height: 150,
+                    width: MediaQuery.of(context).size.width * 0.4,
+                    decoration: BoxDecoration(
+                        color: Color.fromARGB(255, 236, 235, 235),
+                        borderRadius: BorderRadius.circular(15)),
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: SizedBox(
+                              height: 100,
+                              width: 100,
+                              child: Image.asset(
+                                'assets/images/icons8-road-map-66.png',
+                                scale: sqrt1_2,
+                                color: Colors.blue,
+                              )),
+                        ),
+                        Text(
+                          'Under ground tracking',
+                          style: TextStyle(
+                              fontSize: 14, fontWeight: FontWeight.bold),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              )
+            ],
+          ),
+          // CustomPaint(
+          //   foregroundPainter:
+          //       CircleProgress(tempAnimation.value, true),
+          //   child: Container(
+          //     width: 200,
+          //     height: 200,
+          //     child: Center(
+          //       child: Column(
+          //         mainAxisAlignment: MainAxisAlignment.center,
+          //         children: <Widget>[
+          //           Text('Temperature'),
+          //           Text(
+          //             '${tempAnimation.value.toInt()}',
+          //             style: TextStyle(
+          //                 fontSize: 50, fontWeight: FontWeight.bold),
+          //           ),
+          //           Text(
+          //             '°C',
+          //             style: TextStyle(
+          //                 fontSize: 20, fontWeight: FontWeight.bold),
+          //           ),
+          //         ],
+          //       ),
+          //     ),
+          //   ),
+          // ),
+          // Container(
+          //     padding: const EdgeInsets.all(10.0),
+          //     margin: EdgeInsets.only(bottom: 22),
+          //     alignment: Alignment.center,
+          //     decoration: BoxDecoration(
+          //       color: Colors.cyan,
+          //     ),
+          //     height: 500,
+          //     width: double.infinity,
+          //     child: Container(
+          //         height: double.infinity,
+          //         child: listItem(
+          //             alert: alertTable,
+          //             context: context,
+          //             sensors: sensorsTable))),
+        ],
       ),
     );
   }

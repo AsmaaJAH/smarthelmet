@@ -11,6 +11,7 @@ import '../home-page/workercard.dart';
 
 class SearchWorker extends StatefulWidget {
   int? Index;
+
   SearchWorker({this.Index});
 
   @override
@@ -18,6 +19,10 @@ class SearchWorker extends StatefulWidget {
 }
 
 class _SearchWorkerState extends State<SearchWorker> {
+  _SearchWorkerState() {
+    screen = true;
+  }
+  bool screen = true;
   String searchValue = '';
   int? Index;
   final List<String> _suggestions = [
@@ -31,7 +36,6 @@ class _SearchWorkerState extends State<SearchWorker> {
   ];
   Future<List<String>> _fetchSuggestions(String searchValue) async {
     await Future.delayed(const Duration(milliseconds: 750));
-
     return _suggestions.where((element) {
       return element.toLowerCase().contains(searchValue.toLowerCase());
     }).toList();
@@ -39,17 +43,15 @@ class _SearchWorkerState extends State<SearchWorker> {
 
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
-
+    return  screen? Scaffold(
           appBar: EasySearchBar(
               title: const Text('Search Workers'),
-              
               onSearch: (value) => setState(() => searchValue = value),
               actions: [
                 IconButton(
                     icon: const Icon(Icons.person),
                     onPressed: () async{
-                  // int i=await CachHelper.getData(key:"index");
+                      // int i=await CachHelper.getData(key:"index");
                       navigateAndFinish(
                           context,
                           MaterialPageRoute(
@@ -57,9 +59,9 @@ class _SearchWorkerState extends State<SearchWorker> {
                     })
               ],
               asyncSuggestions: (value) async =>
-                  await _fetchSuggestions(value)),
-          
-          body: Center(
+              await _fetchSuggestions(value)),
+          body:
+          Center(
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
@@ -74,10 +76,13 @@ class _SearchWorkerState extends State<SearchWorker> {
                   ),
                 ),
                 TextButton(
-                    onPressed: () {                    
-                         navigateTo(context, FetchData(
-                                    index: searchValue,
-                                  ));
+                    onPressed: () {
+                      screen = false;
+                      setState(() {
+                      });
+                      // navigateTo(context, FetchData(
+                      //            index: searchValue,
+                      //          ));
                     },
                     child: Text(
                       ' $searchValue',
@@ -85,7 +90,7 @@ class _SearchWorkerState extends State<SearchWorker> {
                     ))
               ],
             ),
-          ),
-        );
+          )
+        ): FetchData(index: searchValue);
   }
 }
