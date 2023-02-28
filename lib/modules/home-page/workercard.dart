@@ -5,7 +5,7 @@ import 'package:smarthelmet/shared/functions/shared_function.dart';
 import '../../nav-bar/FetchData.dart';
 
 class WorkerCard extends StatefulWidget {
-  String? Index;
+  String Index;
   WorkerCard({required this.Index});
 
   @override

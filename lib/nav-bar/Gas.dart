@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 
+import '../modules/humidity_slider/screen/humidity_screen.dart';
+
 class GasScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      body: const HumidityScreen(),
       appBar: AppBar(
         title: const Text(
           'Gas',
