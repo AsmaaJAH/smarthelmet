@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:easy_search_bar/easy_search_bar.dart';
 import 'package:smarthelmet/modules/home-page/workers.dart';
+import 'package:smarthelmet/shared/functions/shared_function.dart';
 import 'package:smarthelmet/shared/network/local/cache_helper.dart';
 
 import '../../nav-bar/FetchData.dart';
@@ -38,43 +39,26 @@ class _SearchWorkerState extends State<SearchWorker> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        title: 'Search Workers',
-        theme: ThemeData(primarySwatch: Colors.cyan),
-        home: Scaffold(
+    return  Scaffold(
+
           appBar: EasySearchBar(
               title: const Text('Search Workers'),
+              
               onSearch: (value) => setState(() => searchValue = value),
               actions: [
                 IconButton(
                     icon: const Icon(Icons.person),
                     onPressed: () async{
-                   int i=await CachHelper.getData(key:"index");
-                      Navigator.push(
+                  // int i=await CachHelper.getData(key:"index");
+                      navigateAndFinish(
                           context,
                           MaterialPageRoute(
-                              builder: (BuildContext context) => WorkerCard(
-                                    Index: searchValue,
-                                  )));
+                              builder: (BuildContext context) => HomePageScreen()));
                     })
               ],
               asyncSuggestions: (value) async =>
                   await _fetchSuggestions(value)),
-          drawer: Drawer(
-              child: ListView(padding: EdgeInsets.zero, children: [
-            const DrawerHeader(
-              decoration: BoxDecoration(
-                color: Colors.blue,
-              ),
-              child: Text('Drawer Header'),
-            ),
-            ListTile(
-                title: const Text('Item 1'),
-                onTap: () => Navigator.pop(context)),
-            ListTile(
-                title: const Text('Item 2'),
-                onTap: () => Navigator.pop(context))
-          ])),
+          
           body: Center(
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -90,14 +74,10 @@ class _SearchWorkerState extends State<SearchWorker> {
                   ),
                 ),
                 TextButton(
-                    onPressed: () async {
-                      int i=await CachHelper.getData(key:"index");
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (BuildContext context) => FetchData(
+                    onPressed: () {                    
+                         navigateTo(context, FetchData(
                                     index: searchValue,
-                                  )));
+                                  ));
                     },
                     child: Text(
                       ' $searchValue',
@@ -106,6 +86,6 @@ class _SearchWorkerState extends State<SearchWorker> {
               ],
             ),
           ),
-        ));
+        );
   }
 }

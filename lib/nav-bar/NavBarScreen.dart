@@ -8,7 +8,7 @@ import '../modules/home-page/HomePage.dart';
 import 'Alerts.dart';
 import 'FallDeteting.dart';
 import 'Tracking.dart';
-import 'FetchData.dart';
+//import 'FetchData.dart';
 
 class NavBar extends StatelessWidget {
   @override

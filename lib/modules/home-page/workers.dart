@@ -3,6 +3,7 @@ class worker {
   String workername;
   int age;
   worker({required this.imgpath, required this.workername, required this.age});
+
 }
 
 Map<String,worker> map = {
@@ -23,7 +24,7 @@ List<worker> Workers = [
   worker(imgpath: "assets/Workers/3.jpg", workername: "Nagy", age: 35),
   worker(imgpath: "assets/Workers/4.jpg", workername: "Salah", age: 30),
   worker(imgpath: "assets/Workers/5.jpg", workername: "Ziad", age: 30),
-  worker(imgpath: "assets/Workers/6.jpg", workername: "Muhammed Nour", age: 30),
+  worker(imgpath: "assets/Workers/6.jpg", workername: "Mousad", age: 30),
   worker(imgpath: "assets/Workers/7.jpg", workername: "Mustafa", age: 30),
   worker(imgpath: "assets/Workers/8.jpg", workername: "Abd Allah Fawzy", age: 30),
 ];

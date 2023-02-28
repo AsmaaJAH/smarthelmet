@@ -10,19 +10,10 @@ import 'Humidity.dart';
 import 'Tempreture.dart';
 import 'Tracking.dart';
 import 'UnderGroundScreen.dart';
-// import 'dart:developer';
-// import 'package:smarthelmet/nav-bar/NavBarScreen.dart';
-// import '../shared/functions/CircleProgress.dart';
-// import 'package:firebase_auth/firebase_auth.dart';
-// import 'package:firebase_database/firebase_database.dart';
-// import 'package:flutter/src/widgets/container.dart';
-// import 'package:firebase_database/ui/firebase_animated_list.dart';
-// import 'package:http/http.dart' as http;
-// import 'package:flutter/src/widgets/framework.dart';
-// import 'package:rflutter_alert/rflutter_alert.dart';
+
 
 class FetchData extends StatefulWidget {
-  String index;
+  String? index;
   FetchData({required this.index});
 
   @override

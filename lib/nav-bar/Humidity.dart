@@ -14,7 +14,7 @@ class HumidityScreen extends StatelessWidget {
             fontSize: 22.0,
             fontWeight: FontWeight.bold,
             letterSpacing: 2.0,
-            color: Colors.white,
+            color: Colors.black,
             fontFamily: 'Ubuntu',
           ),
         ),

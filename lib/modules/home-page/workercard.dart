@@ -5,7 +5,7 @@ import 'package:smarthelmet/shared/functions/shared_function.dart';
 import '../../nav-bar/FetchData.dart';
 
 class WorkerCard extends StatefulWidget {
-  String Index;
+  int? Index;
   WorkerCard({required this.Index});
 
   @override
@@ -18,10 +18,10 @@ class _WorkerCardState extends State<WorkerCard> {
     Size size = MediaQuery.of(context).size;
     return InkWell(
       onTap: () {
-        navigateAndFinish(
+        navigateTo(
             context,
             FetchData(
-              index: map[widget.Index]!.workername,
+              index: Workers[widget.Index!].workername,
             ));
       },
       child: Container(
@@ -51,7 +51,7 @@ class _WorkerCardState extends State<WorkerCard> {
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(20),
                     child: Image.asset(
-                      map[widget.Index]!.imgpath,
+                      Workers[widget.Index!].imgpath,
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -71,7 +71,7 @@ class _WorkerCardState extends State<WorkerCard> {
                           horizontal: 20,
                         ),
                         child: Text(
-                          'Name : ${map[widget.Index]!.workername}',
+                          'Name : ${Workers[widget.Index!].workername}',
                           style: TextStyle(
                               fontSize: 18, fontWeight: FontWeight.bold),
                         ),
@@ -80,7 +80,7 @@ class _WorkerCardState extends State<WorkerCard> {
                       Padding(
                         padding: EdgeInsets.symmetric(horizontal: 20),
                         child: Text(
-                          'age     : ${map[widget.Index]!.age}',
+                          'age     : ${Workers[widget.Index!].age}',
                           style: TextStyle(
                               fontSize: 18, fontWeight: FontWeight.bold),
                         ),
