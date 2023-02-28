@@ -7,8 +7,8 @@ import '../widget/humidity_info.dart';
 import '../widget/scaffold.dart';
 import '../widget/slider.dart';
 
-class HumidityScreen extends StatelessWidget {
-  const HumidityScreen({Key? key}) : super(key: key);
+class HumidityScr extends StatelessWidget {
+  const HumidityScr({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

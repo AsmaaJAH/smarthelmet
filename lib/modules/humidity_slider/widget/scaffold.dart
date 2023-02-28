@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import '../../../nav-bar/Humidity.dart';
+import '../screen/humidity_screen.dart';
 import '../utils/icons.dart';
 import '../utils/theme.dart';
 
@@ -59,7 +60,7 @@ class HumiditySliderScaffold extends StatelessWidget {
                       _buildButton(
                         context,
                         FunIcons.drop,
-                        HumidityScreen(),
+                        HumidityScr(),
                         isActive: activeIndex == 1,
                       ),
                       _buildButton(
