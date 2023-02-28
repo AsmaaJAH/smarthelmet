@@ -17,7 +17,7 @@ class SliderBall extends StatelessWidget {
       width: kBallSize,
       alignment: Alignment.center,
       child: const Icon(
-        FunIcons.verticalArrows,
+        Icons.arrow_upward,
         color: BrandColors.fiord,
         size: 20,
       ),

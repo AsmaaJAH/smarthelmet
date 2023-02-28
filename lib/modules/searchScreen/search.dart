@@ -50,8 +50,7 @@ class _SearchWorkerState extends State<SearchWorker> {
               actions: [
                 IconButton(
                     icon: const Icon(Icons.person),
-                    onPressed: () async{
-                      // int i=await CachHelper.getData(key:"index");
+                    onPressed: () {
                       navigateAndFinish(
                           context,
                           MaterialPageRoute(

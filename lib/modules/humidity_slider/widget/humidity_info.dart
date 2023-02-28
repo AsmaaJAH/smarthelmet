@@ -59,7 +59,7 @@ class HumidityInfo extends StatelessWidget {
               ),
               const SizedBox(height: 42),
               Icon(
-                FunIcons.warningSign,
+                Icons.warning,
                 color: BrandColors.attention,
               ),
               const SizedBox(height: 10),

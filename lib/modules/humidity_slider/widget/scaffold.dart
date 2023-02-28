@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
-import '../../../nav-bar/Humidity.dart';
+import 'package:smarthelmet/modules/home-page/HomePage.dart';
+import 'package:smarthelmet/shared/functions/shared_function.dart';
 import '../screen/humidity_screen.dart';
-import '../utils/icons.dart';
+
 import '../utils/theme.dart';
 
 class HumiditySliderScaffold extends StatelessWidget {
@@ -37,7 +37,10 @@ class HumiditySliderScaffold extends StatelessWidget {
                     icon: const Icon(
                       Icons.more_horiz,
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+
+                       // navigateTo(context,HomePageScreen()); 
+                    }
                   ),
                 ),
               ),
@@ -50,24 +53,24 @@ class HumiditySliderScaffold extends StatelessWidget {
                     children: [
                       _buildButton(
                         context,
-                        FunIcons.chart,
+                        Icons.bar_chart,
                         const _MockPage(
-                          iconData: FunIcons.chart,
+                          iconData: Icons.bar_chart,
                           activeIndex: 0,
                         ),
                         isActive: activeIndex == 0,
                       ),
                       _buildButton(
                         context,
-                        FunIcons.drop,
+                        Icons.emergency,
                         HumidityScr(),
                         isActive: activeIndex == 1,
                       ),
                       _buildButton(
                         context,
-                        FunIcons.home,
+                        Icons.home,
                         const _MockPage(
-                          iconData: FunIcons.home,
+                          iconData: Icons.home,
                           activeIndex: 2,
                         ),
                         isActive: activeIndex == 2,
