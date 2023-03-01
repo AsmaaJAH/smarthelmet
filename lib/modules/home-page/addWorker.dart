@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -19,11 +20,35 @@ class _AddWorkerState extends State<AddWorker> {
   var firstnameController = TextEditingController();
   var lastnameController = TextEditingController();
   var ageController = TextEditingController();
+  var formKey = GlobalKey<FormState>();
 
+  bool loading = false;
   File? imgPath;
   String? imgName;
   String? uid;
   String? workerimg;
+
+  addworker() async {
+    setState(() {
+      loading = true;
+    });
+    WorkerModel worker = WorkerModel(
+      firstName: firstnameController.text,
+      lastName: lastnameController.text,
+      imgurl: workerimg!,
+      age: ageController.text,
+    );
+
+    await FirebaseFirestore.instance
+        .collection("Workers")
+        .add(worker.toMap())
+        .then((DocumentReference doc) {
+      uid = doc.id;
+    });
+    setState(() {
+      loading = false;
+    });
+  }
 
   uploadImage(ImageSource source) async {
     Navigator.pop(context);
@@ -34,6 +59,10 @@ class _AddWorkerState extends State<AddWorker> {
           imgPath = File(pickedImg.path);
         });
         imgName = basename(pickedImg.path);
+        final storageRef = FirebaseStorage.instance.ref(imgName);
+        await storageRef.putFile(imgPath!);
+        String url = await storageRef.getDownloadURL();
+        workerimg = url;
       } else {
         showToast(text: "NO img selected", color: Colors.white, time: 3);
       }
@@ -76,8 +105,8 @@ class _AddWorkerState extends State<AddWorker> {
                 height: 22,
               ),
               GestureDetector(
-                onTap: () {
-                  uploadImage(ImageSource.gallery);
+                onTap: ()async {
+                  await uploadImage(ImageSource.gallery);
                 },
                 child: Row(
                   children: [
@@ -102,25 +131,6 @@ class _AddWorkerState extends State<AddWorker> {
     );
   }
 
-  addworker() async {
-    final storageRef = FirebaseStorage.instance.ref(imgName);
-    await storageRef.putFile(imgPath!);
-    String url = await storageRef.getDownloadURL();
-    workerimg = url;
-    WorkerModel worker = WorkerModel(
-        firstName: firstnameController.text,
-        lastName: lastnameController.text,
-        imgurl: url,
-        age: ageController.text);
-
-    await FirebaseFirestore.instance
-        .collection("Workers")
-        .add(worker.toMap())
-        .then((DocumentReference doc) {
-      uid = doc.id;
-    });
-  }
-
   void dispose() {
     firstnameController.dispose();
     lastnameController.dispose();
@@ -140,10 +150,8 @@ class _AddWorkerState extends State<AddWorker> {
         ),
       ),
       body: SingleChildScrollView(
-        child: InkWell(
-          onTap: () {
-            FocusScope.of(context).unfocus();
-          },
+        child: Form(
+          key: formKey,
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Column(
@@ -171,7 +179,7 @@ class _AddWorkerState extends State<AddWorker> {
                               shape: BoxShape.circle,
                               image: DecorationImage(
                                   fit: BoxFit.cover,
-                                  image: imgPath == null
+                                  image: workerimg == null
                                       ? NetworkImage(
                                           'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png')
                                       : NetworkImage(workerimg!))),
@@ -246,31 +254,42 @@ class _AddWorkerState extends State<AddWorker> {
                     ),
                   ],
                 ),
-                InkWell(
-                  onTap: () {},
-                  child: Container(
-                    height: 40,
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: Colors.cyan),
-                    child: Center(
-                        child:
-                            // ? const CircularProgressIndicator(
-                            //     color: Colors.white,
-                            //   )
-                            // :
-                            const Text(
-                      'Add Worker',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    )),
-                  ),
-                ),
               ],
             ),
+          ),
+        ),
+      ),
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: InkWell(
+          onTap: () async {
+            if (formKey.currentState!.validate()) {
+              try {
+                await addworker();
+                showToast(text: 'Worker added successfully', color: Colors.white, time: 5);
+
+              } catch (e) {
+                showToast(text: e.toString(), color: Colors.white, time: 5);
+              }
+            }
+          },
+          child: Container(
+            height: 40,
+            width: double.infinity,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10), color: Colors.cyan),
+            child: Center(
+                child: loading
+                    ? const CircularProgressIndicator(
+                        color: Colors.white,
+                      )
+                    : const Text(
+                        'Add Worker',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      )),
           ),
         ),
       ),

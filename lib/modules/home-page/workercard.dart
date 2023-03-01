@@ -37,7 +37,7 @@ class _WorkerCardState extends State<WorkerCard> {
                     boxShadow: [
                       BoxShadow(
                           offset: Offset(0, 15),
-                          blurRadius: 30,
+                          blurRadius: 25,
                           color: Colors.black12),
                     ])),
             Positioned(

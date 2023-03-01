@@ -1,6 +1,8 @@
-
 import 'package:flutter/material.dart';
 import 'package:smarthelmet/modules/home-page/workers.dart';
+import '../../shared/functions/shared_function.dart';
+import '../../shared/network/local/cache_helper.dart';
+import '../SignIn/SignIn.dart';
 import 'workercard.dart';
 
 class HomePageScreen extends StatefulWidget {
@@ -11,7 +13,6 @@ class HomePageScreen extends StatefulWidget {
 }
 
 class _HomePageScreenState extends State<HomePageScreen> {
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -21,10 +22,12 @@ class _HomePageScreenState extends State<HomePageScreen> {
         extendBody: true,
         appBar: AppBar(
           centerTitle: true,
-          title: Text('Workers'),
+          title: Text(
+            'Workers',
+            style: TextStyle(color: Colors.white),
+          ),
         ),
-        body:
-         ListView.builder(
+        body: ListView.builder(
             itemCount: Workers.length,
             itemBuilder: (BuildContext context, int index) {
               return WorkerCard(

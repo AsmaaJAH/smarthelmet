@@ -23,10 +23,12 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         elevation: 0,
         backgroundColor: Colors.cyan,
         actions: [
           IconButton(
+            color: Colors.white,
             onPressed: () {
               navigateAndFinish(context, SignInScreen());
               CachHelper.removeAllData();
@@ -35,7 +37,10 @@ class _ProfilePageState extends State<ProfilePage> {
           ),
         ],
         title: Center(
-          child: Text("Profile Page"),
+          child: Text(
+            "Profile Page",
+            style: TextStyle(color: Colors.white),
+          ),
         ),
       ),
       body: Column(

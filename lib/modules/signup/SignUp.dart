@@ -110,162 +110,157 @@ class _SignUpScreenState extends State<SignUpScreen> {
         elevation: 0,
       ),
       body: SingleChildScrollView(
-        child: InkWell(
-          onTap: () {
-            FocusScope.of(context).unfocus();
-          },
-          child: Form(
-            key: formKey,
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                children: [
-                  Container(
-                    height: MediaQuery.of(context).size.height * .001,
+        child: Form(
+          key: formKey,
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              children: [
+                Container(
+                  height: MediaQuery.of(context).size.height * .001,
+                ),
+                const Center(
+                  child: CircleAvatar(
+                    radius: 70.0,
+                    backgroundImage: AssetImage('assets/images/helmet.jpeg'),
+                    backgroundColor: Colors.transparent,
                   ),
-                  const Center(
-                    child: CircleAvatar(
-                      radius: 70.0,
-                      backgroundImage: AssetImage('assets/images/helmet.jpeg'),
-                      backgroundColor: Colors.transparent,
-                    ),
-                  ),
-                  Container(
-                    height: MediaQuery.of(context).size.height * .03,
-                  ),
-                  TextFormField(
-                      controller: usernameController,
-                      validator: (value) {
-                        if (value!.isEmpty) return 'This field is requreid';
-                      },
-                      keyboardType: TextInputType.text,
-                      decoration: const InputDecoration(
-                          labelText: 'User name',
-                          border: OutlineInputBorder(),
-                          suffixIcon: Icon(Icons.person))),
-                  Container(
-                    height: MediaQuery.of(context).size.height * .02,
-                  ),
-                  TextFormField(
-                      controller: phoneController,
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return 'This field is requreid';
-                        } else if (value.length != 13) {
-                          return 'Please enter a valid number';
-                        }
-                      },
-                      keyboardType: TextInputType.number,
-                      decoration: const InputDecoration(
-                          labelText: 'Phone number',
-                          border: OutlineInputBorder(),
-                          suffixIcon: Icon(Icons.phone))),
-                  Container(
-                    height: MediaQuery.of(context).size.height * .02,
-                  ),
-                  TextFormField(
-                    controller: emailController,
+                ),
+                Container(
+                  height: MediaQuery.of(context).size.height * .03,
+                ),
+                TextFormField(
+                    controller: usernameController,
+                    validator: (value) {
+                      if (value!.isEmpty) return 'This field is requreid';
+                    },
+                    keyboardType: TextInputType.text,
+                    decoration: const InputDecoration(
+                        labelText: 'User name',
+                        border: OutlineInputBorder(),
+                        suffixIcon: Icon(Icons.person))),
+                Container(
+                  height: MediaQuery.of(context).size.height * .02,
+                ),
+                TextFormField(
+                    controller: phoneController,
                     validator: (value) {
                       if (value!.isEmpty) {
                         return 'This field is requreid';
-                      } else if (!(value.contains(RegExp(
-                          r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")))) {
-                        return "Please enter a valid e-mail";
+                      } else if (value.length != 13) {
+                        return 'Please enter a valid number';
                       }
                     },
-                    autovalidateMode: AutovalidateMode.onUserInteraction,
-                    keyboardType: TextInputType.emailAddress,
+                    keyboardType: TextInputType.number,
                     decoration: const InputDecoration(
-                        labelText: 'Email address',
+                        labelText: 'Phone number',
                         border: OutlineInputBorder(),
-                        suffixIcon: Icon(Icons.email)),
-                  ),
-                  Container(
-                    height: MediaQuery.of(context).size.height * .02,
-                  ),
-                  TextFormField(
-                    controller: passwordController,
-                    onChanged: (value) {
-                      PasswordInteraction(value);
-                    },
-                    validator: (value) {
-                      if (value!.isEmpty) return 'This field is requreid';
-                      if (value.length < 8)
-                        return 'Please enter valid password';
-                    },
-                    autovalidateMode: AutovalidateMode.onUserInteraction,
-                    keyboardType: TextInputType.visiblePassword,
-                    obscureText: secure ? true : false,
-                    decoration: InputDecoration(
-                        labelText: 'Password',
-                        border: const OutlineInputBorder(),
-                        suffixIcon: IconButton(
-                            onPressed: () {
-                              setState(() {
-                                secure = !secure;
-                              });
-                            },
-                            icon: secure
-                                ? const Icon(Icons.visibility)
-                                : const Icon(Icons.visibility_off))),
-                  ),
-                  Container(
-                    height: MediaQuery.of(context).size.height * .02,
-                  ),
-                  CheckCard("Has Uppercase", hasUpper),
-                  const SizedBox(
-                    height: 8,
-                  ),
-                  CheckCard("Has Lowercase", hasLower),
-                  const SizedBox(
-                    height: 8,
-                  ),
-                  CheckCard("Has Special Character", hsaSpecial),
-                  const SizedBox(
-                    height: 8,
-                  ),
-                  CheckCard("At least one number", hasDigit),
-                  const SizedBox(
-                    height: 8,
-                  ),
-                  CheckCard("At least 8 digits", is8digits),
-                  Container(
-                    height: MediaQuery.of(context).size.height * .03,
-                  ),
-                  InkWell(
-                    onTap: () {
-                      if (formKey.currentState!.validate()) {
-                        createUser(
-                          email: emailController.text,
-                          password: passwordController.text,
-                          userName: usernameController.text,
-                          phone: phoneController.text,
-                        );
-                        navigateAndFinish(context, SignInScreen());
-                      }
-                    },
-                    child: Container(
-                      height: 40,
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          color: Colors.blue),
-                      child: Center(
-                          child: Loading
-                              ? const CircularProgressIndicator(
+                        suffixIcon: Icon(Icons.phone))),
+                Container(
+                  height: MediaQuery.of(context).size.height * .02,
+                ),
+                TextFormField(
+                  controller: emailController,
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return 'This field is requreid';
+                    } else if (!(value.contains(RegExp(
+                        r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")))) {
+                      return "Please enter a valid e-mail";
+                    }
+                  },
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  keyboardType: TextInputType.emailAddress,
+                  decoration: const InputDecoration(
+                      labelText: 'Email address',
+                      border: OutlineInputBorder(),
+                      suffixIcon: Icon(Icons.email)),
+                ),
+                Container(
+                  height: MediaQuery.of(context).size.height * .02,
+                ),
+                TextFormField(
+                  controller: passwordController,
+                  onChanged: (value) {
+                    PasswordInteraction(value);
+                  },
+                  validator: (value) {
+                    if (value!.isEmpty) return 'This field is requreid';
+                    if (value.length < 8)
+                      return 'Please enter valid password';
+                  },
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  keyboardType: TextInputType.visiblePassword,
+                  obscureText: secure ? true : false,
+                  decoration: InputDecoration(
+                      labelText: 'Password',
+                      border: const OutlineInputBorder(),
+                      suffixIcon: IconButton(
+                          onPressed: () {
+                            setState(() {
+                              secure = !secure;
+                            });
+                          },
+                          icon: secure
+                              ? const Icon(Icons.visibility)
+                              : const Icon(Icons.visibility_off))),
+                ),
+                Container(
+                  height: MediaQuery.of(context).size.height * .02,
+                ),
+                CheckCard("Has Uppercase", hasUpper),
+                const SizedBox(
+                  height: 8,
+                ),
+                CheckCard("Has Lowercase", hasLower),
+                const SizedBox(
+                  height: 8,
+                ),
+                CheckCard("Has Special Character", hsaSpecial),
+                const SizedBox(
+                  height: 8,
+                ),
+                CheckCard("At least one number", hasDigit),
+                const SizedBox(
+                  height: 8,
+                ),
+                CheckCard("At least 8 digits", is8digits),
+                Container(
+                  height: MediaQuery.of(context).size.height * .03,
+                ),
+                InkWell(
+                  onTap: () {
+                    if (formKey.currentState!.validate()) {
+                      createUser(
+                        email: emailController.text,
+                        password: passwordController.text,
+                        userName: usernameController.text,
+                        phone: phoneController.text,
+                      );
+                      navigateAndFinish(context, SignInScreen());
+                    }
+                  },
+                  child: Container(
+                    height: 40,
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: Colors.blue),
+                    child: Center(
+                        child: Loading
+                            ? const CircularProgressIndicator(
+                                color: Colors.white,
+                              )
+                            : const Text(
+                                'Create an acount',
+                                style: TextStyle(
                                   color: Colors.white,
-                                )
-                              : const Text(
-                                  'Create an acount',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                )),
-                    ),
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              )),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ),
