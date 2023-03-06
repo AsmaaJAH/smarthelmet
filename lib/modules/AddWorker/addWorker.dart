@@ -1,5 +1,4 @@
 import 'dart:math';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -53,22 +52,6 @@ class _AddWorkerState extends State<AddWorker> {
       loading = false;
     });
   }
-
-  // updateinfo() async {
-  //   WorkerInfo workerInfo = WorkerInfo(
-  //     firstName: firstnameController.text,
-  //     lastName: lastnameController.text,
-  //     imgurl: workerimg!,
-  //     age: ageController.text,
-  //     uid: uid!,
-  //   );
-
-  //   try {
-  //     workercollection.doc(uid).update(workerInfo.toMap());
-  //   } on Exception catch (e) {
-  //     showToast(text: "ERROR :  ${e} ", color: Colors.white, time: 3);
-  //   }
-  // }
 
   uploadImage(ImageSource source) async {
     Navigator.pop(context);
