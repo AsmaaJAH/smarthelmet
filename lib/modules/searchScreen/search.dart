@@ -2,6 +2,7 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:smarthelmet/modules/searchScreen/search_card.dart';
 
 class SearchWorker extends StatefulWidget {
   const SearchWorker({Key? key}) : super(key: key);
@@ -27,7 +28,6 @@ class _SearchState extends State<SearchWorker> {
   @override
   void dispose() {
     myController.dispose();
-
     super.dispose();
   }
 
@@ -40,7 +40,9 @@ class _SearchState extends State<SearchWorker> {
           backgroundColor: Colors.cyan,
           title: TextFormField(
             controller: myController,
-            decoration: InputDecoration(labelText: 'Search for a worker...',),
+            decoration: InputDecoration(
+              labelText: 'Search for a worker...',
+            ),
           ),
         ),
         body: FutureBuilder(
@@ -56,18 +58,18 @@ class _SearchState extends State<SearchWorker> {
             if (snapshot.connectionState == ConnectionState.done) {
               return Column(
                 children: [
-                  SizedBox(height: 20,),
+                  SizedBox(
+                    height: 8,
+                  ),
                   Expanded(
                     child: ListView.builder(
                         itemCount: snapshot.data!.docs.length,
                         itemBuilder: (BuildContext context, int index) {
-                          return ListTile(
-                            onTap: () {},
-                            title: Text(snapshot.data!.docs[index]["firstName"]),
-                            leading: CircleAvatar(
-                              radius: 40,
-                              backgroundImage:
-                                  NetworkImage(snapshot.data!.docs[index]["imgurl"]),
+                          return Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: SearchCard(
+                              snapshot: snapshot,
+                              index: index,
                             ),
                           );
                         }),
@@ -75,10 +77,10 @@ class _SearchState extends State<SearchWorker> {
                 ],
               );
             }
-
+            
             return Center(
                 child: CircularProgressIndicator(
-              color: Colors.cyan ,
+              color: Colors.cyan,
             ));
           },
         ));

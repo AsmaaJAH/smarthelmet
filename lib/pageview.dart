@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'modules/AboutUs/aboutus.dart';
 import 'modules/searchScreen/search.dart';
 import 'modules/home-page/HomePage.dart';
-import 'modules/home-page/addWorker.dart';
+import 'modules/AddWorker/addWorker.dart';
 import 'modules/profile/profile.dart';
 
 class PageViewScreen extends StatefulWidget {

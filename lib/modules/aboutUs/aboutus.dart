@@ -36,14 +36,14 @@ class _AboutScreenState extends State<AboutScreen> {
             style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
           ),
           backgroundColor: Colors.cyan,
-          leading: IconButton(
-              onPressed: () {
-                navigateAndFinish(context,PageViewScreen());
-              },
-              icon: Icon(
-                Icons.arrow_back,
-                color: Colors.white,
-              )),
+          // leading: IconButton(
+          //     onPressed: () {
+          //       navigateAndFinish(context,PageViewScreen());
+          //     },
+          //     icon: Icon(
+          //       Icons.arrow_back,
+          //       color: Colors.white,
+          //     )),
         ),
         body: SingleChildScrollView(
           child: Padding(

@@ -1,14 +1,11 @@
 
-
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 void showToast({
   required String text,
   required Color color,
-  required time,
+  required time,  
 }) =>
     Fluttertoast.showToast(
       backgroundColor: color,
