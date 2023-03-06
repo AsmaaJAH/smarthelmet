@@ -2,8 +2,8 @@ import 'dart:math';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:smarthelmet/modules/home-page/workers.dart';
+import 'package:smarthelmet/pageview.dart';
 import 'package:smarthelmet/shared/functions/shared_function.dart';
-import '../modules/home-page/HomePage.dart';
 import 'FallDeteting.dart';
 import 'Gas.dart';
 import 'Humidity.dart';
@@ -103,14 +103,14 @@ class _FetchDataState extends State<FetchData> with TickerProviderStateMixin {
         //     fontFamily: 'Ubuntu',
         //   ),
         // ),
-        leading: IconButton(
-            onPressed: () {
-              navigateAndFinish(context, HomePageScreen());
-            },
-            icon: Icon(
-              Icons.arrow_back,
-              color: Colors.white,
-            )),
+        // leading: IconButton(
+        //     onPressed: () {
+        //       navigateAndFinish(context, PageViewScreen());
+        //     },
+        //     icon: Icon(
+        //       Icons.arrow_back,
+        //       color: Colors.white,
+        //     )),
         backgroundColor: Colors.grey,
         elevation: 0.0,
         // leading: Builder(builder: (context) {

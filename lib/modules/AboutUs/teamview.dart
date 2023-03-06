@@ -24,22 +24,14 @@ class _TeamViewScreenState extends State<TeamViewScreen> {
             style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
           ),
           backgroundColor: Colors.black45,
-          leading: IconButton(
-              onPressed: () {
-                navigateAndFinish(context, AboutScreen());
-              },
-              icon: Icon(
-                Icons.arrow_back,
-                color: Colors.white,
-              )),
         ),
-        body:ListView.builder(
-          itemCount: Members.length,
-          itemBuilder: (BuildContext context, int index) {
-            return Teamcard(
-              Index: index,
-            );
-          }), 
+        body: ListView.builder(
+            itemCount: Members.length,
+            itemBuilder: (BuildContext context, int index) {
+              return Teamcard(
+                Index: index,
+              );
+            }),
       ),
     );
   }

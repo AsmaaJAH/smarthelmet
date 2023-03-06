@@ -18,7 +18,7 @@ class _SearchCardState extends State<SearchCard> {
     Size size = MediaQuery.of(context).size;
     return InkWell(
       onTap: () {
-        navigateAndFinish(
+        navigateTo(
             context,
             DataCard(
               index: widget.index,

@@ -1,7 +1,6 @@
 import 'dart:math';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
-import 'package:smarthelmet/pageview.dart';
 import 'package:smarthelmet/shared/functions/shared_function.dart';
 import '../../nav-bar/FallDeteting.dart';
 import '../../nav-bar/Gas.dart';
@@ -81,14 +80,6 @@ class _DataCardState extends State<DataCard> with TickerProviderStateMixin {
       backgroundColor: Color.fromARGB(203, 255, 255, 255),
       // drawer: NavBar(),
       appBar: AppBar(
-        leading: IconButton(
-            onPressed: () {
-              navigateAndFinish(context, PageViewScreen());
-            },
-            icon: Icon(
-              Icons.arrow_back,
-              color: Colors.white,
-            )),
         backgroundColor: Colors.grey,
         elevation: 0.0,
       ),

@@ -17,7 +17,7 @@ class _WorkerCardState extends State<WorkerCard> {
     Size size = MediaQuery.of(context).size;
     return InkWell(
       onTap: () {
-        navigateAndFinish(
+        navigateTo(
             context,
             FetchData(
               index: widget.Index!,
