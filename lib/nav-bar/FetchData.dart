@@ -2,7 +2,6 @@ import 'dart:math';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:smarthelmet/modules/home-page/workers.dart';
-import 'package:smarthelmet/pageview.dart';
 import 'package:smarthelmet/shared/functions/shared_function.dart';
 import 'FallDeteting.dart';
 import 'Gas.dart';
@@ -90,7 +89,7 @@ class _FetchDataState extends State<FetchData> with TickerProviderStateMixin {
     final test = dataBase.child("write now/");
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor: Color.fromARGB(203, 255, 255, 255),
+      backgroundColor: Color.fromARGB(154, 165, 163, 163),
       // drawer: NavBar(),
       appBar: AppBar(
         // title:  Text(

@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:smarthelmet/modules/home-page/workers.dart';
-import '../../shared/functions/shared_function.dart';
-import '../../shared/network/local/cache_helper.dart';
-import '../SignIn/SignIn.dart';
 import 'workercard.dart';
 
 class HomePageScreen extends StatefulWidget {

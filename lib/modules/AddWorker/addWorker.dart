@@ -1,8 +1,9 @@
+import 'dart:math';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:smarthelmet/modules/AddWorker/Worker_info.dart';
 import 'package:smarthelmet/shared/functions/shared_function.dart';
 import 'dart:io';
 import '../../models/workerModel.dart';
@@ -77,7 +78,10 @@ class _AddWorkerState extends State<AddWorker> {
         setState(() {
           imgPath = File(pickedImg.path);
         });
+        int random_f = Random().nextInt(999999999);
+        int random_l = Random().nextInt(999999999);
         imgName = basename(pickedImg.path);
+        imgName = '$random_f$imgName$random_l';
         final storageRef = FirebaseStorage.instance.ref(imgName);
         await storageRef.putFile(imgPath!);
         String url = await storageRef.getDownloadURL();
@@ -322,7 +326,8 @@ class _AddWorkerState extends State<AddWorker> {
                 showToast(text: e.toString(), color: Colors.white, time: 5);
               }
             } else if (imgName == null && imgPath == null) {
-              showToast(text: "Please select an img", color: Colors.white, time: 3);
+              showToast(
+                  text: "Please select an img", color: Colors.white, time: 3);
             }
           },
           child: Container(
