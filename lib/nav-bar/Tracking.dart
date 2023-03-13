@@ -1,3 +1,4 @@
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:smarthelmet/shared/constants/Constants.dart';
 
@@ -7,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import '../modules/home-page/workers.dart';
+import '../shared/network/position.dart';
 
 class Tracking extends StatefulWidget {
   String? index;
@@ -15,32 +17,39 @@ class Tracking extends StatefulWidget {
   State<Tracking> createState() => _TrackingState();
 }
 
+
 class _TrackingState extends State<Tracking> {
+
   var myMarkers = HashSet<Marker>(); //collection
   List<Polyline> myPolyline = [];
   late BitmapDescriptor myIcon;
 
 
-    @override
+  @override
   void initState() {
     super.initState();
     createPloyLine();
 
     BitmapDescriptor.fromAssetImage(
-        ImageConfiguration(size: Size(28, 28)),  map[widget.index]!.imgpath,)
-        .then((onValue) {
+      ImageConfiguration(size: Size(28, 28)),
+      map[widget.index]!.imgpath,
+    ).then((onValue) {
       myIcon = onValue;
     });
-
   }
 
-    createPloyLine() {
+  createPloyLine() {
     myPolyline.add(
       Polyline(
           polylineId: PolylineId('1'),
           color: Colors.blue,
           width: 3,
           points: [
+
+            
+            for (int i = 0; i < positions.length; i++)
+                LatLng(positions[i].latitude1, positions[i].longitude1),
+
             LatLng(31.205700607192632, 29.925107233350353),
             LatLng(31.20589419729555, 29.922933804084426),
             LatLng(31.206428979996314, 29.921243671893173),
@@ -52,7 +61,6 @@ class _TrackingState extends State<Tracking> {
           ]),
     );
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -70,13 +78,11 @@ class _TrackingState extends State<Tracking> {
           ),
           backgroundColor: navBarColor,
           elevation: 0.0,
-          leading:
-                IconButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  icon: Icon(Icons.arrow_back_ios_new),
-                
+          leading: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: Icon(Icons.arrow_back_ios_new),
           ),
         ),
         body: Stack(
@@ -94,9 +100,7 @@ class _TrackingState extends State<Tracking> {
                       infoWindow: InfoWindow(
                           title: 'khloud mousad',
                           snippet: 'temp:50  co level:40 '),
-                          icon: myIcon,
-
-                    
+                      icon: myIcon,
                     ),
                   );
                 });
@@ -104,7 +108,6 @@ class _TrackingState extends State<Tracking> {
               markers: myMarkers,
               polylines: myPolyline.toSet(),
             ),
-            
             Container(
               child: Text(
                 map[widget.index]!.workername,
@@ -113,7 +116,6 @@ class _TrackingState extends State<Tracking> {
               alignment: Alignment.bottomCenter,
             )
           ],
-        )
-        );
+        ));
   }
 }

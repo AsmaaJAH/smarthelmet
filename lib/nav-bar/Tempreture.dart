@@ -29,15 +29,11 @@ class _TempretureScreenState extends State<TempretureScreen>
           alertTable = event.snapshot.value as Map<Object?, Object?>;
         else if (key == "sensors")
           sensorsTable = event.snapshot.value as Map<Object?, Object?>;
-        print('hereeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee');
         print(sensorsTable);
         String? nullableString = '${sensorsTable['temp']}'.toString();
-        print('--------------+++++++++++++--------------');
         print(nullableString);
         temp = double.tryParse(nullableString ?? '') ?? 0.0;
 
-        print("------------------------------+////++++------------------");
-        print(temp);
        
         setState(() {
         _TempretureScreenInit(temp,0.0 );
