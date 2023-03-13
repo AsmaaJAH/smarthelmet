@@ -1,9 +1,57 @@
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:kdgaugeview/kdgaugeview.dart';
 
 import '../modules/humidity_slider/screen/humidity_screen.dart';
 
-class GasScreen extends StatelessWidget {
+class GasScreen extends StatefulWidget {
+    GasScreen({super.key});
+
+  @override
+  State<GasScreen> createState() => _GasScreenState();
+}
+
+class _GasScreenState extends State<GasScreen> {
+  final dataBase = FirebaseDatabase.instance.ref();
+
+  Map<Object?, Object?> alertTable = {};
+
+  Map<Object?, Object?> sensorsTable = {};
+
+void readRealTimeDatabase() async {
+    tables.forEach((key, value) async {
+      Query dbRef = FirebaseDatabase.instance.ref().child(key);
+      await dbRef.onValue.listen((event) {
+        print(event.snapshot.value);
+        if (key == "ALERT")
+          alertTable = event.snapshot.value as Map<Object?, Object?>;
+        else if (key == "sensors")
+          sensorsTable = event.snapshot.value as Map<Object?, Object?>;
+
+        //print(sensorsTable);
+
+        setState(() {});
+      });
+    });
+  }
+
+  Map<String, List<String>> tables = {
+    "ALERT": ['HUM', 'LPG', 'CO', 'TEMP'],
+    "sensors": ['CO PPM value', 'Humdity', 'LPG PPM value', 'temp']
+  };
+
+  @override
+  void initState() {
+    readRealTimeDatabase();
+
+    //double temp = 20;
+    //temp = double.parse('${sensorsTable['temp']} '.toString() );
+    //double humdity = 100;
+    //humidity = sensorsTable['Humdity'] as double;
+
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,7 +69,7 @@ class GasScreen extends StatelessWidget {
                 child: KdGaugeView(
                   minSpeed: 0,
                   maxSpeed: 10000,
-                  speed: 600,
+                  speed: double.parse('${sensorsTable['CO PPM value']} '.toString() ),
                   animate: true,
                   duration: Duration(seconds: 5),
                   alertSpeedArray: [600, 1000, 2000],
@@ -41,7 +89,7 @@ class GasScreen extends StatelessWidget {
                 child: KdGaugeView(
                   minSpeed: 0,
                   maxSpeed: 10000,
-                  speed: 1500,
+                  speed: double.parse('${sensorsTable['LPG PPM value']} '.toString() ),
                   animate: true,
                   duration: Duration(seconds: 5),
                   alertSpeedArray: [600, 1000, 2000],

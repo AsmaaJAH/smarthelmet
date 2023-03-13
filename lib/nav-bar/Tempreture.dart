@@ -6,34 +6,62 @@ import 'package:smarthelmet/shared/constants/Constants.dart';
 import '../shared/functions/CircleProgress.dart';
 
 class TempretureScreen extends StatefulWidget {
+  TempretureScreen({super.key});
 
   @override
   State<TempretureScreen> createState() => _TempretureScreenState();
 }
 
 class _TempretureScreenState extends State<TempretureScreen> with TickerProviderStateMixin {
-
+  final dataBase = FirebaseDatabase.instance.ref();
   late Animation<double> tempAnimation;
   late AnimationController progressController;
 
+
+
+  Map<Object?, Object?> alertTable = {};
+  Map<Object?, Object?> sensorsTable = {};
+void readRealTimeDatabase() async {
+    tables.forEach((key, value) async {
+      Query dbRef = FirebaseDatabase.instance.ref().child(key);
+      await dbRef.onValue.listen((event) {
+        print(event.snapshot.value);
+        if (key == "ALERT")
+          alertTable = event.snapshot.value as Map<Object?, Object?>;
+        else if (key == "sensors")
+          sensorsTable = event.snapshot.value as Map<Object?, Object?>;
+
+        //print(sensorsTable);
+
+        setState(() {});
+      });
+    });
+  }
+
+  Map<String, List<String>> tables = {
+    "ALERT": ['HUM', 'LPG', 'CO', 'TEMP'],
+    "sensors": ['CO PPM value', 'Humdity', 'LPG PPM value', 'temp']
+  };
+  
   @override
   void initState() {
-    super.initState();
- double temp = 20;
-    // temp = sensorsTable['temp'] as double;
+    readRealTimeDatabase();
+
+    double temp = 20;
+    // temp = double.parse('${sensorsTable['temp']} '.toString() );
     double humdity = 100;
     //humidity = sensorsTable['Humdity'] as double;
 
-    _FetchDataInit(temp, humdity);
-   
+    _TempretureScreenInit(temp, humdity);
+    super.initState();
   }
 
-   _FetchDataInit(double temp, double humid) {
+  _TempretureScreenInit(double temp, double humid) {
     progressController = AnimationController(
-        vsync: this, duration: Duration(milliseconds: 50)); //5s
+        vsync: this, duration: Duration(milliseconds: 5000)); //5s
 
     tempAnimation =
-        Tween<double>(begin: 0, end: temp).animate(progressController)
+        Tween<double>(begin: -50, end: temp).animate(progressController)
           ..addListener(() {
             setState(() {});
           });
@@ -45,7 +73,8 @@ class _TempretureScreenState extends State<TempretureScreen> with TickerProvider
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
+      body:SingleChildScrollView(
+        child: Column(
           children: [
             Center(
               child: Column(
@@ -78,10 +107,10 @@ class _TempretureScreenState extends State<TempretureScreen> with TickerProvider
                     ),
                   ),
                 ],
-
               ),
             ),
           ],
+        ),
       ),
     
     appBar: AppBar(

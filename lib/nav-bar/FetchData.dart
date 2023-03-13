@@ -38,7 +38,6 @@ class _FetchDataState extends State<FetchData> with TickerProviderStateMixin {
         else if (key == "sensors")
           sensorsTable = event.snapshot.value as Map<Object?, Object?>;
 
-        //print(sensorsTable);
 
         setState(() {});
       });
@@ -54,27 +53,10 @@ class _FetchDataState extends State<FetchData> with TickerProviderStateMixin {
   void initState() {
     readRealTimeDatabase();
 
-    double temp = 20;
-    //temp = sensorsTable['temp'] as double;
-    double humdity = 100;
-    //humidity = sensorsTable['Humdity'] as double;
-
-    _FetchDataInit(temp, humdity);
     super.initState();
   }
 
-  _FetchDataInit(double temp, double humid) {
-    progressController = AnimationController(
-        vsync: this, duration: Duration(milliseconds: 50)); //5s
 
-    tempAnimation =
-        Tween<double>(begin: 0, end: temp).animate(progressController)
-          ..addListener(() {
-            setState(() {});
-          });
-
-    progressController.forward();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -137,7 +119,7 @@ class _FetchDataState extends State<FetchData> with TickerProviderStateMixin {
 
               SingleChildScrollView(
                child: Container(
-                          height: 250,
+                          height: 300,
                           child: listItem(
                               alert: alertTable,
                               context: context,
@@ -255,49 +237,7 @@ class _FetchDataState extends State<FetchData> with TickerProviderStateMixin {
                   ),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 18),
-                child: InkWell(
-                  onTap: () {
-                    navigateTo(context, FallDetection());
-                  },
-                  child: Container(
-                    height: 150,
-                    width: MediaQuery.of(context).size.width * 0.4,
-                    decoration: BoxDecoration(
-                        color: Color.fromARGB(255, 236, 235, 235),
-                        borderRadius: BorderRadius.circular(15)),
-                    child: Column(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: SizedBox(
-                              height: 95,
-                              width: 100,
-                              child: Image.asset(
-                                'assets/images/icons8-error-100.png',
-                                color: Colors.blue,
-                              )),
-                        ),
-                        SizedBox(
-                          height: 4,
-                        ),
-                        Text(
-                          'Fall detector',
-                          style: TextStyle(
-                              fontSize: 15, fontWeight: FontWeight.bold),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              )
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Padding(
+            Padding(
                 padding: const EdgeInsets.all(18.0),
                 child: InkWell(
                   onTap: () {
@@ -331,84 +271,49 @@ class _FetchDataState extends State<FetchData> with TickerProviderStateMixin {
                   ),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.all(18.0),
-                child: InkWell(
-                  onTap: () {
-                    navigateTo(context, UnderGroundScreen());
-                  },
-                  child: Container(
-                    height: 150,
-                    width: MediaQuery.of(context).size.width * 0.4,
-                    decoration: BoxDecoration(
-                        color: Color.fromARGB(255, 236, 235, 235),
-                        borderRadius: BorderRadius.circular(15)),
-                    child: Column(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: SizedBox(
-                              height: 100,
-                              width: 100,
-                              child: Image.asset(
-                                'assets/images/icons8-road-map-66.png',
-                                scale: sqrt1_2,
-                                color: Colors.blue,
-                              )),
-                        ),
-                        Text(
-                          'Under ground tracking',
-                          style: TextStyle(
-                              fontSize: 14, fontWeight: FontWeight.bold),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              )
             ],
           ),
-          // CustomPaint(
-          //   foregroundPainter:
-          //       CircleProgress(tempAnimation.value, true),
-          //   child: Container(
-          //     width: 200,
-          //     height: 200,
-          //     child: Center(
-          //       child: Column(
-          //         mainAxisAlignment: MainAxisAlignment.center,
-          //         children: <Widget>[
-          //           Text('Temperature'),
-          //           Text(
-          //             '${tempAnimation.value.toInt()}',
-          //             style: TextStyle(
-          //                 fontSize: 50, fontWeight: FontWeight.bold),
-          //           ),
-          //           Text(
-          //             '°C',
-          //             style: TextStyle(
-          //                 fontSize: 20, fontWeight: FontWeight.bold),
-          //           ),
-          //         ],
-          //       ),
-          //     ),
-          //   ),
-          // ),
-          // Container(
-          //     padding: const EdgeInsets.all(10.0),
-          //     margin: EdgeInsets.only(bottom: 22),
-          //     alignment: Alignment.center,
-          //     decoration: BoxDecoration(
-          //       color: Colors.cyan,
-          //     ),
-          //     height: 500,
-          //     width: double.infinity,
-          //     child: Container(
-          //         height: double.infinity,
-          //         child: listItem(
-          //             alert: alertTable,
-          //             context: context,
-          //             sensors: sensorsTable))),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              
+              // Padding(
+              //   padding: const EdgeInsets.all(18.0),
+              //   child: InkWell(
+              //     onTap: () {
+              //       navigateTo(context, UnderGroundScreen());
+              //     },
+              //     child: Container(
+              //       height: 150,
+              //       width: MediaQuery.of(context).size.width * 0.4,
+              //       decoration: BoxDecoration(
+              //           color: Color.fromARGB(255, 236, 235, 235),
+              //           borderRadius: BorderRadius.circular(15)),
+              //       child: Column(
+              //         children: [
+              //           Padding(
+              //             padding: const EdgeInsets.all(8.0),
+              //             child: SizedBox(
+              //                 height: 100,
+              //                 width: 100,
+              //                 child: Image.asset(
+              //                   'assets/images/icons8-road-map-66.png',
+              //                   scale: sqrt1_2,
+              //                   color: Colors.blue,
+              //                 )),
+              //           ),
+              //           Text(
+              //             'Under ground tracking',
+              //             style: TextStyle(
+              //                 fontSize: 14, fontWeight: FontWeight.bold),
+              //           ),
+              //         ],
+              //       ),
+              //     ),
+              //   ),
+              // )
+            ],
+          ),
         ],
       ),
     );
@@ -417,86 +322,124 @@ class _FetchDataState extends State<FetchData> with TickerProviderStateMixin {
   Widget listItem(
       {required Map alert, required context, required Map sensors}) {
     return Container(
+      height: 800,
       margin: const EdgeInsets.fromLTRB(10, 1, 10, 10),
       padding: const EdgeInsets.fromLTRB(10,1,10,10),
       color: Colors.white,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            "Emergency Alerts",
-            style: TextStyle(color: Colors.cyan, fontSize: 44),
-            textAlign: TextAlign.center,
-          ),
-          const SizedBox(
-            height: 25,
-          ),
-          Row(
-            children: [
-              Text(
-                "HUM: ",
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-              ),
-              Text(
-                alert['HUM'] == null ? "" : alert['HUM'],
-                // sensors['temp']?? "",
+      child: SingleChildScrollView(
+        child: Column(
 
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
-              ),
-            ],
-          ),
-          const SizedBox(
-            height: 5,
-          ),
-          Row(
-            children: [
-              Text(
-                "CO: ",
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-              ),
-              Text(
-                alert['CO'] ?? "",
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
-              ),
-            ],
-          ),
-          const SizedBox(
-            height: 5,
-          ),
-          Row(
-            children: [
-              Text(
-                "LPG: ",
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-              ),
-              Text(
-                alert['LPG'] ?? "",
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
-              ),
-            ],
-          ),
-          const SizedBox(
-            height: 5,
-          ),
-          Row(
-            children: [
-              Text(
-                "TEMP: ",
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-              ),
-              Text(
-                alert['TEMP'] == null ? "" : alert['TEMP'] + ' °C',
-                // sensors['temp']?? "",
-
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
-              ),
-            ],
-          ),
-          const SizedBox(
-            height: 15,
-          ),
-        ]
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              "Emergency Alerts",
+              style: TextStyle(color: Colors.cyan, fontSize: 44),
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(
+              height: 25,
+            ),
+            Row(
+              children: [
+                Text(
+                  "HUM: ",
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                ),
+                Text(
+                  alert['HUM'] == null ? "" : alert['HUM'],
+                  // sensors['temp']?? "",
+      
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+                ),
+              ],
+            ),
+            const SizedBox(
+              height: 5,
+            ),
+            Row(
+              children: [
+                Text(
+                  "CO: ",
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                ),
+                Text(
+                  alert['CO'] ?? "",
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+                ),
+              ],
+            ),
+            const SizedBox(
+              height: 5,
+            ),
+            Row(
+              children: [
+                Text(
+                  "LPG: ",
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                ),
+                Text(
+                  alert['LPG'] ?? "",
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+                ),
+              ],
+            ),
+            const SizedBox(
+              height: 5,
+            ),
+            Row(
+              children: [
+                Text(
+                  "TEMP: ",
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                ),
+                Text(
+                  alert['TEMP'] == null ? "" : alert['TEMP'] + ' °C',
+                  // sensors['temp']?? "",
+      
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+                ),
+              ],
+            ),
+            const SizedBox(
+              height: 5,
+            ),
+            Row(
+              children: [
+                Text(
+                  "Fall Detector: ",
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                ),
+                Text(
+                  alert['fall'] == null ? "" : alert['fall'],
+                
+      
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+                ),
+              ],
+            ),
+            const SizedBox(
+              height: 5,
+            ),
+            Row(
+              children: [
+                Text(
+                  "object Falling Detector: ",
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                ),
+                Text(
+                  alert['ultrasonic'] == null ? "" : alert['ultrasonic'],
+                  // sensors['temp']?? "",
+      
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+                ),
+              ],
+            ),
+            const SizedBox(
+              height: 5,
+            ),
+          ]
+        ),
       ));     
           }
 
