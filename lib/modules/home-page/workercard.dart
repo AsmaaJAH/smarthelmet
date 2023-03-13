@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:smarthelmet/modules/home-page/workers.dart';
+import 'package:smarthelmet/modules/home-page/workerdata.dart';
 import 'package:smarthelmet/shared/functions/shared_function.dart';
 import '../../nav-bar/FetchData.dart';
 
 class WorkerCard extends StatefulWidget {
-  int? Index;
-  WorkerCard({required this.Index});
+  WorkerData worker;
+  WorkerCard({required this.worker});
 
   @override
   State<WorkerCard> createState() => _WorkerCardState();
@@ -20,7 +20,7 @@ class _WorkerCardState extends State<WorkerCard> {
         navigateTo(
             context,
             FetchData(
-              index: widget.Index!,
+              worker: widget.worker,
             ));
       },
       child: Container(
@@ -49,8 +49,8 @@ class _WorkerCardState extends State<WorkerCard> {
                   width: 100,
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(20),
-                    child: Image.asset(
-                      Workers[widget.Index!].imgpath,
+                    child: Image.network(
+                      widget.worker.imgurl,
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -70,7 +70,7 @@ class _WorkerCardState extends State<WorkerCard> {
                           horizontal: 20,
                         ),
                         child: Text(
-                          'Name : ${Workers[widget.Index!].workername}',
+                          'Name : ${widget.worker.firstName} ${widget.worker.lastName}',
                           style: TextStyle(
                               fontSize: 18, fontWeight: FontWeight.bold),
                         ),
@@ -79,7 +79,7 @@ class _WorkerCardState extends State<WorkerCard> {
                       Padding(
                         padding: EdgeInsets.symmetric(horizontal: 20),
                         child: Text(
-                          'age     : ${Workers[widget.Index!].age}',
+                          'age     : ${widget.worker.age}',
                           style: TextStyle(
                               fontSize: 18, fontWeight: FontWeight.bold),
                         ),

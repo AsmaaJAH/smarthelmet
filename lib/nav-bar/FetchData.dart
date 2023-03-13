@@ -1,8 +1,8 @@
 import 'dart:math';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
-import 'package:smarthelmet/modules/home-page/workers.dart';
 import 'package:smarthelmet/shared/functions/shared_function.dart';
+import '../modules/home-page/workerdata.dart';
 import 'FallDeteting.dart';
 import 'Gas.dart';
 import 'Humidity.dart';
@@ -21,8 +21,9 @@ import 'UnderGroundScreen.dart';
 // import 'package:rflutter_alert/rflutter_alert.dart';
 
 class FetchData extends StatefulWidget {
-  int index;
-  FetchData({required this.index});
+  WorkerData worker;
+
+  FetchData({required this.worker});
 
   @override
   State<FetchData> createState() => _FetchDataState();
@@ -155,8 +156,8 @@ class _FetchDataState extends State<FetchData> with TickerProviderStateMixin {
                         width: size.width * .35,
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(20),
-                          child: Image.asset(
-                            Workers[widget.index].imgpath,
+                          child: Image.network(
+                            widget.worker.imgurl,
                             fit: BoxFit.cover,
                           ),
                         ),
@@ -166,7 +167,7 @@ class _FetchDataState extends State<FetchData> with TickerProviderStateMixin {
                       top: size.height * .1,
                       left: size.width * .5,
                       child: Text(
-                        'Name : ${Workers[widget.index].workername}',
+                        'Name : ${widget.worker.firstName} ${widget.worker.lastName}',
                         style: TextStyle(
                             fontSize: 20, fontWeight: FontWeight.bold),
                       ),
@@ -175,7 +176,7 @@ class _FetchDataState extends State<FetchData> with TickerProviderStateMixin {
                       top: size.height * .16,
                       left: size.width * .5,
                       child: Text(
-                        'age     : ${Workers[widget.index].age}',
+                        'age     : ${widget.worker.age}',
                         style: TextStyle(
                             fontSize: 20, fontWeight: FontWeight.bold),
                       ),

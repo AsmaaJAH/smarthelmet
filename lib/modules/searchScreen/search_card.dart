@@ -72,7 +72,7 @@ class _SearchCardState extends State<SearchCard> {
                           horizontal: 20,
                         ),
                         child: Text(
-                          "Name : ${widget.snapshot.data!.docs[widget.index]["firstName"]}",
+                          "Name : ${widget.snapshot.data!.docs[widget.index]["firstName"]} ${widget.snapshot.data!.docs[widget.index]["lastName"]}",
                           style: TextStyle(
                               fontSize: 20, fontWeight: FontWeight.bold),
                         ),

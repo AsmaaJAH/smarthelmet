@@ -193,7 +193,7 @@ class _SignInScreenState extends State<SignInScreen> {
                               if (UID != null) {
                                 await CachHelper.saveData(
                                     key: "uid", value: UID);
-                                navigateAndFinish(context, HomePageScreen());
+                                navigateAndFinish(context, PageViewScreen());
                               }
                             } catch (e) {
                               showToast(
