@@ -6,6 +6,7 @@ class worker {
 
 }
 
+
 Map<String,worker> map = {
   "Yousef": worker(imgpath: "assets/Workers/1.jpg", workername: "Yousef", age: 22),
   "Gamal":  worker(imgpath: "assets/Workers/2.jpg", workername: "Gamal", age: 30),

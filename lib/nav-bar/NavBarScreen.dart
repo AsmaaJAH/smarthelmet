@@ -5,12 +5,21 @@ import 'package:smarthelmet/nav-bar/UnderGroundScreen.dart';
 import 'package:smarthelmet/shared/constants/Constants.dart';
 import 'package:smarthelmet/shared/functions/shared_function.dart';
 import '../modules/home-page/HomePage.dart';
+import '../modules/home-page/workers.dart';
 import 'Alerts.dart';
 import 'FallDeteting.dart';
 import 'Tracking.dart';
 //import 'FetchData.dart';
 
-class NavBar extends StatelessWidget {
+class NavBar extends StatefulWidget {
+  String? index;
+  NavBar({required this.index});
+  
+    @override
+  State<NavBar> createState() => _NavBarState();
+}
+
+class _NavBarState extends State<NavBar> {
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -194,7 +203,7 @@ class NavBar extends StatelessWidget {
               // Update the state of the app
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => Tracking()),
+                MaterialPageRoute(builder: (context) => Tracking(index: map[widget.index]!.workername)),
               );
             },
           ),

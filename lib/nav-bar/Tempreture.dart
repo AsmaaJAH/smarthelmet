@@ -1,4 +1,3 @@
-
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:smarthelmet/shared/constants/Constants.dart';
@@ -12,16 +11,16 @@ class TempretureScreen extends StatefulWidget {
   State<TempretureScreen> createState() => _TempretureScreenState();
 }
 
-class _TempretureScreenState extends State<TempretureScreen> with TickerProviderStateMixin {
+class _TempretureScreenState extends State<TempretureScreen>
+    with TickerProviderStateMixin {
+  double temp = 20;
   final dataBase = FirebaseDatabase.instance.ref();
   late Animation<double> tempAnimation;
   late AnimationController progressController;
 
-
-
   Map<Object?, Object?> alertTable = {};
   Map<Object?, Object?> sensorsTable = {};
-void readRealTimeDatabase() async {
+  void readRealTimeDatabase() async {
     tables.forEach((key, value) async {
       Query dbRef = FirebaseDatabase.instance.ref().child(key);
       await dbRef.onValue.listen((event) {
@@ -30,10 +29,21 @@ void readRealTimeDatabase() async {
           alertTable = event.snapshot.value as Map<Object?, Object?>;
         else if (key == "sensors")
           sensorsTable = event.snapshot.value as Map<Object?, Object?>;
+        print('hereeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee');
+        print(sensorsTable);
+        String? nullableString = '${sensorsTable['temp']}'.toString();
+        print('--------------+++++++++++++--------------');
+        print(nullableString);
+        temp = double.tryParse(nullableString ?? '') ?? 0.0;
 
-        //print(sensorsTable);
+        print("------------------------------+////++++------------------");
+        print(temp);
+       
+        setState(() {
+        _TempretureScreenInit(temp,0.0 );
 
-        setState(() {});
+
+        });
       });
     });
   }
@@ -42,13 +52,12 @@ void readRealTimeDatabase() async {
     "ALERT": ['HUM', 'LPG', 'CO', 'TEMP'],
     "sensors": ['CO PPM value', 'Humdity', 'LPG PPM value', 'temp']
   };
-  
+
   @override
   void initState() {
     readRealTimeDatabase();
+    temp = double.tryParse('${sensorsTable['temp']}' ?? '') ?? 0.0;
 
-    double temp = 20;
-    // temp = double.parse('${sensorsTable['temp']} '.toString() );
     double humdity = 100;
     //humidity = sensorsTable['Humdity'] as double;
 
@@ -69,11 +78,10 @@ void readRealTimeDatabase() async {
     progressController.forward();
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body:SingleChildScrollView(
+      body: SingleChildScrollView(
         child: Column(
           children: [
             Center(
@@ -112,8 +120,7 @@ void readRealTimeDatabase() async {
           ],
         ),
       ),
-    
-    appBar: AppBar(
+      appBar: AppBar(
         title: const Text(
           'Temperature',
           style: TextStyle(
@@ -130,7 +137,7 @@ void readRealTimeDatabase() async {
           onPressed: () {
             Navigator.pop(context);
           },
-          icon:  const Icon(Icons.arrow_back_ios_new),
+          icon: const Icon(Icons.arrow_back_ios_new),
         ),
       ),
     );

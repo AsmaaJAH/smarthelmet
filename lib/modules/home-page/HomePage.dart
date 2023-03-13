@@ -25,7 +25,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
         body: ListView.builder(
             itemCount: Workers.length,
             itemBuilder: (BuildContext context, int index) {
-              CachHelper.saveData(key: "index", value: index);
+              //CachHelper.saveData(key: "index", value: index);
               return WorkerCard(
                 Index: index,
               );

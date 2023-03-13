@@ -6,7 +6,11 @@ import 'dart:collection';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
+import '../modules/home-page/workers.dart';
+
 class Tracking extends StatefulWidget {
+  String? index;
+  Tracking({required this.index});
   @override
   State<Tracking> createState() => _TrackingState();
 }
@@ -21,8 +25,9 @@ class _TrackingState extends State<Tracking> {
   void initState() {
     super.initState();
     createPloyLine();
+
     BitmapDescriptor.fromAssetImage(
-        ImageConfiguration(size: Size(28, 28)), 'assets/Workers/1.jpg')
+        ImageConfiguration(size: Size(28, 28)),  map[widget.index]!.imgpath,)
         .then((onValue) {
       myIcon = onValue;
     });
@@ -102,7 +107,7 @@ class _TrackingState extends State<Tracking> {
             
             Container(
               child: Text(
-                'worker',
+                map[widget.index]!.workername,
                 style: TextStyle(fontSize: 50),
               ),
               alignment: Alignment.bottomCenter,

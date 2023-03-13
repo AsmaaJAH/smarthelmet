@@ -241,7 +241,7 @@ class _FetchDataState extends State<FetchData> with TickerProviderStateMixin {
                 padding: const EdgeInsets.all(18.0),
                 child: InkWell(
                   onTap: () {
-                    navigateTo(context, Tracking());
+                    navigateTo(context, Tracking(index: map[widget.index]!.workername ));
                   },
                   child: Container(
                     height: 150,
