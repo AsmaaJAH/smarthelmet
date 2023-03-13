@@ -13,6 +13,41 @@ class Tracking extends StatefulWidget {
 
 class _TrackingState extends State<Tracking> {
   var myMarkers = HashSet<Marker>(); //collection
+  List<Polyline> myPolyline = [];
+  late BitmapDescriptor myIcon;
+
+
+    @override
+  void initState() {
+    super.initState();
+    createPloyLine();
+    BitmapDescriptor.fromAssetImage(
+        ImageConfiguration(size: Size(28, 28)), 'assets/Workers/1.jpg')
+        .then((onValue) {
+      myIcon = onValue;
+    });
+
+  }
+
+    createPloyLine() {
+    myPolyline.add(
+      Polyline(
+          polylineId: PolylineId('1'),
+          color: Colors.blue,
+          width: 3,
+          points: [
+            LatLng(31.205700607192632, 29.925107233350353),
+            LatLng(31.20589419729555, 29.922933804084426),
+            LatLng(31.206428979996314, 29.921243671893173),
+            LatLng(31.205200646477095, 29.919690313405248),
+          ],
+          patterns: [
+            PatternItem.dash(20),
+            PatternItem.gap(10),
+          ]),
+    );
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -42,34 +77,38 @@ class _TrackingState extends State<Tracking> {
         body: Stack(
           children: [
             GoogleMap(
-              initialCameraPosition:
-                  CameraPosition(target: LatLng(30.0444, 31.2357), zoom: 14),
+              initialCameraPosition: CameraPosition(
+                  target: LatLng(31.205200646477095, 29.919690313405248),
+                  zoom: 14),
               onMapCreated: (GoogleMapController googleMapController) {
                 setState(() {
                   myMarkers.add(
                     Marker(
                       markerId: MarkerId('1'),
-                      position: LatLng(30.0444, 31.2357),
+                      position: LatLng(31.205200646477095, 29.919690313405248),
+                      infoWindow: InfoWindow(
+                          title: 'khloud mousad',
+                          snippet: 'temp:50  co level:40 '),
+                          icon: myIcon,
+
+                    
                     ),
                   );
                 });
               },
               markers: myMarkers,
+              polylines: myPolyline.toSet(),
             ),
+            
             Container(
-                // height: 300,
-                // width: double.infinity,
-                // child: Image.asset('assets/images/googleTracking.png'),
-                // alignment: Alignment.topCenter,
-                ),
-            Container(
-              // child: Text(
-              //   'showing Where the worker now using Google Maps ',
-              //   style: TextStyle(fontSize: 50),
-              // ),
-              // alignment: Alignment.bottomCenter,
+              child: Text(
+                'worker',
+                style: TextStyle(fontSize: 50),
+              ),
+              alignment: Alignment.bottomCenter,
             )
           ],
-        ));
+        )
+        );
   }
 }
