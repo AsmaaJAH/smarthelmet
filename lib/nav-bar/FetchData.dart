@@ -3,6 +3,7 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:smarthelmet/modules/home-page/workers.dart';
 import 'package:smarthelmet/shared/functions/shared_function.dart';
+import 'package:smarthelmet/shared/network/position.dart';
 import '../modules/home-page/HomePage.dart';
 import 'FallDeteting.dart';
 import 'Gas.dart';
@@ -10,7 +11,6 @@ import 'Humidity.dart';
 import 'Tempreture.dart';
 import 'Tracking.dart';
 import 'UnderGroundScreen.dart';
-
 
 class FetchData extends StatefulWidget {
   String? index;
@@ -33,12 +33,54 @@ class _FetchDataState extends State<FetchData> with TickerProviderStateMixin {
       Query dbRef = FirebaseDatabase.instance.ref().child(key);
       await dbRef.onValue.listen((event) {
         print(event.snapshot.value);
-        if (key == "ALERT")
+        if (key == "ALERT") {
+          print("----------------------Alerts---------------");
           alertTable = event.snapshot.value as Map<Object?, Object?>;
-        else if (key == "sensors")
+        } else if (key == "sensors") {
+          print("-------------///sensors///------------------");
           sensorsTable = event.snapshot.value as Map<Object?, Object?>;
+        } else if (key == "gps") {
+          gpsTable = event.snapshot.value as Map<Object?, Object?>;
+          positions[0].latitude1 =
+              double.tryParse('${gpsTable['latitude1']}' ?? '') ?? 0.0;
+          positions[0].longitude1 =
+              double.tryParse('${gpsTable['longitude1']}' ?? '') ?? 0.0;
+          pos[i].latitude1 = positions[0].latitude1;
+          pos[i].longitude1 = positions[0].longitude1;
+          print("-------------++++++----------------------------");
+          print('${pos[i].latitude1}');
+          i++;
 
+          positions[1].latitude1 =
+              double.tryParse('${gpsTable['latitude2']}' ?? '') ?? 0.0;
+          positions[1].longitude1 =
+              double.tryParse('${gpsTable['longitude2']}' ?? '') ?? 0.0;
+          pos[i].latitude1 = positions[1].latitude1;
+          pos[i].longitude1 = positions[1].longitude1;
+          print("-------------++++++----------------------------");
+          print('${pos[i].latitude1}');
+          i++;
 
+          positions[2].latitude1 =
+              double.tryParse('${gpsTable['latitude3']}' ?? '') ?? 0.0;
+          positions[2].longitude1 =
+              double.tryParse('${gpsTable['longitude3']}' ?? '') ?? 0.0;
+          pos[i].latitude1 = positions[2].latitude1;
+          pos[i].longitude1 = positions[2].longitude1;
+          print("-------------++++++----------------------------");
+          print('${pos[i].latitude1}');
+          i++;
+
+          positions[3].latitude1 =
+              double.tryParse('${gpsTable['latitude4']}' ?? '') ?? 0.0;
+          positions[3].longitude1 =
+              double.tryParse('${gpsTable['longitude4']}' ?? '') ?? 0.0;
+          pos[i].latitude1 = positions[3].latitude1;
+          pos[i].longitude1 = positions[3].longitude1;
+          print("-------------++++++----------------------------");
+          print('${pos[i].latitude1}');
+          i++;
+        }
         setState(() {});
       });
     });
@@ -52,11 +94,10 @@ class _FetchDataState extends State<FetchData> with TickerProviderStateMixin {
   @override
   void initState() {
     readRealTimeDatabase();
+    readData();
 
     super.initState();
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -65,8 +106,7 @@ class _FetchDataState extends State<FetchData> with TickerProviderStateMixin {
     return Scaffold(
       backgroundColor: Color.fromARGB(203, 255, 255, 255),
       body: ListView(
-        children:
-         <Widget>[
+        children: <Widget>[
           Container(
               height: size.height * .3,
               width: double.infinity,
@@ -98,34 +138,29 @@ class _FetchDataState extends State<FetchData> with TickerProviderStateMixin {
                     left: size.width * .5,
                     child: Text(
                       'Name : ${map[widget.index]!.workername}',
-                      style: TextStyle(
-                          fontSize: 20, fontWeight: FontWeight.bold),
+                      style:
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                     ),
                   ),
                   Positioned(
                     top: size.height * .16,
                     left: size.width * .5,
                     child: Text(
-                      'age     : ${map[widget.index]!.age }',
-                      style: TextStyle(
-                          fontSize: 20, fontWeight: FontWeight.bold),
+                      'age     : ${map[widget.index]!.age}',
+                      style:
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                     ),
                   ),
-
-
                 ],
               )),
-
-
-              SingleChildScrollView(
-               child: Container(
-                          height: 300,
-                          child: listItem(
-                              alert: alertTable,
-                              context: context,
-                              sensors: sensorsTable)
-                              ),
-             ),
+          SingleChildScrollView(
+            child: Container(
+                height: 300,
+                child: listItem(
+                    alert: alertTable,
+                    context: context,
+                    sensors: sensorsTable)),
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
@@ -237,11 +272,12 @@ class _FetchDataState extends State<FetchData> with TickerProviderStateMixin {
                   ),
                 ),
               ),
-            Padding(
+              Padding(
                 padding: const EdgeInsets.all(18.0),
                 child: InkWell(
                   onTap: () {
-                    navigateTo(context, Tracking(index: map[widget.index]!.workername ));
+                    navigateTo(context,
+                        Tracking(index: map[widget.index]!.workername));
                   },
                   child: Container(
                     height: 150,
@@ -276,7 +312,6 @@ class _FetchDataState extends State<FetchData> with TickerProviderStateMixin {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              
               // Padding(
               //   padding: const EdgeInsets.all(18.0),
               //   child: InkWell(
@@ -322,128 +357,134 @@ class _FetchDataState extends State<FetchData> with TickerProviderStateMixin {
   Widget listItem(
       {required Map alert, required context, required Map sensors}) {
     return Container(
-      height: 800,
-      margin: const EdgeInsets.fromLTRB(10, 1, 10, 10),
-      padding: const EdgeInsets.fromLTRB(10,1,10,10),
-      color: Colors.white,
-      child: SingleChildScrollView(
-        child: Column(
+        height: 800,
+        margin: const EdgeInsets.fromLTRB(10, 1, 10, 10),
+        padding: const EdgeInsets.fromLTRB(10, 1, 10, 10),
+        color: Colors.white,
+        child: SingleChildScrollView(
+          child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "Emergency Alerts",
+                  style: TextStyle(color: Colors.cyan, fontSize: 44),
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(
+                  height: 25,
+                ),
+                Row(
+                  children: [
+                    Text(
+                      "HUM: ",
+                      style:
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    ),
+                    Text(
+                      alert['HUM'] == null ? "" : alert['HUM'],
+                      // sensors['temp']?? "",
 
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              "Emergency Alerts",
-              style: TextStyle(color: Colors.cyan, fontSize: 44),
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(
-              height: 25,
-            ),
-            Row(
-              children: [
-                Text(
-                  "HUM: ",
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+                    ),
+                  ],
                 ),
-                Text(
-                  alert['HUM'] == null ? "" : alert['HUM'],
-                  // sensors['temp']?? "",
-      
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+                const SizedBox(
+                  height: 5,
                 ),
-              ],
-            ),
-            const SizedBox(
-              height: 5,
-            ),
-            Row(
-              children: [
-                Text(
-                  "CO: ",
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                Row(
+                  children: [
+                    Text(
+                      "CO: ",
+                      style:
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    ),
+                    Text(
+                      alert['CO'] ?? "",
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+                    ),
+                  ],
                 ),
-                Text(
-                  alert['CO'] ?? "",
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+                const SizedBox(
+                  height: 5,
                 ),
-              ],
-            ),
-            const SizedBox(
-              height: 5,
-            ),
-            Row(
-              children: [
-                Text(
-                  "LPG: ",
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                Row(
+                  children: [
+                    Text(
+                      "LPG: ",
+                      style:
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    ),
+                    Text(
+                      alert['LPG'] ?? "",
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+                    ),
+                  ],
                 ),
-                Text(
-                  alert['LPG'] ?? "",
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+                const SizedBox(
+                  height: 5,
                 ),
-              ],
-            ),
-            const SizedBox(
-              height: 5,
-            ),
-            Row(
-              children: [
-                Text(
-                  "TEMP: ",
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                ),
-                Text(
-                  alert['TEMP'] == null ? "" : alert['TEMP'] + ' °C',
-                  // sensors['temp']?? "",
-      
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
-                ),
-              ],
-            ),
-            const SizedBox(
-              height: 5,
-            ),
-            Row(
-              children: [
-                Text(
-                  "Fall Detector: ",
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                ),
-                Text(
-                  alert['fall'] == null ? "" : alert['fall'],
-                
-      
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
-                ),
-              ],
-            ),
-            const SizedBox(
-              height: 5,
-            ),
-            Row(
-              children: [
-                Text(
-                  "object Falling Detector: ",
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                ),
-                Text(
-                  alert['ultrasonic'] == null ? "" : alert['ultrasonic'],
-                  // sensors['temp']?? "",
-      
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
-                ),
-              ],
-            ),
-            const SizedBox(
-              height: 5,
-            ),
-          ]
-        ),
-      ));     
-          }
+                Row(
+                  children: [
+                    Text(
+                      "TEMP: ",
+                      style:
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    ),
+                    Text(
+                      alert['TEMP'] == null ? "" : alert['TEMP'] + ' °C',
+                      // sensors['temp']?? "",
 
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  height: 5,
+                ),
+                Row(
+                  children: [
+                    Text(
+                      "Fall Detector: ",
+                      style:
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    ),
+                    Text(
+                      alert['fall'] == null ? "" : alert['fall'],
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  height: 5,
+                ),
+                Row(
+                  children: [
+                    Text(
+                      "object Falling Detector: ",
+                      style:
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    ),
+                    Text(
+                      alert['ultrasonic'] == null ? "" : alert['ultrasonic'],
+                      // sensors['temp']?? "",
 
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  height: 5,
+                ),
+              ]),
+        ));
+  }
 
   //         Text(
   //           "Received Data from Sensors",

@@ -46,10 +46,18 @@ class _TrackingState extends State<Tracking> {
           width: 3,
           points: [
 
-            LatLng(positions[0].latitude1, positions[0].longitude1),
-           LatLng(positions[1].latitude1, positions[1].longitude1),
-            LatLng(positions[2].latitude1, positions[2].longitude1),
-            LatLng(positions[3].latitude1, positions[3].longitude1),
+          // LatLng(positions[0].latitude1, positions[0].longitude1),
+          //  LatLng(positions[1].latitude1, positions[1].longitude1),
+          //   LatLng(positions[2].latitude1, positions[2].longitude1),
+          //   LatLng(positions[3].latitude1, positions[3].longitude1),
+            
+            for (int i = 0; i < pos.length; i++)
+                LatLng(pos[i].latitude1, pos[i].longitude1),
+
+            // LatLng(31.205700607192632, 29.925107233350353),
+            // LatLng(31.20589419729555, 29.922933804084426),
+            // LatLng(31.206428979996314, 29.921243671893173),
+            // LatLng(31.205200646477095, 29.919690313405248),
           ],
           patterns: [
             PatternItem.dash(20),
