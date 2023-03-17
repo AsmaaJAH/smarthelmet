@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:smarthelmet/shared/constants/Constants.dart';
@@ -17,11 +19,23 @@ class Tracking extends StatefulWidget {
   State<Tracking> createState() => _TrackingState();
 }
 
+void checkDatabaseValues() {
+  Timer.periodic(
+      const Duration(seconds: 1), (Timer t) => readRealTimeDatabase());
+  // LatLng pos = LatLng(double.tryParse('${gpsTable['latitude1']}' ?? '') ?? 0.0, double.tryParse('${gpsTable['longitude1']}' ?? '') ?? 0.0);
+}
+
 class _TrackingState extends State<Tracking> {
   var myMarkers = HashSet<Marker>(); //collection
   List<Polyline> myPolyline = [];
   late BitmapDescriptor myIcon;
 
+  // List<LatLng> latlong = [
+  //   // LatLng(double.tryParse('${gpsTable['latitude1']}') ?? 0.0,
+  //   //     double.tryParse('${gpsTable['longitude1']}') ?? 0.0),
+  //   // LatLng(double.tryParse('${gpsTable['latitude1']}') ?? 0.0,
+  //   //     double.tryParse('${gpsTable['longitude1']}') ?? 0.0),
+  // ];
   @override
   void initState() {
     super.initState();
@@ -35,33 +49,37 @@ class _TrackingState extends State<Tracking> {
     });
   }
 
-  List<LatLng> list_positions() {
-   for (int i = 0; i < pos.length +1 ; i++){
-    
-            LatLng(31.205700607192632, 29.925107233350353),
-            LatLng(31.20589419729555, 29.922933804084426),
-            LatLng(31.206428979996314, 29.921243671893173),
-            LatLng(31.205200646477095, 29.919690313405248),
-        print(pos[i].toString());
-   }
+  // var x = LatLng(31.205700607192632, 29.925107233350353);
+  // var y = LatLng(31.20589419729555, 29.922933804084426);
+  // var z = LatLng(31.206428979996314, 29.921243671893173);
+  // var a = LatLng(31.205200646477095, 29.919690313405248);
 
-    return pos;
+  //  List<LatLng> latlong = [LatLng(31.205700607192632, 29.925107233350353)];
+
+  list_positions() {
+    for (int i = 0; i < 10; i++) {
+      latlong[i] = LatLng(
+          double.tryParse('${gpsTable['latitude1']}' ?? '') ?? 0.0,
+          double.tryParse('${gpsTable['longitude1']}' ?? '') ?? 0.0);
+    }
+
+    print(latlong.toString());
   }
 
   createPloyLine() {
+    list_positions();
     myPolyline.add(
       Polyline(
           polylineId: PolylineId('1'),
           color: Colors.blue,
           width: 3,
-          points: list_positions,
-              
+          points: latlong,
 
-            //LatLng(31.205700607192632, 29.925107233350353),
-            //LatLng(31.20589419729555, 29.922933804084426),
-            //LatLng(31.206428979996314, 29.921243671893173),
-            //LatLng(31.205200646477095, 29.919690313405248),
-          
+          //LatLng(31.205700607192632, 29.925107233350353),
+          //LatLng(31.20589419729555, 29.922933804084426),
+          //LatLng(31.206428979996314, 29.921243671893173),
+          //LatLng(31.205200646477095, 29.919690313405248),
+
           patterns: [
             PatternItem.dash(20),
             PatternItem.gap(10),

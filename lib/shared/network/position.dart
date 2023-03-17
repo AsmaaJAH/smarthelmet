@@ -18,6 +18,12 @@ Map<String, List<String>> table = {
     'longitude1',
   ],
 };
+List<LatLng> latlong = [
+  // LatLng(double.tryParse('${gpsTable['latitude1']}') ?? 0.0,
+  //     double.tryParse('${gpsTable['longitude1']}') ?? 0.0),
+  // LatLng(double.tryParse('${gpsTable['latitude1']}') ?? 0.0,
+  //     double.tryParse('${gpsTable['longitude1']}') ?? 0.0),
+];
 void readRealTimeDatabase() async {
   table.forEach((key, value) async {
     Query dbRef = FirebaseDatabase.instance.ref().child(key);
@@ -25,13 +31,17 @@ void readRealTimeDatabase() async {
       if (key == "gps") {
         gpsTable = event.snapshot.value as Map<Object?, Object?>;
         positions.add(new position(
-            latitude1: double.tryParse('${gpsTable['latitude1']}' ?? '') ?? 0.0,
-            longitude1:
-                double.tryParse('${gpsTable['longitude1']}' ?? '') ?? 0.0));
+            latitude1: double.tryParse('${gpsTable['latitude1']}') ?? 0.0,
+            longitude1: double.tryParse('${gpsTable['longitude1']}') ?? 0.0));
         positions[1] = position(
-            latitude1: double.tryParse('${gpsTable['latitude1']}' ?? '') ?? 0.0,
-            longitude1:
-                double.tryParse('${gpsTable['longitude1']}' ?? '') ?? 0.0);
+            latitude1: double.tryParse('${gpsTable['latitude1']}') ?? 0.0,
+            longitude1: double.tryParse('${gpsTable['longitude1']}') ?? 0.0);
+
+        for (int i = 0; i < 10; i++) {
+          latlong[i] = LatLng(
+              double.tryParse('${gpsTable['latitude1']}' ?? '') ?? 0.0,
+              double.tryParse('${gpsTable['longitude1']}' ?? '') ?? 0.0);
+        }
         print(positions[1].toString());
       }
     });
@@ -44,4 +54,3 @@ List<position> positions = [
       longitude1: double.tryParse('${gpsTable['longitude1']}' ?? '') ?? 0.0),
   // position(latitude1: 0.0    , longitude1: 0.0 ),
 ];
-List<LatLng> pos = [];
