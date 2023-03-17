@@ -1,8 +1,10 @@
-import 'dart:math';
-import 'dart:developer';
+import 'dart:async';
 
 import 'package:firebase_database/firebase_database.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
+
+double lat = 0.0;
+double long = 0.0;
+int len=4;
 
 class position {
   double latitude1;
@@ -18,39 +20,50 @@ Map<String, List<String>> table = {
     'longitude1',
   ],
 };
-List<LatLng> latlong = [
-  // LatLng(double.tryParse('${gpsTable['latitude1']}') ?? 0.0,
-  //     double.tryParse('${gpsTable['longitude1']}') ?? 0.0),
-  // LatLng(double.tryParse('${gpsTable['latitude1']}') ?? 0.0,
-  //     double.tryParse('${gpsTable['longitude1']}') ?? 0.0),
-];
 void readRealTimeDatabase() async {
   table.forEach((key, value) async {
     Query dbRef = FirebaseDatabase.instance.ref().child(key);
     await dbRef.onValue.listen((event) {
       if (key == "gps") {
         gpsTable = event.snapshot.value as Map<Object?, Object?>;
-        positions.add(new position(
-            latitude1: double.tryParse('${gpsTable['latitude1']}') ?? 0.0,
-            longitude1: double.tryParse('${gpsTable['longitude1']}') ?? 0.0));
-        positions[1] = position(
-            latitude1: double.tryParse('${gpsTable['latitude1']}') ?? 0.0,
-            longitude1: double.tryParse('${gpsTable['longitude1']}') ?? 0.0);
+        // positions.add(new position(
+        //     latitude1:
+        //         double.tryParse('${gpsTable['latitude1']}' ?? '') ?? 0.0,
+        //     longitude1:
+        //         double.tryParse('${gpsTable['longitude1']}' ?? '') ?? 0.0));
+        
+        
+        //lat = double.tryParse('${gpsTable['latitude1']}' ?? '') ?? 0.0;
+        //long = double.tryParse('${gpsTable['longitude1']}' ?? '') ?? 0.0;
 
-        for (int i = 0; i < 10; i++) {
-          latlong[i] = LatLng(
-              double.tryParse('${gpsTable['latitude1']}' ?? '') ?? 0.0,
-              double.tryParse('${gpsTable['longitude1']}' ?? '') ?? 0.0);
-        }
-        print(positions[1].toString());
+
+        positions[0].latitude1 = double.tryParse('${gpsTable['latitude1']}' ?? '') ?? 0.0;
+        positions[0].longitude1 = double.tryParse('${gpsTable['longitude1']}' ?? '') ?? 0.0;
+
+
+        positions[1].latitude1 = double.tryParse('${gpsTable['latitude2']}' ?? '') ?? 0.0;
+        positions[1].longitude1 = double.tryParse('${gpsTable['longitude2']}' ?? '') ?? 0.0;
+
+        positions[2].latitude1 = double.tryParse('${gpsTable['latitude3']}' ?? '') ?? 0.0;
+        positions[2].longitude1 = double.tryParse('${gpsTable['longitude3']}' ?? '') ?? 0.0;
+
+        positions[3].latitude1 = double.tryParse('${gpsTable['latitude4']}' ?? '') ?? 0.0;
+        positions[3].longitude1 = double.tryParse('${gpsTable['longitude4']}' ?? '') ?? 0.0;
+
+
       }
     });
   });
 }
-
+// void checkDatabaseValues() {
+//   Timer.periodic(
+//       const Duration(seconds: 1), (Timer t) => readRealTimeDatabase());
+// for (int i = 0; i <= len; i++){
+//  positions[i].latitude1=lat;
+//  positions[i].longitude1=long;
+// }
+// }
 List<position> positions = [
-  position(
-      latitude1: double.tryParse('${gpsTable['latitude1']}' ?? '') ?? 0.0,
-      longitude1: double.tryParse('${gpsTable['longitude1']}' ?? '') ?? 0.0),
+  //position(latitude1: double.tryParse('${gpsTable['latitude1']}' ?? '') ?? 0.0    , longitude1: double.tryParse('${gpsTable['longitude1']}' ?? '') ?? 0.0 ),
   // position(latitude1: 0.0    , longitude1: 0.0 ),
 ];
