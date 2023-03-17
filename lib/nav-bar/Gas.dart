@@ -69,7 +69,7 @@ void readRealTimeDatabase() async {
                 child: KdGaugeView(
                   minSpeed: 0,
                   maxSpeed: 10000,
-                  speed: double.tryParse('${sensorsTable['LPG PPM value']}' ?? '') ?? 0.0 ,
+                  speed: double.parse('${sensorsTable['CO PPM value']} '.toString() ),
                   animate: true,
                   duration: Duration(seconds: 5),
                   alertSpeedArray: [600, 1000, 2000],
@@ -89,7 +89,7 @@ void readRealTimeDatabase() async {
                 child: KdGaugeView(
                   minSpeed: 0,
                   maxSpeed: 10000,
-                  speed: double.tryParse('${sensorsTable['LPG PPM value']}' ?? '') ?? 0.0 ,
+                  speed: double.parse('${sensorsTable['LPG PPM value']} '.toString() ),
                   animate: true,
                   duration: Duration(seconds: 5),
                   alertSpeedArray: [600, 1000, 2000],
