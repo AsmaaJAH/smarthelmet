@@ -17,10 +17,13 @@ class Tracking extends StatefulWidget {
   State<Tracking> createState() => _TrackingState();
 }
 
+
 class _TrackingState extends State<Tracking> {
+
   var myMarkers = HashSet<Marker>(); //collection
   List<Polyline> myPolyline = [];
   late BitmapDescriptor myIcon;
+
 
   @override
   void initState() {
@@ -35,33 +38,23 @@ class _TrackingState extends State<Tracking> {
     });
   }
 
-  List<LatLng> list_positions() {
-   for (int i = 0; i < pos.length +1 ; i++){
-    
-            LatLng(31.205700607192632, 29.925107233350353),
-            LatLng(31.20589419729555, 29.922933804084426),
-            LatLng(31.206428979996314, 29.921243671893173),
-            LatLng(31.205200646477095, 29.919690313405248),
-        print(pos[i].toString());
-   }
-
-    return pos;
-  }
-
   createPloyLine() {
     myPolyline.add(
       Polyline(
           polylineId: PolylineId('1'),
           color: Colors.blue,
           width: 3,
-          points: list_positions,
-              
+          points: [
 
-            //LatLng(31.205700607192632, 29.925107233350353),
-            //LatLng(31.20589419729555, 29.922933804084426),
-            //LatLng(31.206428979996314, 29.921243671893173),
-            //LatLng(31.205200646477095, 29.919690313405248),
-          
+            
+            for (int i = 0; i < positions.length; i++)
+                LatLng(positions[i].latitude1, positions[i].longitude1),
+
+            LatLng(31.205700607192632, 29.925107233350353),
+            LatLng(31.20589419729555, 29.922933804084426),
+            LatLng(31.206428979996314, 29.921243671893173),
+            LatLng(31.205200646477095, 29.919690313405248),
+          ],
           patterns: [
             PatternItem.dash(20),
             PatternItem.gap(10),
