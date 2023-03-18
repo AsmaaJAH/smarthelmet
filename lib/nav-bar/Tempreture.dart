@@ -20,7 +20,7 @@ class _TempretureScreenState extends State<TempretureScreen>
 
   Map<Object?, Object?> alertTable = {};
   Map<Object?, Object?> sensorsTable = {};
-  void readRealTimeDatabase() async {
+  void read() async {
     tables.forEach((key, value) async {
       Query dbRef = FirebaseDatabase.instance.ref().child(key);
       await dbRef.onValue.listen((event) {
@@ -51,7 +51,7 @@ class _TempretureScreenState extends State<TempretureScreen>
 
   @override
   void initState() {
-    readRealTimeDatabase();
+    read();
     temp = double.tryParse('${sensorsTable['temp']}' ?? '') ?? 0.0;
 
     double humdity = 100;

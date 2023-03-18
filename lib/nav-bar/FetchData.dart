@@ -24,7 +24,9 @@ class _FetchDataState extends State<FetchData> with TickerProviderStateMixin {
   final dataBase = FirebaseDatabase.instance.ref();
   late Animation<double> tempAnimation;
   late AnimationController progressController;
-
+  
+  
+  Map<Object?, Object?> gpsTable = {};
   Map<Object?, Object?> alertTable = {};
   Map<Object?, Object?> sensorsTable = {};
 
@@ -41,60 +43,74 @@ class _FetchDataState extends State<FetchData> with TickerProviderStateMixin {
           sensorsTable = event.snapshot.value as Map<Object?, Object?>;
         } else if (key == "gps") {
           gpsTable = event.snapshot.value as Map<Object?, Object?>;
-          positions[0].latitude1 =
+          positions[0].latitude =
               double.tryParse('${gpsTable['latitude1']}' ?? '') ?? 0.0;
-          positions[0].longitude1 =
+          positions[0].longitude =
               double.tryParse('${gpsTable['longitude1']}' ?? '') ?? 0.0;
-          pos[i].latitude1 = positions[0].latitude1;
-          pos[i].longitude1 = positions[0].longitude1;
+          pos[i].latitude = positions[0].latitude;
+          pos[i].longitude = positions[0].longitude;
           print("-------------++++++----------------------------");
-          print('${pos[i].latitude1}');
+          print('${pos[i].latitude}');
           i++;
 
-          positions[1].latitude1 =
+          positions[1].latitude =
               double.tryParse('${gpsTable['latitude2']}' ?? '') ?? 0.0;
-          positions[1].longitude1 =
+          positions[1].longitude =
               double.tryParse('${gpsTable['longitude2']}' ?? '') ?? 0.0;
-          pos[i].latitude1 = positions[1].latitude1;
-          pos[i].longitude1 = positions[1].longitude1;
+          pos[i].latitude = positions[1].latitude;
+          pos[i].longitude = positions[1].longitude;
           print("-------------++++++----------------------------");
-          print('${pos[i].latitude1}');
+          print('${pos[i].latitude}');
           i++;
 
-          positions[2].latitude1 =
+          positions[2].latitude =
               double.tryParse('${gpsTable['latitude3']}' ?? '') ?? 0.0;
-          positions[2].longitude1 =
+          positions[2].longitude =
               double.tryParse('${gpsTable['longitude3']}' ?? '') ?? 0.0;
-          pos[i].latitude1 = positions[2].latitude1;
-          pos[i].longitude1 = positions[2].longitude1;
+          pos[i].latitude = positions[2].latitude;
+          pos[i].longitude = positions[2].longitude;
           print("-------------++++++----------------------------");
-          print('${pos[i].latitude1}');
+          print('${pos[i].latitude}');
           i++;
 
-          positions[3].latitude1 =
+          positions[3].latitude =
               double.tryParse('${gpsTable['latitude4']}' ?? '') ?? 0.0;
-          positions[3].longitude1 =
+          positions[3].longitude =
               double.tryParse('${gpsTable['longitude4']}' ?? '') ?? 0.0;
-          pos[i].latitude1 = positions[3].latitude1;
-          pos[i].longitude1 = positions[3].longitude1;
+          pos[i].latitude = positions[3].latitude;
+          pos[i].longitude = positions[3].longitude;
           print("-------------++++++----------------------------");
-          print('${pos[i].latitude1}');
+          print('${pos[i].latitude}');
           i++;
         }
         setState(() {});
+
       });
     });
   }
 
   Map<String, List<String>> tables = {
     "ALERT": ['HUM', 'LPG', 'CO', 'TEMP'],
-    "sensors": ['CO PPM value', 'Humdity', 'LPG PPM value', 'temp']
+    "sensors": ['CO PPM value', 'Humdity', 'LPG PPM value', 'temp'],
+      "gps": [
+    'latitude1',
+    'longitude1',
+
+     'latitude2',
+    'longitude2',
+
+     'latitude3',
+    'longitude3',
+
+     'latitude4',
+    'longitude4',
+  ],
   };
 
   @override
   void initState() {
     readRealTimeDatabase();
-    readData();
+    //readData();
 
     super.initState();
   }

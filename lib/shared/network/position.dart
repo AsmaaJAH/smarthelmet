@@ -3,74 +3,74 @@ import 'package:firebase_database/firebase_database.dart';
 int i = 0;
 
 class position {
-  double latitude1;
-  double longitude1;
-  position({required this.latitude1, required this.longitude1});
+  double latitude;
+  double longitude;
+  position({required this.latitude, required this.longitude});
 }
 
-final dataBase = FirebaseDatabase.instance.ref();
-Map<Object?, Object?> gpsTable = {};
-Map<String, List<String>> table = {
-  "gps": [
-    'latitude1',
-    'longitude1',
-  ],
-};
-void readData() async {
-  table.forEach((key, value) async {
-    Query dbRef = FirebaseDatabase.instance.ref().child(key);
-    await dbRef.onValue.listen((event) {
-      if (key == "gps") {
-        gpsTable = event.snapshot.value as Map<Object?, Object?>;
-        positions.add(new position(
-            latitude1: double.tryParse('${gpsTable['latitude1']}' ?? '') ?? 0.0,
-            longitude1:
-                double.tryParse('${gpsTable['longitude1']}' ?? '') ?? 0.0));
-        positions[0].latitude1 =
-            double.tryParse('${gpsTable['latitude1']}' ?? '') ?? 0.0;
-        positions[0].longitude1 =
-            double.tryParse('${gpsTable['longitude1']}' ?? '') ?? 0.0;
-        pos[i].latitude1 = positions[0].latitude1;
-        pos[i].longitude1 = positions[0].longitude1;
-        print("-------------++++++----------------------------");
-        print('${pos[i].latitude1}');
-        i++;
+// final dataBase = FirebaseDatabase.instance.ref();
+// Map<Object?, Object?> gpsTable = {};
+// Map<String, List<String>> table = {
+//   "gps": [
+//     'latitude1',
+//     'longitude1',
+//   ],
+// };
+// void readData() async {
+//   table.forEach((key, value) async {
+//     Query dbRef = FirebaseDatabase.instance.ref().child(key);
+//     await dbRef.onValue.listen((event) {
+//       if (key == "gps") {
+//         gpsTable = event.snapshot.value as Map<Object?, Object?>;
+//         positions.add(new position(
+//             latitude1: double.tryParse('${gpsTable['latitude1']}' ?? '') ?? 0.0,
+//             longitude1:
+//                 double.tryParse('${gpsTable['longitude1']}' ?? '') ?? 0.0));
+//         positions[0].latitude1 =
+//             double.tryParse('${gpsTable['latitude1']}' ?? '') ?? 0.0;
+//         positions[0].longitude1 =
+//             double.tryParse('${gpsTable['longitude1']}' ?? '') ?? 0.0;
+//         pos[i].latitude1 = positions[0].latitude1;
+//         pos[i].longitude1 = positions[0].longitude1;
+//         print("-------------++++++----------------------------");
+//         print('${pos[i].latitude1}');
+//         i++;
 
-        positions[1].latitude1 =
-            double.tryParse('${gpsTable['latitude2']}' ?? '') ?? 0.0;
-        positions[1].longitude1 =
-            double.tryParse('${gpsTable['longitude2']}' ?? '') ?? 0.0;
-        pos[i].latitude1 = positions[1].latitude1;
-        pos[i].longitude1 = positions[1].longitude1;
-        print("-------------++++++----------------------------");
-        print('${pos[i].latitude1}');
-        i++;
+//         positions[1].latitude1 =
+//             double.tryParse('${gpsTable['latitude2']}' ?? '') ?? 0.0;
+//         positions[1].longitude1 =
+//             double.tryParse('${gpsTable['longitude2']}' ?? '') ?? 0.0;
+//         pos[i].latitude1 = positions[1].latitude1;
+//         pos[i].longitude1 = positions[1].longitude1;
+//         print("-------------++++++----------------------------");
+//         print('${pos[i].latitude1}');
+//         i++;
 
-        positions[2].latitude1 =
-            double.tryParse('${gpsTable['latitude3']}' ?? '') ?? 0.0;
-        positions[2].longitude1 =
-            double.tryParse('${gpsTable['longitude3']}' ?? '') ?? 0.0;
-        pos[i].latitude1 = positions[2].latitude1;
-        pos[i].longitude1 = positions[2].longitude1;
-        print("-------------++++++----------------------------");
-        print('${pos[i].latitude1}');
-        i++;
+//         positions[2].latitude1 =
+//             double.tryParse('${gpsTable['latitude3']}' ?? '') ?? 0.0;
+//         positions[2].longitude1 =
+//             double.tryParse('${gpsTable['longitude3']}' ?? '') ?? 0.0;
+//         pos[i].latitude1 = positions[2].latitude1;
+//         pos[i].longitude1 = positions[2].longitude1;
+//         print("-------------++++++----------------------------");
+//         print('${pos[i].latitude1}');
+//         i++;
 
-        positions[3].latitude1 =
-            double.tryParse('${gpsTable['latitude4']}' ?? '') ?? 0.0;
-        positions[3].longitude1 =
-            double.tryParse('${gpsTable['longitude4']}' ?? '') ?? 0.0;
-        pos[i].latitude1 = positions[3].latitude1;
-        pos[i].longitude1 = positions[3].longitude1;
-        print("-------------++++++----------------------------");
-        print('${pos[i].latitude1}');
-        i++;
+//         positions[3].latitude1 =
+//             double.tryParse('${gpsTable['latitude4']}' ?? '') ?? 0.0;
+//         positions[3].longitude1 =
+//             double.tryParse('${gpsTable['longitude4']}' ?? '') ?? 0.0;
+//         pos[i].latitude1 = positions[3].latitude1;
+//         pos[i].longitude1 = positions[3].longitude1;
+//         print("-------------++++++----------------------------");
+//         print('${pos[i].latitude1}');
+//         i++;
 
-      
-      }
-    });
-  });
-}
+//       }
+//     });
+//   });
+// }
+
 
 List<position> positions = [
   //position(latitude1: double.tryParse('${gpsTable['latitude1']}' ?? '') ?? 0.0    , longitude1: double.tryParse('${gpsTable['longitude1']}' ?? '') ?? 0.0 ),
