@@ -1,16 +1,15 @@
-import 'package:flutter/material.dart';
-import 'package:smarthelmet/modules/SignIn/SignIn.dart';
-import 'package:smarthelmet/shared/constants/Constants.dart';
-import 'package:smarthelmet/shared/functions/shared_function.dart';
-import 'package:smarthelmet/shared/network/local/cache_helper.dart';
 
-class LogOutScreen extends StatelessWidget {
+import 'package:flutter/material.dart';
+import 'package:smarthelmet/shared/constants/colors.dart';
+
+class FallDetection extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'Log out',
+          'Fall Detection',
           style: TextStyle(
             fontSize: 22.0,
             fontWeight: FontWeight.bold,
@@ -23,8 +22,7 @@ class LogOutScreen extends StatelessWidget {
         elevation: 0.0,
         leading: IconButton(
           onPressed: () {
-            navigateAndFinish(context, SignInScreen());
-            CachHelper.removeAllData();
+            Navigator.pop(context);
           },
           icon: const Icon(Icons.arrow_back_ios_new),
         ),

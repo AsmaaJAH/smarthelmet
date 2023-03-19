@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:smarthelmet/modules/home-page/HomePage.dart';
-import 'package:smarthelmet/modules/signup/SignUp.dart';
-import 'package:smarthelmet/shared/functions/component.dart';
-import 'package:smarthelmet/shared/functions/shared_function.dart';
+import 'package:smarthelmet/screens/home-page/HomePage.dart';
+import 'package:smarthelmet/screens/signup/SignUp.dart';
+import 'package:smarthelmet/shared/functions/showtoast.dart';
+import 'package:smarthelmet/shared/functions/navigation.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import '../../pageview.dart';

@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import '../../shared/functions/component.dart';
-import '../../shared/functions/shared_function.dart';
+import '../../shared/functions/showtoast.dart';
+import '../../shared/functions/navigation.dart';
 import '../SignIn/SignIn.dart';
 
 class ForgotPass extends StatefulWidget {

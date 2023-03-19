@@ -2,8 +2,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:smarthelmet/modules/SignIn/SignIn.dart';
-import 'package:smarthelmet/shared/functions/shared_function.dart';
+import 'package:smarthelmet/screens/SignIn/SignIn.dart';
+import 'package:smarthelmet/shared/functions/navigation.dart';
 import '../../models/userModel.dart';
 import 'passwordcheck.dart';
 

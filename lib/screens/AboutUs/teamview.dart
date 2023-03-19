@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:smarthelmet/modules/AboutUs/teamcard.dart';
-import 'package:smarthelmet/modules/AboutUs/teammembers.dart';
+import 'package:smarthelmet/screens/AboutUs/teamcard.dart';
+import 'package:smarthelmet/screens/AboutUs/teammembers.dart';
 
 class TeamViewScreen extends StatefulWidget {
   @override

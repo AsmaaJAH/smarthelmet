@@ -3,11 +3,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:smarthelmet/shared/functions/shared_function.dart';
+import 'package:smarthelmet/shared/functions/navigation.dart';
 import 'dart:io';
 import '../../models/workerModel.dart';
 import '../../pageview.dart';
-import '../../shared/functions/component.dart';
+import '../../shared/functions/showtoast.dart';
 import 'package:path/path.dart' show basename;
 
 class AddWorker extends StatefulWidget {
@@ -17,11 +17,23 @@ class AddWorker extends StatefulWidget {
   State<AddWorker> createState() => _AddWorkerState();
 }
 
+class TextFieldData {
+  late TextEditingController controller;
+  late TextInputType type;
+  late String lable;
+  TextFieldData(
+      {required this.controller, required this.lable, required this.type});
+}
+
 class _AddWorkerState extends State<AddWorker> {
   final workercollection = FirebaseFirestore.instance.collection("Workers");
-  var firstnameController = TextEditingController();
-  var lastnameController = TextEditingController();
-  var ageController = TextEditingController();
+  TextEditingController firstnameController = TextEditingController();
+  TextEditingController lastnameController = TextEditingController();
+  TextEditingController bloodgroupController = TextEditingController();
+  TextEditingController workeraddressController = TextEditingController();
+  TextEditingController contactnumberController = TextEditingController();
+  TextEditingController workernumberController = TextEditingController();
+  TextEditingController ageController = TextEditingController();
   var formKey = GlobalKey<FormState>();
 
   bool loading = false;
@@ -30,6 +42,35 @@ class _AddWorkerState extends State<AddWorker> {
   String? uid;
   String? workerimg;
 
+  late List<TextFieldData> Data = [
+    TextFieldData(
+        controller: firstnameController,
+        lable: 'First Name',
+        type: TextInputType.name),
+    TextFieldData(
+        controller: lastnameController,
+        lable: 'Last Name',
+        type: TextInputType.name),
+    TextFieldData(
+        controller: bloodgroupController,
+        lable: 'Blood Group',
+        type: TextInputType.name),
+    TextFieldData(
+        controller: workeraddressController,
+        lable: 'Address',
+        type: TextInputType.streetAddress),
+    TextFieldData(
+        controller: contactnumberController,
+        lable: 'Contact Number',
+        type: TextInputType.phone),
+    TextFieldData(
+        controller: workernumberController,
+        lable: 'Worker Number',
+        type: TextInputType.phone),
+    TextFieldData(
+        controller: ageController, lable: 'age', type: TextInputType.number),
+  ];
+
   addworker() async {
     setState(() {
       loading = true;
@@ -37,6 +78,10 @@ class _AddWorkerState extends State<AddWorker> {
     WorkerModel worker = WorkerModel(
       firstName: firstnameController.text,
       lastName: lastnameController.text,
+      bloodgroup: bloodgroupController.text,
+      address: workeraddressController.text,
+      contactnumber: contactnumberController.text,
+      workernumber: workernumberController.text,
       imgurl: workerimg!,
       age: ageController.text,
     );
@@ -154,6 +199,10 @@ class _AddWorkerState extends State<AddWorker> {
   void dispose() {
     firstnameController.dispose();
     lastnameController.dispose();
+    bloodgroupController.dispose();
+    workeraddressController.dispose();
+    contactnumberController.dispose();
+    workernumberController.dispose();
     ageController.dispose();
     super.dispose();
   }
@@ -227,57 +276,28 @@ class _AddWorkerState extends State<AddWorker> {
                                           showmodel();
                                         },
                                         icon: Icon(Icons.add_a_photo),
+                                        color: Colors.white,
                                       )
                                     : IconButton(
                                         onPressed: () {
                                           showmodel();
                                         },
                                         icon: Icon(Icons.edit),
+                                        color: Colors.white,
                                       ))),
                       ]),
                     ),
                     Container(
                       height: MediaQuery.of(context).size.height * .05,
                     ),
-                    TextFormField(
-                        controller: firstnameController,
-                        validator: (value) {
-                          if (value!.isEmpty) return 'This field is requreid';
-                        },
-                        keyboardType: TextInputType.text,
-                        decoration: const InputDecoration(
-                          labelText: 'First name',
-                          border: OutlineInputBorder(),
-                        )),
                     Container(
-                      height: MediaQuery.of(context).size.height * .03,
-                    ),
-                    TextFormField(
-                        controller: lastnameController,
-                        validator: (value) {
-                          if (value!.isEmpty) return 'This field is requreid';
-                        },
-                        keyboardType: TextInputType.text,
-                        decoration: const InputDecoration(
-                          labelText: 'Last name',
-                          border: OutlineInputBorder(),
-                        )),
-                    Container(
-                      height: MediaQuery.of(context).size.height * .03,
-                    ),
-                    TextFormField(
-                        controller: ageController,
-                        validator: (value) {
-                          if (value!.isEmpty) return 'This field is requreid';
-                        },
-                        keyboardType: TextInputType.text,
-                        decoration: const InputDecoration(
-                          labelText: 'age',
-                          border: OutlineInputBorder(),
-                        )),
-                    Container(
-                      height: MediaQuery.of(context).size.height * .03,
-                    ),
+                        height: MediaQuery.of(context).size.height * .5,
+                        child: ListView.builder(
+                            itemCount: Data.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              return textfield(Data[index].controller,
+                                  Data[index].type, Data[index].lable, context);
+                            })),
                   ],
                 ),
               ],
@@ -335,4 +355,25 @@ class _AddWorkerState extends State<AddWorker> {
       ),
     );
   }
+}
+
+Widget textfield(TextEditingController controller, TextInputType type,
+    String lable, BuildContext context) {
+  return Column(
+    children: [
+      TextFormField(
+          controller: controller,
+          validator: (value) {
+            if (value!.isEmpty) return 'This field is requreid';
+          },
+          keyboardType: type,
+          decoration: InputDecoration(
+            labelText: lable,
+            border: OutlineInputBorder(),
+          )),
+      Container(
+        height: MediaQuery.of(context).size.height * .03,
+      )
+    ],
+  );
 }

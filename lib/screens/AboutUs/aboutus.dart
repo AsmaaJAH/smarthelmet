@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:smarthelmet/modules/AboutUs/teamview.dart';
-import 'package:smarthelmet/shared/functions/shared_function.dart';
+import 'package:smarthelmet/screens/AboutUs/teamview.dart';
+import 'package:smarthelmet/shared/functions/navigation.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:readmore/readmore.dart';

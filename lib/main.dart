@@ -1,6 +1,6 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
-import 'package:smarthelmet/modules/SignIn/SignIn.dart';
+import 'package:smarthelmet/screens/SignIn/SignIn.dart';
 // ignore_for_file: prefer_equal_for_default_values
 import 'package:firebase_core/firebase_core.dart';
 import 'package:smarthelmet/pageview.dart';

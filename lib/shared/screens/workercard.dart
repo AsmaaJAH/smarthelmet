@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:smarthelmet/modules/home-page/workerdata.dart';
-import 'package:smarthelmet/shared/functions/shared_function.dart';
-import '../../nav-bar/FetchData.dart';
+import 'package:smarthelmet/shared/functions/navigation.dart';
+import 'FetchData.dart';
 
 class WorkerCard extends StatefulWidget {
-  WorkerData worker;
-  WorkerCard({required this.worker});
+  late AsyncSnapshot<dynamic> snapshot;
+  late int index;
+  WorkerCard({required this.snapshot, required this.index});
 
   @override
   State<WorkerCard> createState() => _WorkerCardState();
@@ -20,7 +20,8 @@ class _WorkerCardState extends State<WorkerCard> {
         navigateTo(
             context,
             FetchData(
-              worker: widget.worker,
+              snapshot: widget.snapshot,
+              index: widget.index,
             ));
       },
       child: Container(
@@ -50,7 +51,7 @@ class _WorkerCardState extends State<WorkerCard> {
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(20),
                     child: Image.network(
-                      widget.worker.imgurl,
+                      widget.snapshot.data!.docs[widget.index]["imgurl"],
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -70,18 +71,18 @@ class _WorkerCardState extends State<WorkerCard> {
                           horizontal: 20,
                         ),
                         child: Text(
-                          'Name : ${widget.worker.firstName} ${widget.worker.lastName}',
+                          "Name : ${widget.snapshot.data!.docs[widget.index]["firstName"]} ${widget.snapshot.data!.docs[widget.index]["lastName"]}",
                           style: TextStyle(
-                              fontSize: 18, fontWeight: FontWeight.bold),
+                              fontSize: 20, fontWeight: FontWeight.bold),
                         ),
                       ),
                       Spacer(),
                       Padding(
                         padding: EdgeInsets.symmetric(horizontal: 20),
                         child: Text(
-                          'age     : ${widget.worker.age}',
+                          "age     : ${widget.snapshot.data!.docs[widget.index]["age"]}",
                           style: TextStyle(
-                              fontSize: 18, fontWeight: FontWeight.bold),
+                              fontSize: 20, fontWeight: FontWeight.bold),
                         ),
                       ),
                       Spacer()

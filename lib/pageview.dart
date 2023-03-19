@@ -1,10 +1,10 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
-import 'modules/AboutUs/aboutus.dart';
-import 'modules/searchScreen/search.dart';
-import 'modules/home-page/HomePage.dart';
-import 'modules/AddWorker/addWorker.dart';
-import 'modules/profile/profile.dart';
+import 'screens/AboutUs/aboutus.dart';
+import 'screens/searchScreen/search.dart';
+import 'screens/home-page/HomePage.dart';
+import 'screens/AddWorker/addWorker.dart';
+import 'screens/profile/profile.dart';
 
 class PageViewScreen extends StatefulWidget {
   const PageViewScreen({Key? key}) : super(key: key);

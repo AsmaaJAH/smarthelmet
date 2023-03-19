@@ -1,8 +1,8 @@
 
 import 'package:flutter/material.dart';
-import 'package:smarthelmet/shared/constants/Constants.dart';
+import 'package:smarthelmet/shared/constants/colors.dart';
 
-import '../shared/functions/CircleProgress.dart';
+import '../../shared/functions/CircleProgress.dart';
 
 class TempretureScreen extends StatefulWidget {
 

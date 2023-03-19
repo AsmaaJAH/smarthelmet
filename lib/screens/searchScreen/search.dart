@@ -2,7 +2,8 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:smarthelmet/modules/searchScreen/search_card.dart';
+
+import '../../shared/screens/workercard.dart';
 
 class SearchWorker extends StatefulWidget {
   const SearchWorker({Key? key}) : super(key: key);
@@ -67,7 +68,7 @@ class _SearchState extends State<SearchWorker> {
                         itemBuilder: (BuildContext context, int index) {
                           return Padding(
                             padding: const EdgeInsets.all(8.0),
-                            child: SearchCard(
+                            child: WorkerCard(
                               snapshot: snapshot,
                               index: index,
                             ),
