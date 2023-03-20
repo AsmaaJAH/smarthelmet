@@ -36,7 +36,6 @@ class _HumidityScrState extends State<HumidityScr> with TickerProviderStateMixin
   }
 
   Map<String, List<String>> tables = {
-    "ALERT": ['HUM', 'LPG', 'CO', 'TEMP'],
     "sensors": ['CO PPM value', 'Humdity', 'LPG PPM value', 'temp']
   };
 
