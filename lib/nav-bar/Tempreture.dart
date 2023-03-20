@@ -11,8 +11,7 @@ class TempretureScreen extends StatefulWidget {
   State<TempretureScreen> createState() => _TempretureScreenState();
 }
 
-class _TempretureScreenState extends State<TempretureScreen>
-    with TickerProviderStateMixin {
+class _TempretureScreenState extends State<TempretureScreen> with TickerProviderStateMixin {
   double temp = 20;
   final dataBase = FirebaseDatabase.instance.ref();
   late Animation<double> tempAnimation;

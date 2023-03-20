@@ -23,24 +23,6 @@ class _TrackingState extends State<Tracking> with TickerProviderStateMixin {
   var myMarkers = HashSet<Marker>(); //collection
   List<Polyline> myPolyline = [];
   late BitmapDescriptor myIcon;
-  int i = 0;
-  final dataBase = FirebaseDatabase.instance.ref();
-  Map<Object?, Object?> gpsTable = {};
-  Map<String, List<String>> tab = {
-  "gps": [
-    'latitude1',
-    'longitude1',
-
-    'latitude2',
-    'longitude2',
-
-    'latitude3',
-    'longitude3',
-
-    'latitude4',
-    'longitude4',
-  ],
-};
   @override
   void initState() {
 
