@@ -1,4 +1,3 @@
-import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -8,51 +7,15 @@ import '../widget/humidity_info.dart';
 import '../widget/scaffold.dart';
 import '../widget/slider.dart';
 
-class HumidityScr extends StatefulWidget {
+class HumidityScr extends StatelessWidget {
   const HumidityScr({Key? key}) : super(key: key);
 
-  @override
-  State<HumidityScr> createState() => _HumidityScrState();
-}
-
-class _HumidityScrState extends State<HumidityScr> with TickerProviderStateMixin{
-  final dataBase = FirebaseDatabase.instance.ref();
-  Map<Object?, Object?> sensorsTable = {};
-  void read() async {
-    tables.forEach((key, value) async {
-      Query dbRef = FirebaseDatabase.instance.ref().child(key);
-      await dbRef.onValue.listen((event) {
-        print(event.snapshot.value);
-        if (key == "sensors")
-          sensorsTable = event.snapshot.value as Map<Object?, Object?>;
-  
-        setState(() {
-
-
-
-        });
-      });
-    });
-  }
-
-  Map<String, List<String>> tables = {
-    "sensors": ['CO PPM value', 'Humdity', 'LPG PPM value', 'temp']
-  };
-
-  @override
-  void initState() {
-    read();
-    super.initState();
-  }
-
- 
- 
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
         Provider(create: (_) => HumidityConfig()),
-        ChangeNotifierProvider(create: (_) => Humidity(hum: int.parse('${sensorsTable['Humdity']}')))
+        ChangeNotifierProvider(create: (_) => Humidity())
       ],
       child: const HumiditySliderScaffold(
         activeIndex: 1,

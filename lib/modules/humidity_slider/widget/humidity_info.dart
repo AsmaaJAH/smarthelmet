@@ -25,7 +25,7 @@ class HumidityInfo extends StatelessWidget {
               const _Subtitle('Return temperature'),
               const SizedBox(height: 10),
               const Text(
-                '20℃',
+                '25℃',
                 style: TextStyle(
                   fontSize: 30,
                   fontWeight: FontWeight.bold,

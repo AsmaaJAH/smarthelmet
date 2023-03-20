@@ -1,19 +1,17 @@
 import 'package:flutter/widgets.dart';
 
 class Humidity with ChangeNotifier {
-  int hum;
-  Humidity({required this.hum}) {
-    _defaultValue = hum;
+  Humidity() {
     _transitionalValue = _defaultValue.toDouble();
     _finalValue = _defaultValue;
   }
 
-  int _defaultValue = 37;
+  final int _defaultValue = 36;
 
   double _transitionalValue = 0;
   double get transitionalValue => _transitionalValue;
 
-  int _finalValue = 5;
+  int _finalValue =5;
   int get finalValue => _finalValue;
 
   void updateTrasitionalValue(double newValue) {
