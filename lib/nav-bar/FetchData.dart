@@ -25,7 +25,6 @@ class _FetchDataState extends State<FetchData> with TickerProviderStateMixin {
   late Animation<double> tempAnimation;
   late AnimationController progressController;
 
- 
   Map<Object?, Object?> gpsTable = {};
   Map<Object?, Object?> alertTable = {};
   Map<Object?, Object?> sensorsTable = {};
@@ -42,30 +41,24 @@ class _FetchDataState extends State<FetchData> with TickerProviderStateMixin {
           print("-------------///sensors///------------------");
           sensorsTable = event.snapshot.value as Map<Object?, Object?>;
         } else if (key == "gps") {
-          
-          gpsTable = event.snapshot.value as Map<Object?, Object?>;
-          positions[0].latitude =
-              double.parse('${gpsTable['latitude1']}') ;
-          positions[0].longitude =
-              double.parse('${gpsTable['longitude1']}' );
+          for (int i = 0; i < 1000; i++) {
+            gpsTable = event.snapshot.value as Map<Object?, Object?>;
+            positions[i].latitude = double.parse('${gpsTable['latitude1']}');
+            positions[i].longitude = double.parse('${gpsTable['longitude1']}');
+            i++;
 
+            positions[i].latitude = double.parse('${gpsTable['latitude2']}');
+            positions[i].longitude = double.parse('${gpsTable['longitude2']}');
+            i++;
 
-          positions[1].latitude = double.parse('${gpsTable['latitude2']}' );
-          positions[1].longitude =
-              double.parse('${gpsTable['longitude2']}');
+            positions[i].latitude = double.parse('${gpsTable['latitude3']}');
+            positions[i].longitude = double.parse('${gpsTable['longitude3']}');
+            i++;
 
-
-          positions[2].latitude =
-              double.parse('${gpsTable['latitude3']}');
-          positions[2].longitude =
-              double.parse('${gpsTable['longitude3']}');
-
-
-          positions[3].latitude =
-              double.parse('${gpsTable['latitude4']}');
-          positions[3].longitude =
-              double.parse('${gpsTable['longitude4']}');
-
+            positions[i].latitude = double.parse('${gpsTable['latitude4']}');
+            positions[i].longitude = double.parse('${gpsTable['longitude4']}');
+            i++;
+          }
         }
         setState(() {});
       });
@@ -90,7 +83,6 @@ class _FetchDataState extends State<FetchData> with TickerProviderStateMixin {
   @override
   void initState() {
     readRealTimeDatabase();
-
 
     super.initState();
   }
