@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:smarthelmet/modules/Emergency%20Contacts/emergency.dart';
 import 'package:smarthelmet/modules/home-page/workers.dart';
 import 'package:smarthelmet/shared/functions/shared_function.dart';
 import 'package:smarthelmet/shared/network/position.dart';
@@ -92,11 +93,21 @@ class _FetchDataState extends State<FetchData> with TickerProviderStateMixin {
     final test = dataBase.child("write now/");
     Size size = MediaQuery.of(context).size;
     return Scaffold(
+      appBar: AppBar(
+        toolbarHeight: 40,
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+
+          icon: const Icon(Icons.arrow_back_ios_new),
+        ),
+      ),
       backgroundColor: Color.fromARGB(203, 255, 255, 255),
       body: ListView(
         children: <Widget>[
           Container(
-              height: size.height * .3,
+              height: size.height * .245,
               width: double.infinity,
               decoration: BoxDecoration(
                   color: Colors.cyan,
@@ -107,10 +118,10 @@ class _FetchDataState extends State<FetchData> with TickerProviderStateMixin {
               child: Stack(
                 children: [
                   Positioned(
-                    top: size.height * .02,
+                    top: size.height * .017,
                     left: size.width * .05,
                     child: SizedBox(
-                      height: size.height * .25,
+                      height: size.height * .2,
                       width: size.width * .35,
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(20),
@@ -354,13 +365,15 @@ class _FetchDataState extends State<FetchData> with TickerProviderStateMixin {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  "Emergency Alerts",
-                  style: TextStyle(color: Colors.cyan, fontSize: 44),
-                  textAlign: TextAlign.center,
+                Center(
+                  child: Text(
+                    "Emergency Alerts",
+                    style: TextStyle(color: Colors.cyan, fontSize: 38),
+                    textAlign: TextAlign.center,
+                  ),
                 ),
                 const SizedBox(
-                  height: 25,
+                  height: 15,
                 ),
                 Row(
                   children: [
@@ -470,65 +483,26 @@ class _FetchDataState extends State<FetchData> with TickerProviderStateMixin {
                 const SizedBox(
                   height: 5,
                 ),
+                Center(
+                  child: ElevatedButton(
+                    child: Text('Emergency Contacts'),
+                    style: ElevatedButton.styleFrom(
+                      primary: Colors.cyan,
+                      // side: BorderSide(color: Colors.yellow, width: 5),
+                      textStyle: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 20,
+                          fontStyle: FontStyle.normal),
+                      shape: BeveledRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(10))),
+                      shadowColor: Colors.lightBlue,
+                    ),
+                    onPressed: () => Navigator.of(context).push(
+                        MaterialPageRoute(
+                            builder: (context) => EmergencyScreen())),
+                  ),
+                ),
               ]),
         ));
   }
-
-  //         Text(
-  //           "Received Data from Sensors",
-  //           style: TextStyle(color: Colors.cyan, fontSize: 40),
-  //           textAlign: TextAlign.center,
-  //         ),
-  //         Row(
-  //           children: [
-  //             Text(
-  //               "CO PPM value: ",
-  //               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-  //             ),
-  //             Text(
-  //               sensors['CO PPM value'] ?? "",
-  //               style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
-  //             ),
-  //           ],
-  //         ),
-  //         Row(
-  //           children: [
-  //             Text(
-  //               "Humdity: ",
-  //               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-  //             ),
-  //             Text(
-  //               sensors['Humdity'] ?? "",
-  //               style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
-  //             ),
-  //           ],
-  //         ),
-  //         Row(
-  //           children: [
-  //             Text(
-  //               "LPG PPM value: ",
-  //               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-  //             ),
-  //             Text(
-  //               sensors['LPG PPM value'] ?? "",
-  //               style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
-  //             ),
-  //           ],
-  //         ),
-  //         Row(
-  //           children: [
-  //             Text(
-  //               "temp: ",
-  //               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-  //             ),
-  //             Text(
-  //               sensors['temp'] ?? "",
-  //               style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
-  //             ),
-  //           ],
-  //         ),
-  //       ],
-  //     ),
-  //   );
-  // }
 }
