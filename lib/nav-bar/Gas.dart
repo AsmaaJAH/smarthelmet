@@ -2,8 +2,6 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:kdgaugeview/kdgaugeview.dart';
 
-import '../modules/humidity_slider/screen/humidity_screen.dart';
-
 class GasScreen extends StatefulWidget {
     GasScreen({super.key});
 
