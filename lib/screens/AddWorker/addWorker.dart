@@ -31,7 +31,6 @@ class _AddWorkerState extends State<AddWorker> {
   TextEditingController lastnameController = TextEditingController();
   TextEditingController bloodgroupController = TextEditingController();
   TextEditingController workeraddressController = TextEditingController();
-  TextEditingController contactnumberController = TextEditingController();
   TextEditingController workernumberController = TextEditingController();
   TextEditingController ageController = TextEditingController();
   var formKey = GlobalKey<FormState>();
@@ -60,10 +59,6 @@ class _AddWorkerState extends State<AddWorker> {
         lable: 'Address',
         type: TextInputType.streetAddress),
     TextFieldData(
-        controller: contactnumberController,
-        lable: 'Contact Number',
-        type: TextInputType.phone),
-    TextFieldData(
         controller: workernumberController,
         lable: 'Worker Number',
         type: TextInputType.phone),
@@ -80,7 +75,6 @@ class _AddWorkerState extends State<AddWorker> {
       lastName: lastnameController.text,
       bloodgroup: bloodgroupController.text,
       address: workeraddressController.text,
-      contactnumber: contactnumberController.text,
       workernumber: workernumberController.text,
       imgurl: workerimg!,
       age: ageController.text,
@@ -201,7 +195,6 @@ class _AddWorkerState extends State<AddWorker> {
     lastnameController.dispose();
     bloodgroupController.dispose();
     workeraddressController.dispose();
-    contactnumberController.dispose();
     workernumberController.dispose();
     ageController.dispose();
     super.dispose();

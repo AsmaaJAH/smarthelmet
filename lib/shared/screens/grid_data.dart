@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import '../functions/navigation.dart';
 
@@ -23,7 +24,7 @@ class _GridCardState extends State<GridCard> {
         height: 150,
         width: MediaQuery.of(context).size.width * 0.4,
         decoration: BoxDecoration(
-            color: Color.fromARGB(255, 236, 235, 235),
+            color: const Color.fromARGB(255, 236, 235, 235),
             borderRadius: BorderRadius.circular(15)),
         child: Column(
           children: [
@@ -38,9 +39,11 @@ class _GridCardState extends State<GridCard> {
                     color: Colors.blueAccent,
                   )),
             ),
-            Text(
+            AutoSizeText(
               widget.text,
-              style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+              style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+              maxLines: 1,
+              minFontSize: 13,
             ),
           ],
         ),

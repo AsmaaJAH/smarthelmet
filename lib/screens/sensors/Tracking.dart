@@ -1,17 +1,54 @@
 import 'package:flutter/material.dart';
-import 'package:smarthelmet/shared/constants/colors.dart';
 
 import 'dart:collection';
-
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
+import '../../shared/constants/colors.dart';
+import '../../shared/network/position.dart';
+
 class Tracking extends StatefulWidget {
+  late AsyncSnapshot<dynamic> snapshot;
+  late int index;
+  Tracking({required this.snapshot, required this.index});
   @override
   State<Tracking> createState() => _TrackingState();
 }
 
-class _TrackingState extends State<Tracking> {
+class _TrackingState extends State<Tracking> with TickerProviderStateMixin {
   var myMarkers = HashSet<Marker>(); //collection
+  List<Polyline> myPolyline = [];
+  late BitmapDescriptor myIcon;
+  @override
+  void initState() {
+    super.initState();
+    createPloyLine();
+
+    BitmapDescriptor.fromAssetImage(
+      ImageConfiguration(size: Size(28, 28)),
+      widget.snapshot.data!.docs[widget.index]["imgurl"],
+
+      // map[widget.index]!.imgpath,
+    ).then((onValue) {
+      myIcon = onValue;
+    });
+  }
+
+  createPloyLine() {
+    myPolyline.add(
+      Polyline(
+          polylineId: PolylineId('1'),
+          color: Colors.blue,
+          width: 3,
+          points: [
+            for (int i = 0; i < positions.length; i++)
+              LatLng(positions[i].latitude, positions[i].longitude),
+          ],
+          patterns: [
+            PatternItem.dash(20),
+            PatternItem.gap(10),
+          ]),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,44 +66,42 @@ class _TrackingState extends State<Tracking> {
           ),
           backgroundColor: navBarColor,
           elevation: 0.0,
-          leading:
-                IconButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  icon: Icon(Icons.arrow_back_ios_new),
-                
+          leading: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: Icon(Icons.arrow_back_ios_new),
           ),
         ),
         body: Stack(
           children: [
             GoogleMap(
-              initialCameraPosition:
-                  CameraPosition(target: LatLng(30.0444, 31.2357), zoom: 14),
+              initialCameraPosition: CameraPosition(
+                  target: LatLng(31.205200646477095, 29.919690313405248),
+                  zoom: 14),
               onMapCreated: (GoogleMapController googleMapController) {
                 setState(() {
                   myMarkers.add(
                     Marker(
                       markerId: MarkerId('1'),
-                      position: LatLng(30.0444, 31.2357),
+                      position: LatLng(31.205200646477095, 29.919690313405248),
+                      infoWindow: InfoWindow(
+                          title: 'khloud mousad',
+                          snippet: 'temp:50  co level:40 '),
+                      icon: myIcon,
                     ),
                   );
                 });
               },
               markers: myMarkers,
+              polylines: myPolyline.toSet(),
             ),
             Container(
-                // height: 300,
-                // width: double.infinity,
-                // child: Image.asset('assets/images/googleTracking.png'),
-                // alignment: Alignment.topCenter,
-                ),
-            Container(
-              // child: Text(
-              //   'showing Where the worker now using Google Maps ',
-              //   style: TextStyle(fontSize: 50),
-              // ),
-              // alignment: Alignment.bottomCenter,
+              child: Text(
+                widget.snapshot.data!.docs[widget.index]["firstName"],
+                style: TextStyle(fontSize: 50),
+              ),
+              alignment: Alignment.bottomCenter,
             )
           ],
         ));

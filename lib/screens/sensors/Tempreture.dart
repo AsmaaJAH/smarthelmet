@@ -1,38 +1,68 @@
-
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
-import 'package:smarthelmet/shared/constants/colors.dart';
+import 'package:oscilloscope/oscilloscope.dart';
 
+import '../../shared/constants/colors.dart';
 import '../../shared/functions/CircleProgress.dart';
 
 class TempretureScreen extends StatefulWidget {
+  TempretureScreen({super.key});
 
   @override
   State<TempretureScreen> createState() => _TempretureScreenState();
 }
 
-class _TempretureScreenState extends State<TempretureScreen> with TickerProviderStateMixin {
-
+class _TempretureScreenState extends State<TempretureScreen>
+    with TickerProviderStateMixin {
+  double temp = 20;
+  final dataBase = FirebaseDatabase.instance.ref();
   late Animation<double> tempAnimation;
   late AnimationController progressController;
 
-  @override
-  void initState() {
-    super.initState();
- double temp = 20;
-    //temp = sensorsTable['temp'] as double;
-    double humdity = 100;
-    //humidity = sensorsTable['Humdity'] as double;
+  Map<Object?, Object?> alertTable = {};
+  Map<Object?, Object?> sensorsTable = {};
+  List<double> values = [];
+  void read() async {
+    tables.forEach((key, value) async {
+      Query dbRef = FirebaseDatabase.instance.ref().child(key);
+      await dbRef.onValue.listen((event) {
+        print(event.snapshot.value);
+        if (key == "ALERT")
+          alertTable = event.snapshot.value as Map<Object?, Object?>;
+        else if (key == "sensors")
+          sensorsTable = event.snapshot.value as Map<Object?, Object?>;
+        print(sensorsTable);
+        String? nullableString = '${sensorsTable['temp']}'.toString();
+        print(nullableString);
+        temp = double.tryParse(nullableString ?? '') ?? 0.0;
 
-    _FetchDataInit(temp, humdity);
-   
+        setState(() {
+          _TempretureScreenInit(temp);
+        });
+      });
+    });
   }
 
-   _FetchDataInit(double temp, double humid) {
+  Map<String, List<String>> tables = {
+    "ALERT": ['HUM', 'LPG', 'CO', 'TEMP'],
+    "sensors": ['CO PPM value', 'Humdity', 'LPG PPM value', 'temp']
+  };
+
+  @override
+  void initState() {
+    read();
+    temp = double.tryParse('${sensorsTable['temp']}' ?? '') ?? 0.0;
+
+    _TempretureScreenInit(temp);
+    super.initState();
+  }
+
+  _TempretureScreenInit(double temp) {
     progressController = AnimationController(
-        vsync: this, duration: Duration(milliseconds: 50)); //5s
+        vsync: this, duration: const Duration(milliseconds: 500)); //5s
 
     tempAnimation =
-        Tween<double>(begin: 0, end: temp).animate(progressController)
+        Tween<double>(begin:0, end: temp).animate(progressController)
           ..addListener(() {
             setState(() {});
           });
@@ -40,11 +70,19 @@ class _TempretureScreenState extends State<TempretureScreen> with TickerProvider
     progressController.forward();
   }
 
-
   @override
   Widget build(BuildContext context) {
+    Oscilloscope oscilloscope = Oscilloscope(
+      showYAxis: true,
+      backgroundColor: Colors.black,
+      traceColor: Colors.white,
+      yAxisMax: 50,
+      yAxisMin: 0,
+      dataSet: values,
+    );
     return Scaffold(
-      body: Column(
+      body: SingleChildScrollView(
+        child: Column(
           children: [
             Center(
               child: Column(
@@ -60,13 +98,13 @@ class _TempretureScreenState extends State<TempretureScreen> with TickerProvider
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
-                            Text('Temperature'),
+                            const Text('Temperature'),
                             Text(
                               '${tempAnimation.value.toInt()}',
-                              style: TextStyle(
+                              style: const TextStyle(
                                   fontSize: 50, fontWeight: FontWeight.bold),
                             ),
-                            Text(
+                            const Text(
                               '°C',
                               style: TextStyle(
                                   fontSize: 20, fontWeight: FontWeight.bold),
@@ -77,13 +115,12 @@ class _TempretureScreenState extends State<TempretureScreen> with TickerProvider
                     ),
                   ),
                 ],
-
               ),
             ),
           ],
+        ),
       ),
-    
-    appBar: AppBar(
+      appBar: AppBar(
         title: const Text(
           'Temperature',
           style: TextStyle(
@@ -100,7 +137,7 @@ class _TempretureScreenState extends State<TempretureScreen> with TickerProvider
           onPressed: () {
             Navigator.pop(context);
           },
-          icon:  const Icon(Icons.arrow_back_ios_new),
+          icon: const Icon(Icons.arrow_back_ios_new),
         ),
       ),
     );
