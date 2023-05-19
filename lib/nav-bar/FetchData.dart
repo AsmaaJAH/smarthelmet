@@ -14,7 +14,7 @@ import 'Tracking.dart';
 import 'UnderGroundScreen.dart';
 
 class FetchData extends StatefulWidget {
-  String? index;
+  late String index;
   FetchData({required this.index});
 
   @override
@@ -99,7 +99,6 @@ class _FetchDataState extends State<FetchData> with TickerProviderStateMixin {
           onPressed: () {
             Navigator.pop(context);
           },
-
           icon: const Icon(Icons.arrow_back_ios_new),
         ),
       ),
@@ -472,7 +471,7 @@ class _FetchDataState extends State<FetchData> with TickerProviderStateMixin {
                           TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                     ),
                     Text(
-                      alert['ultrasonic'] == null ? "" : alert['ultrasonic'],
+                      alert['object'] == null ? "" : alert['object'],
                       // sensors['temp']?? "",
 
                       style:
@@ -499,10 +498,23 @@ class _FetchDataState extends State<FetchData> with TickerProviderStateMixin {
                     ),
                     onPressed: () => Navigator.of(context).push(
                         MaterialPageRoute(
-                            builder: (context) => EmergencyScreen())),
+                            builder: (context) =>
+                                EmergencyScreen(getIndex(map,widget.index)))),
                   ),
                 ),
               ]),
         ));
+  }
+
+  String getIndex(var m, var k) {
+    List keys = m.keys.toList();
+    int index = 0;
+    for (var e in keys) {
+      if (e == k) {
+        return "$index";
+      }
+      index = index + 1;
+    }
+    return "$index";
   }
 }

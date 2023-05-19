@@ -31,16 +31,20 @@ class DBHelper {
     var dbClient = await db;
     var name = contacts.name;
     var contactNo = contacts.contactNo;
+    var id = contacts.id;
     dbClient.rawInsert(
-        "INSERT into contacts(name,contactNo)"
-            "VALUES(?, ?)",[name,contactNo]);
+        "INSERT into contacts(id,name,contactNo)"
+        "VALUES(?, ?,?)",
+        [id, name, contactNo]);
     return contacts;
   }
 
   Future<List<PersonalEmergency>> getContacts(String uid) async {
     var dbClient = await db;
+    print(uid);
     List<Map> maps =
-        await dbClient.query("select * from contacts where id='${uid}'  ", columns: ['id', 'name', 'contactNo']);
+        await dbClient.rawQuery("SELECT * FROM contacts WHERE id='${uid}'  ");
+    //,columns: ['id', 'name', 'contactNo']);
     List<PersonalEmergency> contacts = [];
     if (maps.isNotEmpty) {
       for (int i = 0; i < maps.length; i++) {

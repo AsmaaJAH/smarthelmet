@@ -1,10 +1,10 @@
-
 import 'package:flutter/material.dart';
 import 'package:smarthelmet/modules/Emergency%20Contacts/Components/emergency_contacts_data.dart';
 import 'package:smarthelmet/modules/Emergency%20Contacts/Components/personal_emergency_contacts.dart';
 
 class HomeScreenTabs extends StatefulWidget {
-  const HomeScreenTabs({Key? key}) : super(key: key);
+  late String index;
+  HomeScreenTabs(this.index);
 
   @override
   _HomeScreenTabsState createState() => _HomeScreenTabsState();
@@ -33,7 +33,8 @@ class _HomeScreenTabsState extends State<HomeScreenTabs>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("1 Click For Emergency Help", style:TextStyle(color: Colors.white)),
+        title: const Text("1 Click For Emergency Help",
+            style: TextStyle(color: Colors.white)),
         elevation: 0.7,
         bottom: TabBar(
           controller: _controller,
@@ -44,9 +45,10 @@ class _HomeScreenTabsState extends State<HomeScreenTabs>
           ],
         ),
       ),
-      body: TabBarView(controller: _controller,
+      body: TabBarView(
+          controller: _controller,
           // ignore: prefer_const_literals_to_create_immutables
-          children: <Widget>[ContactsData(), PersonalEmergencyContacts()]),
+          children: <Widget>[ContactsData(), PersonalEmergencyContacts(widget.index)]),
     );
   }
 }

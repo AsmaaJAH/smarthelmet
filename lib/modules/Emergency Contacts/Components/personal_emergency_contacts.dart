@@ -7,6 +7,7 @@ import 'package:smarthelmet/modules/Emergency%20Contacts/Components/personal_eme
 
 class PersonalEmergencyContacts extends StatefulWidget {
   late String id;
+  
   PersonalEmergencyContacts(String uid) {
     id = uid;
   }
@@ -52,7 +53,7 @@ class _PersonalEmergencyContactsState extends State<PersonalEmergencyContacts> {
     emergencyContactsName = [];
     emergencyContactsInitials = [];
     emergencyContactsNo = [];
-    //refreshContacts();
+    refreshContacts(widget.id);
   }
 
   void getData(List<PersonalEmergency> contacts) {
