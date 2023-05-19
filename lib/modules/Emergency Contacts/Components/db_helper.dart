@@ -17,14 +17,14 @@ class DBHelper {
 
   initDatabase() async {
     io.Directory documentDirectory = await getApplicationDocumentsDirectory();
-    String path = join(documentDirectory.path, 'EmergencyContacts.db');
+    String path = join(documentDirectory.path, 'EmergencyContacts2.db');
     var db = await openDatabase(path, version: 1, onCreate: _onCreate);
     return db;
   }
 
   _onCreate(Database db, int version) async {
     await db.execute(
-        'CREATE TABLE contacts (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, contactNo TEXT)');
+        'CREATE TABLE contacts (id TEXT , name TEXT, contactNo TEXT, PRIMARY KEY(id,contactNo))');
   }
 
   Future<PersonalEmergency> add(PersonalEmergency contacts) async {
@@ -37,10 +37,10 @@ class DBHelper {
     return contacts;
   }
 
-  Future<List<PersonalEmergency>> getContacts() async {
+  Future<List<PersonalEmergency>> getContacts(String uid) async {
     var dbClient = await db;
     List<Map> maps =
-        await dbClient.query('contacts', columns: ['id', 'name', 'contactNo']);
+        await dbClient.query("select * from contacts where id='${uid}'  ", columns: ['id', 'name', 'contactNo']);
     List<PersonalEmergency> contacts = [];
     if (maps.isNotEmpty) {
       for (int i = 0; i < maps.length; i++) {
