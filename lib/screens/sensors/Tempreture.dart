@@ -34,7 +34,7 @@ class _TempretureScreenState extends State<TempretureScreen>
         print(sensorsTable);
         String? nullableString = '${sensorsTable['temp']}'.toString();
         print(nullableString);
-        temp = double.tryParse(nullableString ?? '') ?? 0.0;
+        temp = double.tryParse(nullableString) ?? 0.0;
 
         setState(() {
           _TempretureScreenInit(temp);
@@ -51,7 +51,7 @@ class _TempretureScreenState extends State<TempretureScreen>
   @override
   void initState() {
     read();
-    temp = double.tryParse('${sensorsTable['temp']}' ?? '') ?? 0.0;
+    temp = double.tryParse('${sensorsTable['temp']}') ?? 0.0;
 
     _TempretureScreenInit(temp);
     super.initState();

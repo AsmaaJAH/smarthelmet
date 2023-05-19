@@ -15,7 +15,7 @@ class Tracking extends StatefulWidget {
 }
 
 class _TrackingState extends State<Tracking> with TickerProviderStateMixin {
-  var myMarkers = HashSet<Marker>(); //collection
+  var myMarkers = HashSet<Marker>(); 
   List<Polyline> myPolyline = [];
   late BitmapDescriptor myIcon;
   @override
@@ -26,8 +26,6 @@ class _TrackingState extends State<Tracking> with TickerProviderStateMixin {
     BitmapDescriptor.fromAssetImage(
       ImageConfiguration(size: Size(28, 28)),
       widget.snapshot.data!.docs[widget.index]["imgurl"],
-
-      // map[widget.index]!.imgpath,
     ).then((onValue) {
       myIcon = onValue;
     });

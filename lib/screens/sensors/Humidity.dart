@@ -29,7 +29,7 @@ class _HumidityScreenState extends State<HumidityScreen> with TickerProviderStat
         print(sensorsTable);
         String? nullableString = '${sensorsTable['Humdity']}'.toString();
         print(nullableString);
-        hum = double.tryParse(nullableString ?? '') ?? 0.0;
+        hum = double.tryParse(nullableString) ?? 0.0;
 
        
         setState(() {
@@ -49,7 +49,7 @@ class _HumidityScreenState extends State<HumidityScreen> with TickerProviderStat
   @override
   void initState() {
     read();
-    hum = double.tryParse('${sensorsTable['Humdity']}' ?? '') ?? 0.0;
+    hum = double.tryParse('${sensorsTable['Humdity']}') ?? 0.0;
 
     double temp = 20;
     //humidity = sensorsTable['Humdity'] as double;

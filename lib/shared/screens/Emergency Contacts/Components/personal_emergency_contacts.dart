@@ -5,10 +5,12 @@ import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:smarthelmet/shared/screens/Emergency%20Contacts/Components/personal_emergency_contacts_model.dart';
 
 import 'db_helper.dart';
-
-
 class PersonalEmergencyContacts extends StatefulWidget {
-  const PersonalEmergencyContacts({Key? key}) : super(key: key);
+  late String id;
+  
+  PersonalEmergencyContacts(String uid) {
+    id = uid;
+  }
 
   @override
   _PersonalEmergencyContactsState createState() =>
@@ -38,8 +40,8 @@ class _PersonalEmergencyContactsState extends State<PersonalEmergencyContacts> {
     }
   }
 
-  void _addContact(String name, String no) {
-    dbHelper.add(PersonalEmergency(name, no));
+  void _addContact(String name, String id, String no) {
+    dbHelper.add(PersonalEmergency(name,id ,no));
     _textFieldController1.clear();
     _textFieldController2.clear();
   }
@@ -51,7 +53,7 @@ class _PersonalEmergencyContactsState extends State<PersonalEmergencyContacts> {
     emergencyContactsName = [];
     emergencyContactsInitials = [];
     emergencyContactsNo = [];
-    refreshContacts();
+    refreshContacts(widget.id);
   }
 
   void getData(List<PersonalEmergency> contacts) {
@@ -63,13 +65,13 @@ class _PersonalEmergencyContactsState extends State<PersonalEmergencyContacts> {
     });
   }
 
-  refreshContacts() {
+  refreshContacts(String id) {
     setState(() {
       emergencyContactsName = [];
       emergencyContactsInitials = [];
       emergencyContactsNo = [];
 
-      contacts = dbHelper.getContacts() as Future<List<PersonalEmergency>>?;
+      contacts = dbHelper.getContacts(id) as Future<List<PersonalEmergency>>?;
     });
   }
 
@@ -149,7 +151,7 @@ class _PersonalEmergencyContactsState extends State<PersonalEmergencyContacts> {
               TextButton(
                 onPressed: () => {
                   _addContact(
-                      _textFieldController1.text, _textFieldController2.text),
+                      _textFieldController1.text, widget.id, _textFieldController2.text),
                   Navigator.pop(context, 'Add')
                 },
                 child: const Text('Add'),

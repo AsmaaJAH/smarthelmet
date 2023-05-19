@@ -1,6 +1,9 @@
+import 'dart:math';
+
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:smarthelmet/shared/functions/navigation.dart';
+import 'package:smarthelmet/shared/network/position.dart';
 import 'Emergency Contacts/emergency.dart';
 import 'grid_data.dart';
 import 'worker_profile.dart';
@@ -23,29 +26,11 @@ class FetchData extends StatefulWidget {
 
 class _FetchDataState extends State<FetchData> with TickerProviderStateMixin {
   List screens = [];
-  List grid_photo = [
-    'assets/images/temperature-icon-png-1.png',
-    'assets/images/humidity.png',
-    'assets/images/icons8-gas-mask-64.png',
-    'assets/images/icons8-error-100.png',
-    'assets/images/icons8-google-maps-old-100.png',
-    'assets/images/icons8-road-map-66.png',
-  ];
 
-  late List grid_text = [
-    'Temperature : ${sensorsTable['temp']} °C',
-    'Humidity : ${sensorsTable['Humdity']} %',
-    'Gas Detection ',
-    'Fall detector',
-    'GPS Tracking',
-    'Under ground tracking',
-  ];
   final dataBase = FirebaseDatabase.instance.ref();
   late Animation<double> tempAnimation;
   late AnimationController progressController;
 
-  Map<Object?, Object?> alertTable = {};
-  Map<Object?, Object?> sensorsTable = {};
   var COGroup = AutoSizeGroup();
   var LPGGroup = AutoSizeGroup();
   var Fall_DGroup = AutoSizeGroup();
@@ -53,18 +38,41 @@ class _FetchDataState extends State<FetchData> with TickerProviderStateMixin {
   var HUMGroup = AutoSizeGroup();
   var O_FallGroup = AutoSizeGroup();
 
+  Map<Object?, Object?> gpsTable = {};
+  Map<Object?, Object?> alertTable = {};
+  Map<Object?, Object?> sensorsTable = {};
+
   void readRealTimeDatabase() async {
     tables.forEach((key, value) async {
       Query dbRef = FirebaseDatabase.instance.ref().child(key);
       await dbRef.onValue.listen((event) {
         print(event.snapshot.value);
-        if (key == "ALERT")
+        if (key == "ALERT") {
+          print("----------------------Alerts---------------");
           alertTable = event.snapshot.value as Map<Object?, Object?>;
-        else if (key == "sensors")
+        } else if (key == "sensors") {
+          print("-------------///sensors///------------------");
           sensorsTable = event.snapshot.value as Map<Object?, Object?>;
+        } else if (key == "gps") {
+          for (int i = 0; i < 1000; i++) {
+            gpsTable = event.snapshot.value as Map<Object?, Object?>;
+            positions[i].latitude = double.parse('${gpsTable['latitude1']}');
+            positions[i].longitude = double.parse('${gpsTable['longitude1']}');
+            i++;
 
-        //print(sensorsTable);
+            positions[i].latitude = double.parse('${gpsTable['latitude2']}');
+            positions[i].longitude = double.parse('${gpsTable['longitude2']}');
+            i++;
 
+            positions[i].latitude = double.parse('${gpsTable['latitude3']}');
+            positions[i].longitude = double.parse('${gpsTable['longitude3']}');
+            i++;
+
+            positions[i].latitude = double.parse('${gpsTable['latitude4']}');
+            positions[i].longitude = double.parse('${gpsTable['longitude4']}');
+            i++;
+          }
+        }
         setState(() {});
       });
     });
@@ -72,7 +80,17 @@ class _FetchDataState extends State<FetchData> with TickerProviderStateMixin {
 
   Map<String, List<String>> tables = {
     "ALERT": ['HUM', 'LPG', 'CO', 'TEMP'],
-    "sensors": ['CO PPM value', 'Humdity', 'LPG PPM value', 'temp']
+    "sensors": ['CO PPM value', 'Humdity', 'LPG PPM value', 'temp'],
+    "gps": [
+      'latitude1',
+      'longitude1',
+      'latitude2',
+      'longitude2',
+      'latitude3',
+      'longitude3',
+      'latitude4',
+      'longitude4',
+    ],
   };
 
   @override
@@ -89,354 +107,425 @@ class _FetchDataState extends State<FetchData> with TickerProviderStateMixin {
       UnderGroundScreen()
     ];
     readRealTimeDatabase();
-
-    double temp = 20;
-    //temp = sensorsTable['temp'] as double;
-    double humdity = 100;
-    //humidity = sensorsTable['Humdity'] as double;
-
-    _FetchDataInit(temp, humdity);
     super.initState();
-  }
-
-  _FetchDataInit(double temp, double humid) {
-    progressController = AnimationController(
-        vsync: this, duration: Duration(milliseconds: 50)); //5s
-
-    tempAnimation =
-        Tween<double>(begin: 0, end: temp).animate(progressController)
-          ..addListener(() {
-            setState(() {});
-          });
-
-    progressController.forward();
   }
 
   @override
   Widget build(BuildContext context) {
+    final test = dataBase.child("write now/");
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor: Color.fromARGB(154, 165, 163, 163),
-      // drawer: NavBar(),
       appBar: AppBar(
-        backgroundColor: Colors.grey,
-        elevation: 0.0,
+        toolbarHeight: 40,
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: const Icon(Icons.arrow_back_ios_new),
+        ),
       ),
-
-      body: Column(
+      backgroundColor: Color.fromARGB(203, 255, 255, 255),
+      body: ListView(
         children: <Widget>[
-          InkWell(
-            onTap: () {
-              navigateTo(
-                  context,
-                  WorkerProfile(
-                    snapshot: widget.snapshot,
-                    index: widget.index,
-                  ));
-            },
-            child: Container(
-                height: size.height * .3,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                    color: Colors.grey,
-                    borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(50),
-                      bottomRight: Radius.circular(50),
-                    )),
-                child: Stack(
-                  children: [
-                    Positioned(
-                      top: size.height * .02,
-                      left: size.width * .05,
-                      child: SizedBox(
-                        height: size.height * .25,
-                        width: size.width * .35,
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(20),
-                          child: Image.network(
-                            widget.snapshot.data!.docs[widget.index]["imgurl"],
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                      ),
-                    ),
-                    Positioned(
-                      top: size.height * .1,
-                      left: size.width * .5,
-                      child: Container(
-                        width: size.width * .5,
-                        child: AutoSizeText(
-                          "Name : ${widget.snapshot.data!.docs[widget.index]["firstName"]}  ${widget.snapshot.data!.docs[widget.index]["lastName"]}",
-                          style: const TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.bold),
-                          // minFontSize: 20,
-                          maxLines: 1,
-                        ),
-                      ),
-                    ),
-                    Positioned(
-                      top: size.height * .16,
-                      left: size.width * .5,
-                      child: Text(
-                        "age     : ${widget.snapshot.data!.docs[widget.index]["age"]}",
-                        style: TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                    Positioned(
-                      top: size.height * .22,
-                      left: size.width * .5,
-                      child: InkWell(
-                        onTap: () => navigateTo(context, EmergencyScreen()),
-                        child: Container(
-                          padding: EdgeInsets.all(10),
-                          decoration: BoxDecoration(
-                              color: Colors.black26,
-                              borderRadius: BorderRadius.circular(8)),
-                          child: Text(
-                            'Emergency Contacts',
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 15),
-                          ),
-                        ),
-                      ),
-                    )
-                  ],
-                )),
-          ),
-          SizedBox(
-            height: size.height * .005,
-          ),
-          Center(
-            child: Text("Emergency Alerts",
-                style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black54)),
-          ),
           Container(
-            height: size.height * .18,
-            width: double.infinity,
-            child: Stack(
-              children: [
-                Positioned(
-                    top: size.height * .01,
+              height: size.height * .245,
+              width: double.infinity,
+              decoration: BoxDecoration(
+                  color: Colors.cyan,
+                  borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(50),
+                    bottomRight: Radius.circular(50),
+                  )),
+              child: Stack(
+                children: [
+                  Positioned(
+                    top: size.height * .017,
                     left: size.width * .05,
-                    bottom: size.height * .01,
-                    child: Container(
-                      height: size.height,
-                      width: size.width * .44,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(4.0),
-                            child: Row(
-                              children: [
-                                AutoSizeText(
-                                  '- CO:',
-                                  group: COGroup,
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                Expanded(
-                                  child: AutoSizeText(
-                                    '${alertTable['CO']}',
-                                    maxLines: 2,
-                                    group: COGroup,
-                                    style: TextStyle(
-                                        fontSize: 16,
-                                        color: Colors.red,
-                                        fontWeight: FontWeight.bold),
-                                    overflowReplacement:
-                                        Text('Sorry String too long'),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(4.0),
-                            child: Row(
-                              children: [
-                                AutoSizeText(
-                                  '- LPG:  ',
-                                  group: LPGGroup,
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                Expanded(
-                                  child: AutoSizeText(
-                                    '${alertTable['LPG']}',
-                                    maxLines: 2,
-                                    group: LPGGroup,
-                                    style: TextStyle(
-                                        fontSize: 16,
-                                        color: Colors.red,
-                                        fontWeight: FontWeight.bold),
-                                    overflowReplacement:
-                                        Text('Sorry String too long'),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(4.0),
-                            child: Row(
-                              children: [
-                                AutoSizeText(
-                                  '- obj_Falling Detector:  ',
-                                  group: O_FallGroup,
-                                  style: TextStyle(
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                Expanded(
-                                  child: AutoSizeText(
-                                    ' ${alertTable['ultrasonic'] == null ? "" : alertTable['ultrasonic']}',
-                                    maxLines: 2,
-                                    group: O_FallGroup,
-                                    style: TextStyle(
-                                        fontSize: 10,
-                                        color: Colors.red,
-                                        fontWeight: FontWeight.bold),
-                                    overflowReplacement:
-                                        Text('Sorry String too long'),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
+                    child: SizedBox(
+                      height: size.height * .2,
+                      width: size.width * .35,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(20),
+                        child: Image.network(
+                          widget.snapshot.data!.docs[widget.index]["imgurl"],
+                          fit: BoxFit.cover,
+                        ),
                       ),
-                    )),
-                Positioned(
-                    top: size.height * .01,
-                    right: size.width * .05,
-                    bottom: size.height * .01,
-                    child: Container(
-                      height: size.height,
-                      width: size.width * .44,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(4.0),
-                            child: Row(
-                              children: [
-                                AutoSizeText(
-                                  '- TEMP:  ',
-                                  group: TEMPGroup,
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                Expanded(
-                                  child: AutoSizeText(
-                                    ' ${alertTable['TEMP'] == null ? "" : alertTable['TEMP']}',
-                                    maxLines: 2,
-                                    group: TEMPGroup,
-                                    style: TextStyle(
-                                        fontSize: 16,
-                                        color: Colors.red,
-                                        fontWeight: FontWeight.bold),
-                                    overflowReplacement:
-                                        Text('Sorry String too long'),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(4.0),
-                            child: Row(
-                              children: [
-                                AutoSizeText(
-                                  '- HUM:  ',
-                                  group: HUMGroup,
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                Expanded(
-                                  child: AutoSizeText(
-                                    ' ${alertTable['HUM'] == null ? "" : alertTable['HUM']}',
-                                    maxLines: 2,
-                                    group: TEMPGroup,
-                                    style: TextStyle(
-                                        fontSize: 16,
-                                        color: Colors.red,
-                                        fontWeight: FontWeight.bold),
-                                    overflowReplacement:
-                                        Text('Sorry String too long'),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(4.0),
-                            child: Row(
-                              children: [
-                                AutoSizeText(
-                                  '- Fall Detector:  ',
-                                  group: Fall_DGroup,
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                Expanded(
-                                  child: AutoSizeText(
-                                    ' ${alertTable['fall'] == null ? "" : alertTable['fall']}',
-                                    maxLines: 2,
-                                    group: Fall_DGroup,
-                                    style: TextStyle(
-                                        fontSize: 16,
-                                        color: Colors.red,
-                                        fontWeight: FontWeight.bold),
-                                    overflowReplacement:
-                                        Text('Sorry String too long'),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    )),
-              ],
-            ),
+                    ),
+                  ),
+                  Positioned(
+                    top: size.height * .1,
+                    left: size.width * .5,
+                    child: AutoSizeText(
+                      "Name : ${widget.snapshot.data!.docs[widget.index]["firstName"]}  ${widget.snapshot.data!.docs[widget.index]["lastName"]}",
+                      style: const TextStyle(
+                          fontSize: 20, fontWeight: FontWeight.bold),
+                      maxLines: 1,
+                    ),
+                  ),
+                  Positioned(
+                    top: size.height * .16,
+                    left: size.width * .5,
+                    child: Text(
+                      "age     : ${widget.snapshot.data!.docs[widget.index]["age"]}",
+                      style:
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ],
+              )),
+          SingleChildScrollView(
+            child: Container(
+                height: 300,
+                child: listItem(
+                    alert: alertTable,
+                    context: context,
+                    sensors: sensorsTable)),
           ),
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
-              child: GridView.builder(
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      childAspectRatio: 25 / 26,
-                      crossAxisSpacing: 15,
-                      mainAxisSpacing: 20),
-                  itemCount: grid_photo.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return GridCard(
-                        screen: screens[index],
-                        imgpath: grid_photo[index],
-                        text: grid_text[index]);
-                  }),
-            ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(18.0),
+                child: InkWell(
+                  onTap: () {
+                    navigateTo(context, TempretureScreen());
+                  },
+                  child: Container(
+                    height: 150,
+                    width: MediaQuery.of(context).size.width * 0.4,
+                    decoration: BoxDecoration(
+                        color: Color.fromARGB(255, 236, 235, 235),
+                        borderRadius: BorderRadius.circular(15)),
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: SizedBox(
+                              height: 100,
+                              width: 100,
+                              child: Image.asset(
+                                'assets/images/temperature-icon-png-1.png',
+                                color: Colors.blue,
+                              )),
+                        ),
+                        Text(
+                          'Temperature : ${sensorsTable['temp']} °C',
+                          style: TextStyle(
+                              fontSize: 15, fontWeight: FontWeight.bold),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(18.0),
+                child: InkWell(
+                  onTap: () {
+                    navigateTo(context, HumidityScreen());
+                  },
+                  child: Container(
+                    height: 150,
+                    width: MediaQuery.of(context).size.width * 0.4,
+                    decoration: BoxDecoration(
+                        color: Color.fromARGB(255, 236, 235, 235),
+                        borderRadius: BorderRadius.circular(15)),
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: SizedBox(
+                              height: 100,
+                              width: 100,
+                              child: Image.asset(
+                                'assets/images/humidity.png',
+                                color: Colors.blue,
+                              )),
+                        ),
+                        Text(
+                          'Humidity : ${sensorsTable['Humdity']} %',
+                          style: TextStyle(
+                              fontSize: 15, fontWeight: FontWeight.bold),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              )
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 18),
+                child: InkWell(
+                  onTap: () {
+                    navigateTo(context, GasScreen());
+                  },
+                  child: Container(
+                    height: 150,
+                    width: MediaQuery.of(context).size.width * 0.4,
+                    decoration: BoxDecoration(
+                        color: Color.fromARGB(255, 236, 235, 235),
+                        borderRadius: BorderRadius.circular(15)),
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: SizedBox(
+                              height: 100,
+                              width: 100,
+                              child: Image.asset(
+                                'assets/images/icons8-gas-mask-64.png',
+                                scale: sqrt1_2,
+                                color: Colors.blueAccent,
+                              )),
+                        ),
+                        Text(
+                          'Gas Detection ',
+                          style: TextStyle(
+                              fontSize: 15, fontWeight: FontWeight.bold),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(18.0),
+                child: InkWell(
+                  onTap: () {
+                    navigateTo(
+                        context,
+                        Tracking( snapshot: widget.snapshot, index: widget.index ),
+                        );
+                  },
+                  child: Container(
+                    height: 150,
+                    width: MediaQuery.of(context).size.width * 0.4,
+                    decoration: BoxDecoration(
+                        color: Color.fromARGB(255, 236, 235, 235),
+                        borderRadius: BorderRadius.circular(15)),
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: SizedBox(
+                              height: 100,
+                              width: 100,
+                              child: Image.asset(
+                                'assets/images/icons8-google-maps-old-100.png',
+                                color: Colors.blue,
+                              )),
+                        ),
+                        Text(
+                          'GPS Tracking',
+                          style: TextStyle(
+                              fontSize: 15, fontWeight: FontWeight.bold),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              // Padding(
+              //   padding: const EdgeInsets.all(18.0),
+              //   child: InkWell(
+              //     onTap: () {
+              //       navigateTo(context, UnderGroundScreen());
+              //     },
+              //     child: Container(
+              //       height: 150,
+              //       width: MediaQuery.of(context).size.width * 0.4,
+              //       decoration: BoxDecoration(
+              //           color: Color.fromARGB(255, 236, 235, 235),
+              //           borderRadius: BorderRadius.circular(15)),
+              //       child: Column(
+              //         children: [
+              //           Padding(
+              //             padding: const EdgeInsets.all(8.0),
+              //             child: SizedBox(
+              //                 height: 100,
+              //                 width: 100,
+              //                 child: Image.asset(
+              //                   'assets/images/icons8-road-map-66.png',
+              //                   scale: sqrt1_2,
+              //                   color: Colors.blue,
+              //                 )),
+              //           ),
+              //           Text(
+              //             'Under ground tracking',
+              //             style: TextStyle(
+              //                 fontSize: 14, fontWeight: FontWeight.bold),
+              //           ),
+              //         ],
+              //       ),
+              //     ),
+              //   ),
+              // )
+            ],
           ),
         ],
       ),
     );
+  }
+
+  Widget listItem(
+      {required Map alert, required context, required Map sensors}) {
+    return Container(
+        height: 800,
+        margin: const EdgeInsets.fromLTRB(10, 1, 10, 10),
+        padding: const EdgeInsets.fromLTRB(10, 1, 10, 10),
+        color: Colors.white,
+        child: SingleChildScrollView(
+          child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Center(
+                  child: Text(
+                    "Emergency Alerts",
+                    style: TextStyle(color: Colors.cyan, fontSize: 38),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+                const SizedBox(
+                  height: 15,
+                ),
+                Row(
+                  children: [
+                    Text(
+                      "HUM: ",
+                      style:
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    ),
+                    Text(
+                      alert['HUM'] == null ? "" : alert['HUM'],
+                      // sensors['temp']?? "",
+
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  height: 5,
+                ),
+                Row(
+                  children: [
+                    Text(
+                      "CO: ",
+                      style:
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    ),
+                    Text(
+                      alert['CO'] ?? "",
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  height: 5,
+                ),
+                Row(
+                  children: [
+                    Text(
+                      "LPG: ",
+                      style:
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    ),
+                    Text(
+                      alert['LPG'] ?? "",
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  height: 5,
+                ),
+                Row(
+                  children: [
+                    Text(
+                      "TEMP: ",
+                      style:
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    ),
+                    Text(
+                      alert['TEMP'] == null ? "" : alert['TEMP'] + ' °C',
+                      // sensors['temp']?? "",
+
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  height: 5,
+                ),
+                Row(
+                  children: [
+                    Text(
+                      "Fall Detector: ",
+                      style:
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    ),
+                    Text(
+                      alert['fall'] == null ? "" : alert['fall'],
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  height: 5,
+                ),
+                Row(
+                  children: [
+                    Text(
+                      "object Falling Detector: ",
+                      style:
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    ),
+                    Text(
+                      alert['object'] == null ? "" : alert['object'],
+
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  height: 5,
+                ),
+                Center(
+                  child: ElevatedButton(
+                    child: Text('Emergency Contacts'),
+                    style: ElevatedButton.styleFrom(
+                      primary: Colors.cyan,
+                      textStyle: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 20,
+                          fontStyle: FontStyle.normal),
+                      shape: BeveledRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(10))),
+                      shadowColor: Colors.lightBlue,
+                    ),
+                    onPressed: () => Navigator.of(context).push(
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                EmergencyScreen(widget.snapshot.data!.docs[widget.index]["uid"]))),
+                  ),
+                ),
+              ]),
+        ));
   }
 }
