@@ -43,9 +43,6 @@ class _WorkerProfileState extends State<WorkerProfile> {
         data: widget.snapshot.data!.docs[widget.index]["address"],
         photo: Icons.maps_home_work),
     WorkerView(
-        data: widget.snapshot.data!.docs[widget.index]["contactnumber"],
-        photo: Icons.contact_emergency),
-    WorkerView(
         data: widget.snapshot.data!.docs[widget.index]["workernumber"],
         photo: Icons.contact_phone),
     WorkerView(
