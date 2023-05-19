@@ -1,6 +1,8 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
-import '../../shared/functions/CircleProgress.dart';
+import 'package:smarthelmet/shared/constants/colors.dart';
+import 'package:smarthelmet/shared/functions/CircleProgress.dart';
+
 
 class HumidityScreen extends StatefulWidget {
   HumidityScreen({super.key});
@@ -29,7 +31,7 @@ class _HumidityScreenState extends State<HumidityScreen> with TickerProviderStat
         print(sensorsTable);
         String? nullableString = '${sensorsTable['Humdity']}'.toString();
         print(nullableString);
-        hum = double.tryParse(nullableString) ?? 0.0;
+        hum = double.tryParse(nullableString ) ?? 0.0;
 
        
         setState(() {
@@ -42,8 +44,17 @@ class _HumidityScreenState extends State<HumidityScreen> with TickerProviderStat
   }
 
   Map<String, List<String>> tables = {
-    "ALERT": ['HUM', 'LPG', 'CO', 'TEMP'],
-    "sensors": ['CO PPM value', 'Humdity', 'LPG PPM value', 'temp']
+    "ALERT": ['HUM', 'LPG', 'CO', 'TEMP','fall','object'],
+    "sensors": ['CO PPM value', 'Humdity', 'LPG PPM value', 'temp','underGround'],
+    "gps": [
+      'latitude1',
+      'longitude1',
+      'latitude2',
+      'longitude2',
+      'latitude3',
+      'longitude3',
+      'latitude4',
+      'longitude4',]
   };
 
   @override
@@ -52,8 +63,6 @@ class _HumidityScreenState extends State<HumidityScreen> with TickerProviderStat
     hum = double.tryParse('${sensorsTable['Humdity']}') ?? 0.0;
 
     double temp = 20;
-    //humidity = sensorsTable['Humdity'] as double;
-
     _HumidityScreenInit(temp, hum);
     super.initState();
   }
@@ -124,7 +133,7 @@ class _HumidityScreenState extends State<HumidityScreen> with TickerProviderStat
             fontFamily: 'Ubuntu',
           ),
         ),
-        backgroundColor: Colors.cyan,
+        backgroundColor: navBarColor,
         elevation: 0.0,
         leading: IconButton(
           onPressed: () {

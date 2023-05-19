@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:kdgaugeview/kdgaugeview.dart';
 
 class GasScreen extends StatefulWidget {
-  GasScreen({super.key});
+    GasScreen({super.key});
 
   @override
   State<GasScreen> createState() => _GasScreenState();
@@ -16,7 +16,7 @@ class _GasScreenState extends State<GasScreen> {
 
   Map<Object?, Object?> sensorsTable = {};
 
-  void readRealTimeDatabase() async {
+void readRealTimeDatabase() async {
     tables.forEach((key, value) async {
       Query dbRef = FirebaseDatabase.instance.ref().child(key);
       await dbRef.onValue.listen((event) {
@@ -34,46 +34,61 @@ class _GasScreenState extends State<GasScreen> {
   }
 
   Map<String, List<String>> tables = {
-    "ALERT": ['HUM', 'LPG', 'CO', 'TEMP'],
-    "sensors": ['CO PPM value', 'Humdity', 'LPG PPM value', 'temp']
+    "ALERT": ['HUM', 'LPG', 'CO', 'TEMP','fall','object'],
+    "sensors": ['CO PPM value', 'Humdity', 'LPG PPM value', 'temp','underGround'],
+    "gps": [
+      'latitude1',
+      'longitude1',
+      'latitude2',
+      'longitude2',
+      'latitude3',
+      'longitude3',
+      'latitude4',
+      'longitude4',]
   };
 
   @override
   void initState() {
     readRealTimeDatabase();
+
+    //double temp = 20;
+    //temp = double.parse('${sensorsTable['temp']} '.toString() );
+    //double humdity = 100;
+    //humidity = sensorsTable['Humdity'] as double;
+
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: SingleChildScrollView(
+     
+       body: Center(
+        child:SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Container(
                 width: 400,
                 height: 350,
-                padding: EdgeInsets.fromLTRB(10, 20, 10, 10),
+                
+                padding: EdgeInsets.fromLTRB(10,20,10,10),
                 child: KdGaugeView(
                   minSpeed: 0,
                   maxSpeed: 10000,
-                  speed: double.parse(
-                      '${sensorsTable['CO PPM value']} '.toString()),
+                  speed: double.parse('${sensorsTable['CO PPM value']} '.toString() ),
                   animate: true,
                   duration: Duration(seconds: 5),
                   alertSpeedArray: [600, 1000, 2000],
                   alertColorArray: [Colors.orange, Colors.indigo, Colors.red],
                   unitOfMeasurement: "CO PPM",
-                  unitOfMeasurementTextStyle: TextStyle(
-                      fontSize: 20,
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold),
+                  unitOfMeasurementTextStyle: TextStyle(fontSize: 20 , color: Colors.black, fontWeight: FontWeight.bold),
+
                   gaugeWidth: 30,
                   fractionDigits: 1,
                 ),
               ),
+            
               Container(
                 width: 400,
                 height: 350,
@@ -81,17 +96,13 @@ class _GasScreenState extends State<GasScreen> {
                 child: KdGaugeView(
                   minSpeed: 0,
                   maxSpeed: 10000,
-                  speed: double.parse(
-                      '${sensorsTable['LPG PPM value']} '.toString()),
+                  speed: double.parse('${sensorsTable['LPG PPM value']} '.toString() ),
                   animate: true,
                   duration: Duration(seconds: 5),
                   alertSpeedArray: [600, 1000, 2000],
                   alertColorArray: [Colors.orange, Colors.indigo, Colors.red],
                   unitOfMeasurement: "LPG PPM",
-                  unitOfMeasurementTextStyle: TextStyle(
-                      fontSize: 20,
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold),
+                  unitOfMeasurementTextStyle: TextStyle(fontSize: 20 , color: Colors.black, fontWeight: FontWeight.bold),
                   gaugeWidth: 30,
                   fractionDigits: 1,
                 ),

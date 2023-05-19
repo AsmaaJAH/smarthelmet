@@ -31,13 +31,6 @@ class _FetchDataState extends State<FetchData> with TickerProviderStateMixin {
   late Animation<double> tempAnimation;
   late AnimationController progressController;
 
-  var COGroup = AutoSizeGroup();
-  var LPGGroup = AutoSizeGroup();
-  var Fall_DGroup = AutoSizeGroup();
-  var TEMPGroup = AutoSizeGroup();
-  var HUMGroup = AutoSizeGroup();
-  var O_FallGroup = AutoSizeGroup();
-
   Map<Object?, Object?> gpsTable = {};
   Map<Object?, Object?> alertTable = {};
   Map<Object?, Object?> sensorsTable = {};
@@ -79,8 +72,8 @@ class _FetchDataState extends State<FetchData> with TickerProviderStateMixin {
   }
 
   Map<String, List<String>> tables = {
-    "ALERT": ['HUM', 'LPG', 'CO', 'TEMP'],
-    "sensors": ['CO PPM value', 'Humdity', 'LPG PPM value', 'temp'],
+    "ALERT": ['HUM', 'LPG', 'CO', 'TEMP','fall','object'],
+    "sensors": ['CO PPM value', 'Humdity', 'LPG PPM value', 'temp','underGround'],
     "gps": [
       'latitude1',
       'longitude1',
@@ -112,7 +105,6 @@ class _FetchDataState extends State<FetchData> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    final test = dataBase.child("write now/");
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
@@ -335,41 +327,41 @@ class _FetchDataState extends State<FetchData> with TickerProviderStateMixin {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              // Padding(
-              //   padding: const EdgeInsets.all(18.0),
-              //   child: InkWell(
-              //     onTap: () {
-              //       navigateTo(context, UnderGroundScreen());
-              //     },
-              //     child: Container(
-              //       height: 150,
-              //       width: MediaQuery.of(context).size.width * 0.4,
-              //       decoration: BoxDecoration(
-              //           color: Color.fromARGB(255, 236, 235, 235),
-              //           borderRadius: BorderRadius.circular(15)),
-              //       child: Column(
-              //         children: [
-              //           Padding(
-              //             padding: const EdgeInsets.all(8.0),
-              //             child: SizedBox(
-              //                 height: 100,
-              //                 width: 100,
-              //                 child: Image.asset(
-              //                   'assets/images/icons8-road-map-66.png',
-              //                   scale: sqrt1_2,
-              //                   color: Colors.blue,
-              //                 )),
-              //           ),
-              //           Text(
-              //             'Under ground tracking',
-              //             style: TextStyle(
-              //                 fontSize: 14, fontWeight: FontWeight.bold),
-              //           ),
-              //         ],
-              //       ),
-              //     ),
-              //   ),
-              // )
+              Padding(
+                padding: const EdgeInsets.all(18.0),
+                child: InkWell(
+                  onTap: () {
+                    navigateTo(context, UnderGroundScreen());
+                  },
+                  child: Container(
+                    height: 150,
+                    width: MediaQuery.of(context).size.width * 0.4,
+                    decoration: BoxDecoration(
+                        color: Color.fromARGB(255, 236, 235, 235),
+                        borderRadius: BorderRadius.circular(15)),
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: SizedBox(
+                              height: 100,
+                              width: 100,
+                              child: Image.asset(
+                                'assets/images/icons8-road-map-66.png',
+                                scale: sqrt1_2,
+                                color: Colors.blue,
+                              )),
+                        ),
+                        Text(
+                          'Under ground tracking',
+                          style: TextStyle(
+                              fontSize: 14, fontWeight: FontWeight.bold),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              )
             ],
           ),
         ],
@@ -404,14 +396,14 @@ class _FetchDataState extends State<FetchData> with TickerProviderStateMixin {
                     Text(
                       "HUM: ",
                       style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold,),
                     ),
                     Text(
                       alert['HUM'] == null ? "" : alert['HUM'],
                       // sensors['temp']?? "",
 
                       style:
-                          TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.w400,  color: Colors.red,),
                     ),
                   ],
                 ),
@@ -428,7 +420,7 @@ class _FetchDataState extends State<FetchData> with TickerProviderStateMixin {
                     Text(
                       alert['CO'] ?? "",
                       style:
-                          TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.w400,  color: Colors.red,),
                     ),
                   ],
                 ),
@@ -445,7 +437,7 @@ class _FetchDataState extends State<FetchData> with TickerProviderStateMixin {
                     Text(
                       alert['LPG'] ?? "",
                       style:
-                          TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.w400,  color: Colors.red,),
                     ),
                   ],
                 ),
@@ -460,11 +452,11 @@ class _FetchDataState extends State<FetchData> with TickerProviderStateMixin {
                           TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                     ),
                     Text(
-                      alert['TEMP'] == null ? "" : alert['TEMP'] + ' °C',
+                      alert['TEMP'] == null ? "" : alert['TEMP'] ,
                       // sensors['temp']?? "",
 
                       style:
-                          TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.w400 ,  color: Colors.red,),
                     ),
                   ],
                 ),
@@ -481,7 +473,7 @@ class _FetchDataState extends State<FetchData> with TickerProviderStateMixin {
                     Text(
                       alert['fall'] == null ? "" : alert['fall'],
                       style:
-                          TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.w400,  color: Colors.red,),
                     ),
                   ],
                 ),
@@ -499,7 +491,7 @@ class _FetchDataState extends State<FetchData> with TickerProviderStateMixin {
                       alert['object'] == null ? "" : alert['object'],
 
                       style:
-                          TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.w400,  color: Colors.red,),
                     ),
                   ],
                 ),
@@ -508,7 +500,7 @@ class _FetchDataState extends State<FetchData> with TickerProviderStateMixin {
                 ),
                 Center(
                   child: ElevatedButton(
-                    child: Text('Emergency Contacts'),
+                    child: Text('1 click to Call Emergency'),
                     style: ElevatedButton.styleFrom(
                       primary: Colors.cyan,
                       textStyle: const TextStyle(
