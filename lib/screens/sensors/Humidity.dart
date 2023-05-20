@@ -28,9 +28,7 @@ class _HumidityScreenState extends State<HumidityScreen> with TickerProviderStat
           alertTable = event.snapshot.value as Map<Object?, Object?>;
         else if (key == "sensors")
           sensorsTable = event.snapshot.value as Map<Object?, Object?>;
-        print(sensorsTable);
         String? nullableString = '${sensorsTable['Humdity']}'.toString();
-        print(nullableString);
         hum = double.tryParse(nullableString ) ?? 0.0;
 
        
