@@ -48,13 +48,7 @@ class _HumidityScreenState extends State<HumidityScreen> with TickerProviderStat
     "sensors": ['CO PPM value', 'Humdity', 'LPG PPM value', 'temp','underGround'],
     "gps": [
       'latitude1',
-      'longitude1',
-      'latitude2',
-      'longitude2',
-      'latitude3',
-      'longitude3',
-      'latitude4',
-      'longitude4',]
+      'longitude1',]
   };
 
   @override
@@ -69,10 +63,10 @@ class _HumidityScreenState extends State<HumidityScreen> with TickerProviderStat
 
   _HumidityScreenInit(double temp, double humid) {
     progressController = AnimationController(
-        vsync: this, duration: Duration(milliseconds: 5000)); //5s
+        vsync: this, duration: Duration(milliseconds: 1)); //5s
 
     humAnimation =
-        Tween<double>(begin: -50, end: hum).animate(progressController)
+        Tween<double>(begin: 0, end: hum).animate(progressController)
           ..addListener(() {
             setState(() {});
           });
@@ -92,7 +86,7 @@ class _HumidityScreenState extends State<HumidityScreen> with TickerProviderStat
                 children: <Widget>[
                   CustomPaint(
                     foregroundPainter:
-                        CircleProgress(humAnimation.value, false),
+                        CircleProgress(humAnimation.value, true),
                     child: Container(
                       width: 200,
                       height: 200,

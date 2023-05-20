@@ -16,7 +16,7 @@ class CircleProgress extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     int maximumValue =
-        isTemp ? 50 : 100; // Temp's max is 50, Humidity's max is 100
+        isTemp ? 100 : 10000; // Temp's and humidity max are 100, gas max is 10,000
 
     Paint outerCircle = Paint()
       ..strokeWidth = 14
@@ -29,7 +29,7 @@ class CircleProgress extends CustomPainter {
       ..style = PaintingStyle.stroke
       ..strokeCap = StrokeCap.round;
 
-    Paint humidityArc = Paint()
+    Paint gasArc = Paint()
       ..strokeWidth = 14
       ..color = Colors.blue
       ..style = PaintingStyle.stroke
@@ -42,6 +42,6 @@ class CircleProgress extends CustomPainter {
     double angle = 2 * pi * (value / maximumValue);
 
     canvas.drawArc(Rect.fromCircle(center: center, radius: radius), -pi / 2,
-        angle, false, isTemp ? tempArc : humidityArc);
+        angle, false, isTemp ? tempArc : gasArc);
   }
 }

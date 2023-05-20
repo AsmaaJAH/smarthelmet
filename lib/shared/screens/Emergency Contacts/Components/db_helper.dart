@@ -45,7 +45,6 @@ class DBHelper {
     print(uid);
     List<Map> maps =
         await dbClient.rawQuery("SELECT * FROM contacts WHERE id='${uid}'  ");
-    //,columns: ['id', 'name', 'contactNo']);
     List<PersonalEmergency> contacts = [];
     if (maps.isNotEmpty) {
       for (int i = 0; i < maps.length; i++) {

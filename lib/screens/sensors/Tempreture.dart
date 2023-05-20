@@ -49,12 +49,7 @@ class _TempretureScreenState extends State<TempretureScreen> with TickerProvider
     "gps": [
       'latitude1',
       'longitude1',
-      'latitude2',
-      'longitude2',
-      'latitude3',
-      'longitude3',
-      'latitude4',
-      'longitude4',]
+    ],
   };
 
   @override
@@ -63,7 +58,6 @@ class _TempretureScreenState extends State<TempretureScreen> with TickerProvider
     temp = double.tryParse('${sensorsTable['temp']}') ?? 0.0;
 
     double humdity = 100;
-    //humidity = sensorsTable['Humdity'] as double;
 
     _TempretureScreenInit(temp, humdity);
     super.initState();
@@ -71,10 +65,10 @@ class _TempretureScreenState extends State<TempretureScreen> with TickerProvider
 
   _TempretureScreenInit(double temp, double humid) {
     progressController = AnimationController(
-        vsync: this, duration: Duration(milliseconds: 5000)); //5s
+        vsync: this, duration: Duration(milliseconds: 1)); //5s
 
     tempAnimation =
-        Tween<double>(begin: -50, end: temp).animate(progressController)
+        Tween<double>(begin: 0, end: temp).animate(progressController)
           ..addListener(() {
             setState(() {});
           });

@@ -5,9 +5,10 @@ import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:smarthelmet/shared/screens/Emergency%20Contacts/Components/personal_emergency_contacts_model.dart';
 
 import 'db_helper.dart';
+
 class PersonalEmergencyContacts extends StatefulWidget {
   late String id;
-  
+
   PersonalEmergencyContacts(String uid) {
     id = uid;
   }
@@ -41,7 +42,7 @@ class _PersonalEmergencyContactsState extends State<PersonalEmergencyContacts> {
   }
 
   void _addContact(String name, String id, String no) {
-    dbHelper.add(PersonalEmergency(name,id ,no));
+    dbHelper.add(PersonalEmergency(name, id, no));
     _textFieldController1.clear();
     _textFieldController2.clear();
   }
@@ -106,7 +107,16 @@ class _PersonalEmergencyContactsState extends State<PersonalEmergencyContacts> {
                                         subtitle:
                                             Text(emergencyContactsNo[index]),
                                         dense: true,
-                                        trailing: const Icon(Icons.delete),
+                                        trailing:  IconButton(
+                                                  icon: Icon(
+                                                    Icons.delete,  
+                                                  ),
+                                                  onPressed: () async {
+                                                      // delete(id);
+                                                    //await PersonalEmergencyContacts(widget.id );
+                                                    // setState(() {});
+                                                  }
+                                              ),
                                         leading: CircleAvatar(
                                             child: Text(
                                                 emergencyContactsInitials[
@@ -150,8 +160,8 @@ class _PersonalEmergencyContactsState extends State<PersonalEmergencyContacts> {
               ),
               TextButton(
                 onPressed: () => {
-                  _addContact(
-                      _textFieldController1.text, widget.id, _textFieldController2.text),
+                  _addContact(_textFieldController1.text, widget.id,
+                      _textFieldController2.text),
                   Navigator.pop(context, 'Add')
                 },
                 child: const Text('Add'),

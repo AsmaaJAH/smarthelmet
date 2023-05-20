@@ -47,24 +47,9 @@ class _FetchDataState extends State<FetchData> with TickerProviderStateMixin {
           print("-------------///sensors///------------------");
           sensorsTable = event.snapshot.value as Map<Object?, Object?>;
         } else if (key == "gps") {
-          for (int i = 0; i < 1000; i++) {
             gpsTable = event.snapshot.value as Map<Object?, Object?>;
-            positions[i].latitude = double.parse('${gpsTable['latitude1']}');
-            positions[i].longitude = double.parse('${gpsTable['longitude1']}');
-            i++;
-
-            positions[i].latitude = double.parse('${gpsTable['latitude2']}');
-            positions[i].longitude = double.parse('${gpsTable['longitude2']}');
-            i++;
-
-            positions[i].latitude = double.parse('${gpsTable['latitude3']}');
-            positions[i].longitude = double.parse('${gpsTable['longitude3']}');
-            i++;
-
-            positions[i].latitude = double.parse('${gpsTable['latitude4']}');
-            positions[i].longitude = double.parse('${gpsTable['longitude4']}');
-            i++;
-          }
+            positions[0].latitude = double.parse('${gpsTable['latitude1']}');
+            positions[0].longitude = double.parse('${gpsTable['longitude1']}');
         }
         setState(() {});
       });
@@ -77,12 +62,6 @@ class _FetchDataState extends State<FetchData> with TickerProviderStateMixin {
     "gps": [
       'latitude1',
       'longitude1',
-      'latitude2',
-      'longitude2',
-      'latitude3',
-      'longitude3',
-      'latitude4',
-      'longitude4',
     ],
   };
 

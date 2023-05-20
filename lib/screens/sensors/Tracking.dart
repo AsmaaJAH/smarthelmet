@@ -32,7 +32,7 @@ class _TrackingState extends State<Tracking> with TickerProviderStateMixin {
   @override
   void initState() {
     //loadImage();
-     createPloyLine();
+    
 
      BitmapDescriptor.fromAssetImage(
       ImageConfiguration(
@@ -46,22 +46,6 @@ class _TrackingState extends State<Tracking> with TickerProviderStateMixin {
 
   }
 
-  createPloyLine() {
-    myPolyline.add(
-      Polyline(
-          polylineId: PolylineId('1'),
-          color: Colors.blue,
-          width: 3,
-          points: [
-            for (int i = 0; i < positions.length; i++)
-              LatLng(positions[i].latitude, positions[i].longitude),
-          ],
-          patterns: [
-            PatternItem.dash(20),
-            PatternItem.gap(10),
-          ]),
-    );
-  }
 
   @override
   Widget build(BuildContext context) {

@@ -54,25 +54,6 @@ class _ContactsDataState extends State<ContactsData> {
             padding: const EdgeInsets.all(15),
             child: Wrap(children: [
               Column(children: <Widget>[
-                DropdownButton(
-                  iconEnabledColor: Colors.cyan,
-                  hint: _selectedCity == null
-                      ? const Text('Select City')
-                      : Text(
-                          _selectedCity!,
-                        ),
-                  items: <String>["Alexandria", "Cairo", "Damanhour"].map((city) {
-                    return DropdownMenuItem<String>(
-                      value: city,
-                      child: Text(city),
-                    );
-                  }).toList(),
-                  onChanged: (city) {
-                    setState(() {
-                      _selectedCity = city.toString();
-                    });
-                  },
-                ),
                 Scrollbar(
                     child: ListView.builder(
                         physics: const BouncingScrollPhysics(
