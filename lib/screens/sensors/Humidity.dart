@@ -30,8 +30,6 @@ class _HumidityScreenState extends State<HumidityScreen> with TickerProviderStat
           sensorsTable = event.snapshot.value as Map<Object?, Object?>;
         String? nullableString = '${sensorsTable['Humdity']}'.toString();
         hum = double.tryParse(nullableString ) ?? 0.0;
-
-       
         setState(() {
         _HumidityScreenInit(hum,0.0 );
 
@@ -61,7 +59,7 @@ class _HumidityScreenState extends State<HumidityScreen> with TickerProviderStat
 
   _HumidityScreenInit(double temp, double humid) {
     progressController = AnimationController(
-        vsync: this, duration: Duration(milliseconds: 1)); //5s
+        vsync: this, duration: Duration(milliseconds: 0)); //5s
 
     humAnimation =
         Tween<double>(begin: 0, end: hum).animate(progressController)

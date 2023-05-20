@@ -39,7 +39,7 @@ class _GasScreenState extends State<GasScreen> with TickerProviderStateMixin {
 
        
         setState(() {
-        _TempretureScreenInit(co,lpg );
+        _GasScreenInit(co,lpg );
 
 
         });
@@ -62,13 +62,13 @@ class _GasScreenState extends State<GasScreen> with TickerProviderStateMixin {
     co = double.tryParse('${sensorsTable['CO PPM value']}') ?? 0.0;
     lpg = double.tryParse('${sensorsTable['LPG PPM value']}')??0.0;
 
-    _TempretureScreenInit(co, lpg);
+    _GasScreenInit(co, lpg);
     super.initState();
   }
 
-  _TempretureScreenInit(double co, double lpg) {
+  _GasScreenInit(double co, double lpg) {
     progressController = AnimationController(
-        vsync: this, duration: Duration(milliseconds: 1)); //5s
+        vsync: this, duration: Duration(milliseconds: 0)); //5s
 
     coAnimation =
         Tween<double>(begin: 0, end: co).animate(progressController)

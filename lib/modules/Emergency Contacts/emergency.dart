@@ -36,7 +36,7 @@ class _EmergencyScreenState extends State<EmergencyScreen> {
         ),
       ),
       body: AnimatedSplashScreen(
-          duration: 1000,
+          duration: 500,
           splash: const SplashScreen(),
           nextScreen: HomeScreenTabs(widget.index),
           splashTransition: SplashTransition.fadeTransition,

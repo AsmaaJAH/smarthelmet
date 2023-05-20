@@ -26,13 +26,8 @@ class _UnderGroundScreenState extends State<UnderGroundScreen>
           alertTable = event.snapshot.value as Map<Object?, Object?>;
         else if (key == "sensors")
           sensorsTable = event.snapshot.value as Map<Object?, Object?>;
-        print(sensorsTable);
-        String? nullableString = '${sensorsTable['temp']}'.toString();
-        print(nullableString);
-        temp = double.tryParse(nullableString) ?? 0.0;
 
         setState(() {
-          _TempretureScreenInit(temp, 0.0);
         });
       });
     });
@@ -50,27 +45,16 @@ class _UnderGroundScreenState extends State<UnderGroundScreen>
     "gps": [
       'latitude1',
       'longitude1',
-      'latitude2',
-      'longitude2',
-      'latitude3',
-      'longitude3',
-      'latitude4',
-      'longitude4',
     ]
   };
 
   @override
   void initState() {
     read();
-    temp = double.tryParse('${sensorsTable['temp']}') ?? 0.0;
 
-    double humdity = 100;
-
-    _TempretureScreenInit(temp, humdity);
     super.initState();
   }
 
-  _TempretureScreenInit(double temp, double humid) {}
 
   @override
   Widget build(BuildContext context) {

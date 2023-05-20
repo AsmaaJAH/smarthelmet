@@ -65,7 +65,7 @@ class _TempretureScreenState extends State<TempretureScreen> with TickerProvider
 
   _TempretureScreenInit(double temp, double humid) {
     progressController = AnimationController(
-        vsync: this, duration: Duration(milliseconds: 1)); //5s
+        vsync: this, duration: Duration(milliseconds: 0)); //5s
 
     tempAnimation =
         Tween<double>(begin: 0, end: temp).animate(progressController)
