@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 
 import 'emergency_contacts.dart';
-
 class ContactsData extends StatefulWidget {
   const ContactsData({Key? key}) : super(key: key);
 
@@ -55,25 +54,6 @@ class _ContactsDataState extends State<ContactsData> {
             padding: const EdgeInsets.all(15),
             child: Wrap(children: [
               Column(children: <Widget>[
-                DropdownButton(
-                  iconEnabledColor: Colors.cyan,
-                  hint: _selectedCity == null
-                      ? const Text('Select City')
-                      : Text(
-                          _selectedCity!,
-                        ),
-                  items: <String>["Alexandria", "Cairo", "Damanhour"].map((city) {
-                    return DropdownMenuItem<String>(
-                      value: city,
-                      child: Text(city),
-                    );
-                  }).toList(),
-                  onChanged: (city) {
-                    setState(() {
-                      _selectedCity = city.toString();
-                    });
-                  },
-                ),
                 Scrollbar(
                     child: ListView.builder(
                         physics: const BouncingScrollPhysics(

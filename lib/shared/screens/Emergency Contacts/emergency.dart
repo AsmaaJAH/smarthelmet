@@ -4,16 +4,15 @@ import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'Components/splash_screen.dart';
 import 'home_tabs.dart';
 
-
 class EmergencyScreen extends StatefulWidget {
-    EmergencyScreen({super.key});
+  late String index;
+  EmergencyScreen({required this.index});
 
   @override
   State<EmergencyScreen> createState() => _EmergencyScreenState();
 }
 
 class _EmergencyScreenState extends State<EmergencyScreen> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,7 +39,7 @@ class _EmergencyScreenState extends State<EmergencyScreen> {
       body: AnimatedSplashScreen(
           duration: 1000,
           splash: const SplashScreen(),
-          nextScreen: const HomeScreenTabs(),
+          nextScreen: HomeScreenTabs(widget.index),
           splashTransition: SplashTransition.fadeTransition,
           backgroundColor: Colors.white),
     );

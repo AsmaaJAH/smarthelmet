@@ -1,22 +1,29 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:kdgaugeview/kdgaugeview.dart';
+import 'package:smarthelmet/shared/constants/colors.dart';
+import 'package:smarthelmet/shared/functions/CircleProgress.dart';
 
 class GasScreen extends StatefulWidget {
-  GasScreen({super.key});
+
+    GasScreen({super.key});
 
   @override
   State<GasScreen> createState() => _GasScreenState();
 }
 
-class _GasScreenState extends State<GasScreen> {
+class _GasScreenState extends State<GasScreen> with TickerProviderStateMixin {
+  double co = 20;
+  double lpg = 20;
+
   final dataBase = FirebaseDatabase.instance.ref();
+  late Animation<double> coAnimation;
+    late Animation<double> lpgAnimation;
+  late AnimationController progressController;
 
   Map<Object?, Object?> alertTable = {};
-
   Map<Object?, Object?> sensorsTable = {};
-
-  void readRealTimeDatabase() async {
+  void read() async {
     tables.forEach((key, value) async {
       Query dbRef = FirebaseDatabase.instance.ref().child(key);
       await dbRef.onValue.listen((event) {
@@ -26,84 +33,128 @@ class _GasScreenState extends State<GasScreen> {
         else if (key == "sensors")
           sensorsTable = event.snapshot.value as Map<Object?, Object?>;
 
-        //print(sensorsTable);
+        co = double.tryParse('${sensorsTable['CO PPM value']}'.toString())??0.0;
+        lpg = double.tryParse('${sensorsTable['LPG PPM value']}'.toString())??0.0;
 
-        setState(() {});
+
+       
+        setState(() {
+        _TempretureScreenInit(co,lpg );
+
+
+        });
       });
     });
   }
 
   Map<String, List<String>> tables = {
-    "ALERT": ['HUM', 'LPG', 'CO', 'TEMP'],
-    "sensors": ['CO PPM value', 'Humdity', 'LPG PPM value', 'temp']
+    "ALERT": ['HUM', 'LPG', 'CO', 'TEMP','fall','object'],
+    "sensors": ['CO PPM value', 'Humdity', 'LPG PPM value', 'temp','underGround'],
+    "gps": [
+      'latitude1',
+      'longitude1',
+    ],
   };
 
   @override
   void initState() {
-    readRealTimeDatabase();
+    read();
+    co = double.tryParse('${sensorsTable['CO PPM value']}') ?? 0.0;
+    lpg = double.tryParse('${sensorsTable['LPG PPM value']}')??0.0;
+
+    _TempretureScreenInit(co, lpg);
     super.initState();
+  }
+
+  _TempretureScreenInit(double co, double lpg) {
+    progressController = AnimationController(
+        vsync: this, duration: Duration(milliseconds: 1)); //5s
+
+    coAnimation =
+        Tween<double>(begin: 0, end: co).animate(progressController)
+          ..addListener(() {
+            setState(() {});
+          });
+    lpgAnimation =
+        Tween<double>(begin: 0, end: lpg).animate(progressController)
+          ..addListener(() {
+            setState(() {});
+          });
+
+    progressController.forward();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Container(
-                width: 400,
-                height: 350,
-                padding: EdgeInsets.fromLTRB(10, 20, 10, 10),
-                child: KdGaugeView(
-                  minSpeed: 0,
-                  maxSpeed: 10000,
-                  speed: double.parse(
-                      '${sensorsTable['CO PPM value']} '.toString()),
-                  animate: true,
-                  duration: Duration(seconds: 5),
-                  alertSpeedArray: [600, 1000, 2000],
-                  alertColorArray: [Colors.orange, Colors.indigo, Colors.red],
-                  unitOfMeasurement: "CO PPM",
-                  unitOfMeasurementTextStyle: TextStyle(
-                      fontSize: 20,
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold),
-                  gaugeWidth: 30,
-                  fractionDigits: 1,
-                ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  CustomPaint(
+                    foregroundPainter:
+                        CircleProgress(coAnimation.value, false),
+                    child: Container(
+                      width: 200,
+                      height: 200,
+                      child: Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Text('PPM'),
+                            Text(
+                              '${coAnimation.value.toInt()}',
+                              style: TextStyle(
+                                  fontSize: 50, fontWeight: FontWeight.bold),
+                            ),
+                            Text(
+                              'CO',
+                              style: TextStyle(
+                                  fontSize: 20, fontWeight: FontWeight.bold),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                   CustomPaint(
+                    foregroundPainter:
+                        CircleProgress(lpgAnimation.value, false),
+                    child: Container(
+                      width: 200,
+                      height: 200,
+                      child: Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Text('PPM'),
+                            Text(
+                              '${lpgAnimation.value.toInt()}',
+                              style: TextStyle(
+                                  fontSize: 50, fontWeight: FontWeight.bold),
+                            ),
+                            Text(
+                              'LPG',
+                              style: TextStyle(
+                                  fontSize: 20, fontWeight: FontWeight.bold),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
-              Container(
-                width: 400,
-                height: 350,
-                padding: EdgeInsets.all(10),
-                child: KdGaugeView(
-                  minSpeed: 0,
-                  maxSpeed: 10000,
-                  speed: double.parse(
-                      '${sensorsTable['LPG PPM value']} '.toString()),
-                  animate: true,
-                  duration: Duration(seconds: 5),
-                  alertSpeedArray: [600, 1000, 2000],
-                  alertColorArray: [Colors.orange, Colors.indigo, Colors.red],
-                  unitOfMeasurement: "LPG PPM",
-                  unitOfMeasurementTextStyle: TextStyle(
-                      fontSize: 20,
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold),
-                  gaugeWidth: 30,
-                  fractionDigits: 1,
-                ),
-              )
-            ],
-          ),
+            ),
+          ],
         ),
       ),
       appBar: AppBar(
-        centerTitle: true,
         title: const Text(
-          'Gas',
+          'Gas Detector',
           style: TextStyle(
             fontSize: 22.0,
             fontWeight: FontWeight.bold,
@@ -112,7 +163,7 @@ class _GasScreenState extends State<GasScreen> {
             fontFamily: 'Ubuntu',
           ),
         ),
-        backgroundColor: Colors.cyan,
+        backgroundColor: navBarColor,
         elevation: 0.0,
         leading: IconButton(
           onPressed: () {

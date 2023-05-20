@@ -1,3 +1,4 @@
+
 import 'package:path/path.dart' show join;
 import 'package:smarthelmet/shared/screens/Emergency%20Contacts/Components/personal_emergency_contacts_model.dart';
 import 'package:sqflite/sqflite.dart';
@@ -17,30 +18,33 @@ class DBHelper {
 
   initDatabase() async {
     io.Directory documentDirectory = await getApplicationDocumentsDirectory();
-    String path = join(documentDirectory.path, 'EmergencyContacts.db');
+    String path = join(documentDirectory.path, 'EmergencyContacts2.db');
     var db = await openDatabase(path, version: 1, onCreate: _onCreate);
     return db;
   }
 
   _onCreate(Database db, int version) async {
     await db.execute(
-        'CREATE TABLE contacts (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, contactNo TEXT)');
+        'CREATE TABLE contacts (id TEXT , name TEXT, contactNo TEXT, PRIMARY KEY(id,contactNo))');
   }
 
   Future<PersonalEmergency> add(PersonalEmergency contacts) async {
     var dbClient = await db;
     var name = contacts.name;
     var contactNo = contacts.contactNo;
+    var id = contacts.id;
     dbClient.rawInsert(
-        "INSERT into contacts(name,contactNo)"
-            "VALUES(?, ?)",[name,contactNo]);
+        "INSERT into contacts(id,name,contactNo)"
+        "VALUES(?, ?,?)",
+        [id, name, contactNo]);
     return contacts;
   }
 
-  Future<List<PersonalEmergency>> getContacts() async {
+  Future<List<PersonalEmergency>> getContacts(String uid) async {
     var dbClient = await db;
+    print(uid);
     List<Map> maps =
-        await dbClient.query('contacts', columns: ['id', 'name', 'contactNo']);
+        await dbClient.rawQuery("SELECT * FROM contacts WHERE id='${uid}'  ");
     List<PersonalEmergency> contacts = [];
     if (maps.isNotEmpty) {
       for (int i = 0; i < maps.length; i++) {

@@ -24,7 +24,7 @@ class _GridCardState extends State<GridCard> {
         height: 150,
         width: MediaQuery.of(context).size.width * 0.4,
         decoration: BoxDecoration(
-            color: const Color.fromARGB(255, 236, 235, 235),
+            color: Color.fromARGB(255, 236, 235, 235),
             borderRadius: BorderRadius.circular(15)),
         child: Column(
           children: [

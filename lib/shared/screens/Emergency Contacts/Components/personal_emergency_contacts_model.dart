@@ -1,7 +1,7 @@
 class PersonalEmergency {
-  late int id;
+  late String id;
   late String name, contactNo;
-  PersonalEmergency(this.name, this.contactNo);
+  PersonalEmergency(this.name,this.id, this.contactNo);
 
   // EmergencyContacts(this.initials, this.name, this.contactNo);
 
