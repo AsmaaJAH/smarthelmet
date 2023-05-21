@@ -135,9 +135,9 @@ class _FetchDataState extends State<FetchData> with TickerProviderStateMixin {
                   ),
                   Positioned(
                     top: size.height * .1,
-                    left: size.width * .5,
+                    left: size.width * .42,
                     child: AutoSizeText(
-                      "Name : ${widget.snapshot.data!.docs[widget.index]["firstName"]}  ${widget.snapshot.data!.docs[widget.index]["lastName"]}",
+                      "Name: ${widget.snapshot.data!.docs[widget.index]["firstName"]}  ${widget.snapshot.data!.docs[widget.index]["lastName"]}",
                       style: const TextStyle(
                           fontSize: 20, fontWeight: FontWeight.bold),
                       maxLines: 1,
@@ -145,9 +145,9 @@ class _FetchDataState extends State<FetchData> with TickerProviderStateMixin {
                   ),
                   Positioned(
                     top: size.height * .16,
-                    left: size.width * .5,
+                    left: size.width * .42,
                     child: Text(
-                      "age     : ${widget.snapshot.data!.docs[widget.index]["age"]}",
+                      "Age   : ${widget.snapshot.data!.docs[widget.index]["age"]}",
                       style:
                           TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                     ),

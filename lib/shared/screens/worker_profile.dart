@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:math';
 
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -18,9 +19,10 @@ class WorkerProfile extends StatefulWidget {
 }
 
 class WorkerView {
+  String title;
   late var data;
   late IconData photo;
-  WorkerView({required this.data, required this.photo});
+  WorkerView({required this.title, required this.data, required this.photo});
 }
 
 class _WorkerProfileState extends State<WorkerProfile> {
@@ -31,33 +33,39 @@ class _WorkerProfileState extends State<WorkerProfile> {
   String? imgName;
   late List<dynamic> workerdata = [
     WorkerView(
+        title: 'First Name',
         data: widget.snapshot.data!.docs[widget.index]["firstName"],
         photo: Icons.person),
     WorkerView(
+        title: 'Last Name',
         data: widget.snapshot.data!.docs[widget.index]["lastName"],
         photo: Icons.person),
     WorkerView(
+        title: 'Age',
+        data: widget.snapshot.data!.docs[widget.index]["age"],
+        photo: Icons.date_range),
+    WorkerView(
+        title: 'Blood Group',
         data: widget.snapshot.data!.docs[widget.index]["bloodgroup"],
         photo: Icons.bloodtype),
     WorkerView(
+        title: 'Address',
         data: widget.snapshot.data!.docs[widget.index]["address"],
         photo: Icons.maps_home_work),
     WorkerView(
+        title: 'Worker Number',
         data: widget.snapshot.data!.docs[widget.index]["workernumber"],
         photo: Icons.contact_phone),
-    WorkerView(
-        data: widget.snapshot.data!.docs[widget.index]["age"],
-        photo: Icons.date_range),
   ];
 
   List keys = [
     'firstName',
     'lastName',
+    "age",
     "bloodgroup",
     "address",
     "contactnumber",
-    "workernumber",
-    "age"
+    "workernumber"
   ];
 
   EditDialog(var data, dynamic key) {
@@ -290,54 +298,42 @@ class _WorkerProfileState extends State<WorkerProfile> {
               child: ListView.builder(
                   itemCount: workerdata.length,
                   itemBuilder: (BuildContext context, int index) {
-                    return Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Container(
-                        height: 70,
-                        child: Card(
-                            elevation: 8,
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Row(
-                                    children: [
-                                      SizedBox(
-                                        width:
-                                            MediaQuery.of(context).size.width *
-                                                .03,
-                                      ),
-                                      Icon(
-                                        workerdata[index].photo,
-                                        size: 35,
-                                        color: Colors.cyan,
-                                      ),
-                                      SizedBox(
-                                        width:
-                                            MediaQuery.of(context).size.width *
-                                                .05,
-                                      ),
-                                      Text(
-                                        workerdata[index].data,
-                                        style: TextStyle(
-                                            fontSize: 20,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                    ],
-                                  ),
-                                  IconButton(
-                                      onPressed: () {
-                                        EditDialog(workerdata[index].data,
-                                            keys[index]);
-                                      },
-                                      icon: Icon(
-                                        Icons.edit,
-                                        color: Colors.blueGrey,
-                                      ))
-                                ],
-                              ),
+                    return Container(
+                      padding: EdgeInsets.symmetric(horizontal: 4),
+                      margin: EdgeInsets.all(8),
+                      decoration: BoxDecoration(
+                          color: Colors.grey.shade200,
+                          borderRadius: BorderRadius.circular(15)),
+                      child: ListTile(
+                        leading: Icon(
+                          workerdata[index].photo,
+                          size: 35,
+                          color: Colors.cyan,
+                        ),
+                        title: Text(
+                          workerdata[index].title,
+                          style: TextStyle(
+                              color: Colors.black54,
+                              fontSize: 13,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        subtitle: AutoSizeText(
+                          workerdata[index].data,
+                          maxLines: 2,
+                          minFontSize: 8,
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold),
+                          overflowReplacement: Text('Sorry String too long'),
+                        ),
+                        trailing: IconButton(
+                            onPressed: () {
+                              EditDialog(workerdata[index].data, keys[index]);
+                            },
+                            icon: Icon(
+                              Icons.edit,
+                              color: Colors.blueGrey,
                             )),
                       ),
                     );
