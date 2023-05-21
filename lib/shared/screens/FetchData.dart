@@ -98,7 +98,16 @@ class _FetchDataState extends State<FetchData> with TickerProviderStateMixin {
       backgroundColor: Color.fromARGB(203, 255, 255, 255),
       body: ListView(
         children: <Widget>[
-          Container(
+          InkWell(             
+            onTap: () {
+              navigateTo(
+                  context,
+                  WorkerProfile(
+                    snapshot: widget.snapshot,
+                    index: widget.index,
+                  ));
+            },
+            child: Container(
               height: size.height * .245,
               width: double.infinity,
               decoration: BoxDecoration(
@@ -144,7 +153,8 @@ class _FetchDataState extends State<FetchData> with TickerProviderStateMixin {
                     ),
                   ),
                 ],
-              )),
+              )),),
+
           SingleChildScrollView(
             child: Container(
                 height: 300,
