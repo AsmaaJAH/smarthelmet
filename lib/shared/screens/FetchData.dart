@@ -108,7 +108,7 @@ class _FetchDataState extends State<FetchData> with TickerProviderStateMixin {
                   ));
             },
             child: Container(
-                height: size.height * .3,
+                height: size.height * .28,
                 width: double.infinity,
                 decoration: BoxDecoration(
                     color: Colors.cyan,
@@ -122,7 +122,7 @@ class _FetchDataState extends State<FetchData> with TickerProviderStateMixin {
                       top: size.height * .02,
                       left: size.width * .05,
                       child: SizedBox(
-                        height: size.height * .25,
+                        height: size.height * .23,
                         width: size.width * .35,
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(20),
@@ -142,7 +142,6 @@ class _FetchDataState extends State<FetchData> with TickerProviderStateMixin {
                           "Name : ${widget.snapshot.data!.docs[widget.index]["firstName"]}  ${widget.snapshot.data!.docs[widget.index]["lastName"]}",
                           style: const TextStyle(
                               fontSize: 20, fontWeight: FontWeight.bold),
-                          // minFontSize: 20,
                           maxLines: 1,
                         ),
                       ),
@@ -156,30 +155,6 @@ class _FetchDataState extends State<FetchData> with TickerProviderStateMixin {
                             fontSize: 20, fontWeight: FontWeight.bold),
                       ),
                     ),
-                    Positioned(
-                      top: size.height * .22,
-                      left: size.width * .5,
-                      child: InkWell(
-                        onTap: () => navigateTo(
-                            context,
-                            EmergencyScreen(
-                              index: widget.index.toString(),
-                            )),
-                        child: Container(
-                          padding: EdgeInsets.all(10),
-                          decoration: BoxDecoration(
-                              color: Colors.lightBlueAccent.shade700,
-                              borderRadius: BorderRadius.circular(8)),
-                          child: Text(
-                            'Emergency Contacts',
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 15),
-                          ),
-                        ),
-                      ),
-                    )
                   ],
                 )),
           ),
@@ -189,9 +164,9 @@ class _FetchDataState extends State<FetchData> with TickerProviderStateMixin {
           Center(
             child: Text("Emergency Alerts",
                 style: TextStyle(
-                    fontSize: 20,
+                    fontSize: 25,
                     fontWeight: FontWeight.bold,
-                    color: Colors.black54)),
+                    color: Colors.redAccent.shade200)),
           ),
           Container(
             height: size.height * .18,
@@ -220,19 +195,27 @@ class _FetchDataState extends State<FetchData> with TickerProviderStateMixin {
                                       color: Colors.black,
                                       fontWeight: FontWeight.bold),
                                 ),
-                                Expanded(
-                                  child: AutoSizeText(
-                                    '${alertTable['CO']}',
-                                    maxLines: 2,
-                                    group: COGroup,
-                                    style: TextStyle(
-                                        fontSize: 16,
-                                        color: Colors.red,
-                                        fontWeight: FontWeight.bold),
-                                    overflowReplacement:
-                                        Text('Sorry String too long'),
-                                  ),
-                                ),
+                                alertTable['CO'] == ''
+                                    ? Text(
+                                        "All Good",
+                                        style: TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.green),
+                                      )
+                                    : Expanded(
+                                        child: AutoSizeText(
+                                          '${alertTable['CO']}',
+                                          maxLines: 2,
+                                          group: COGroup,
+                                          style: TextStyle(
+                                              fontSize: 16,
+                                              color: Colors.red,
+                                              fontWeight: FontWeight.bold),
+                                          overflowReplacement:
+                                              Text('Sorry String too long'),
+                                        ),
+                                      ),
                               ],
                             ),
                           ),
@@ -248,19 +231,27 @@ class _FetchDataState extends State<FetchData> with TickerProviderStateMixin {
                                       color: Colors.black,
                                       fontWeight: FontWeight.bold),
                                 ),
-                                Expanded(
-                                  child: AutoSizeText(
-                                    '${alertTable['LPG']}',
-                                    maxLines: 2,
-                                    group: LPGGroup,
-                                    style: TextStyle(
-                                        fontSize: 16,
-                                        color: Colors.red,
-                                        fontWeight: FontWeight.bold),
-                                    overflowReplacement:
-                                        Text('Sorry String too long'),
-                                  ),
-                                ),
+                                alertTable['LPG'] == ''
+                                    ? Text(
+                                        "All Good",
+                                        style: TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.green),
+                                      )
+                                    : Expanded(
+                                        child: AutoSizeText(
+                                          '${alertTable['LPG']}',
+                                          maxLines: 2,
+                                          group: LPGGroup,
+                                          style: TextStyle(
+                                              fontSize: 16,
+                                              color: Colors.red,
+                                              fontWeight: FontWeight.bold),
+                                          overflowReplacement:
+                                              Text('Sorry String too long'),
+                                        ),
+                                      ),
                               ],
                             ),
                           ),
@@ -275,19 +266,31 @@ class _FetchDataState extends State<FetchData> with TickerProviderStateMixin {
                                       color: Colors.black,
                                       fontWeight: FontWeight.bold),
                                 ),
-                                Expanded(
-                                  child: AutoSizeText(
-                                    ' ${alertTable['ultrasonic'] == null ? "" : alertTable['ultrasonic']}',
-                                    maxLines: 2,
-                                    group: O_FallGroup,
-                                    style: TextStyle(
-                                        fontSize: 10,
-                                        color: Colors.red,
-                                        fontWeight: FontWeight.bold),
-                                    overflowReplacement:
-                                        Text('Sorry String too long'),
-                                  ),
-                                ),
+                                alertTable['ultrasonic'] == null
+                                    ? Expanded(
+                                        child: AutoSizeText(
+                                          "All Good",
+                                          maxLines: 2,
+                                          group: O_FallGroup,
+                                          style: TextStyle(
+                                              fontSize: 10,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.green),
+                                        ),
+                                      )
+                                    : Expanded(
+                                        child: AutoSizeText(
+                                          ' ${alertTable['ultrasonic']}',
+                                          maxLines: 2,
+                                          group: O_FallGroup,
+                                          style: TextStyle(
+                                              fontSize: 10,
+                                              color: Colors.red,
+                                              fontWeight: FontWeight.bold),
+                                          overflowReplacement:
+                                              Text('Sorry String too long'),
+                                        ),
+                                      ),
                               ],
                             ),
                           ),
@@ -316,19 +319,27 @@ class _FetchDataState extends State<FetchData> with TickerProviderStateMixin {
                                       color: Colors.black,
                                       fontWeight: FontWeight.bold),
                                 ),
-                                Expanded(
-                                  child: AutoSizeText(
-                                    ' ${alertTable['TEMP'] == null ? "" : alertTable['TEMP']}',
-                                    maxLines: 2,
-                                    group: TEMPGroup,
-                                    style: TextStyle(
-                                        fontSize: 16,
-                                        color: Colors.red,
-                                        fontWeight: FontWeight.bold),
-                                    overflowReplacement:
-                                        Text('Sorry String too long'),
-                                  ),
-                                ),
+                                alertTable['TEMP'] == ''
+                                    ? Text(
+                                        "All Good",
+                                        style: TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.green),
+                                      )
+                                    : Expanded(
+                                        child: AutoSizeText(
+                                          ' ${alertTable['TEMP']}',
+                                          maxLines: 2,
+                                          group: TEMPGroup,
+                                          style: TextStyle(
+                                              fontSize: 16,
+                                              color: Colors.red,
+                                              fontWeight: FontWeight.bold),
+                                          overflowReplacement:
+                                              Text('Sorry String too long'),
+                                        ),
+                                      ),
                               ],
                             ),
                           ),
@@ -344,19 +355,27 @@ class _FetchDataState extends State<FetchData> with TickerProviderStateMixin {
                                       color: Colors.black,
                                       fontWeight: FontWeight.bold),
                                 ),
-                                Expanded(
-                                  child: AutoSizeText(
-                                    ' ${alertTable['HUM'] == null ? "" : alertTable['HUM']}',
-                                    maxLines: 2,
-                                    group: TEMPGroup,
-                                    style: TextStyle(
-                                        fontSize: 16,
-                                        color: Colors.red,
-                                        fontWeight: FontWeight.bold),
-                                    overflowReplacement:
-                                        Text('Sorry String too long'),
-                                  ),
-                                ),
+                                alertTable['HUM'] == ''
+                                    ? Text(
+                                        "All Good",
+                                        style: TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.green),
+                                      )
+                                    : Expanded(
+                                        child: AutoSizeText(
+                                          ' ${alertTable['HUM']}',
+                                          maxLines: 2,
+                                          group: TEMPGroup,
+                                          style: TextStyle(
+                                              fontSize: 16,
+                                              color: Colors.red,
+                                              fontWeight: FontWeight.bold),
+                                          overflowReplacement:
+                                              Text('Sorry String too long'),
+                                        ),
+                                      ),
                               ],
                             ),
                           ),
@@ -372,19 +391,29 @@ class _FetchDataState extends State<FetchData> with TickerProviderStateMixin {
                                       color: Colors.black,
                                       fontWeight: FontWeight.bold),
                                 ),
-                                Expanded(
-                                  child: AutoSizeText(
-                                    ' ${alertTable['fall'] == null ? "" : alertTable['fall']}',
-                                    maxLines: 2,
-                                    group: Fall_DGroup,
-                                    style: TextStyle(
-                                        fontSize: 16,
-                                        color: Colors.red,
-                                        fontWeight: FontWeight.bold),
-                                    overflowReplacement:
-                                        Text('Sorry String too long'),
-                                  ),
-                                ),
+                                alertTable['fall'] == ''
+                                    ? Expanded(
+                                        child: AutoSizeText(
+                                          "All Good",
+                                          style: TextStyle(
+                                              fontSize: 10,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.green),
+                                        ),
+                                      )
+                                    : Expanded(
+                                        child: AutoSizeText(
+                                          ' ${alertTable['fall']}',
+                                          maxLines: 2,
+                                          group: Fall_DGroup,
+                                          style: TextStyle(
+                                              fontSize: 10,
+                                              color: Colors.red,
+                                              fontWeight: FontWeight.bold),
+                                          overflowReplacement:
+                                              Text('Sorry String too long'),
+                                        ),
+                                      ),
                               ],
                             ),
                           ),
@@ -392,6 +421,28 @@ class _FetchDataState extends State<FetchData> with TickerProviderStateMixin {
                       ),
                     )),
               ],
+            ),
+          ),
+          InkWell(
+            onTap: () {
+              navigateTo(
+                  context,
+                  EmergencyScreen(
+                    index: widget.snapshot.data!.docs[widget.index]["uid"],
+                  ));
+            },
+            child: Container(
+              padding: EdgeInsets.symmetric(vertical: 10, horizontal: 25),
+              decoration: BoxDecoration(
+                  color: Colors.lightBlueAccent.shade700,
+                  borderRadius: BorderRadius.circular(8)),
+              child: Text(
+                'Emergency Contacts',
+                style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18),
+              ),
             ),
           ),
           Expanded(

@@ -7,7 +7,9 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart' show basename;
+import 'package:smarthelmet/shared/functions/navigation.dart';
 
+import '../../screens/home-page/HomePage.dart';
 import '../functions/showtoast.dart';
 
 class WorkerProfile extends StatefulWidget {
@@ -234,6 +236,20 @@ class _WorkerProfileState extends State<WorkerProfile> {
           'Worker Profile',
           style: TextStyle(color: Colors.white),
         ),
+        actions: [
+          IconButton(
+              onPressed: () async {
+                await workerscollection
+                    .doc(widget.snapshot.data!.docs[widget.index]["uid"])
+                    .delete();
+                navigateAndFinish(context, HomePageScreen());
+                showToast(
+                    text: 'Worker deleted successfully',
+                    color: Colors.white,
+                    time: 5);
+              },
+              icon: Icon(Icons.delete))
+        ],
       ),
       body: Column(
         children: [
