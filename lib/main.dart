@@ -47,7 +47,7 @@ class MyApp extends StatelessWidget {
               'assets/images/splash.jpeg',
             ),
             nextScreen: startWidget,
-            splashTransition: SplashTransition.fadeTransition,
+            splashTransition: SplashTransition.rotationTransition,
             pageTransitionType: PageTransitionType.fade,
             backgroundColor: Colors.white));
   }
