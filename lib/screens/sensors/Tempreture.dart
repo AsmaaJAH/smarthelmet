@@ -1,6 +1,6 @@
-
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:oscilloscope/oscilloscope.dart';
 import 'package:smarthelmet/shared/constants/colors.dart';
 import 'package:smarthelmet/shared/functions/CircleProgress.dart';
 

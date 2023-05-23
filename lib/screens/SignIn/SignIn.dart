@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:smarthelmet/screens/home-page/HomePage.dart';
 import 'package:smarthelmet/screens/signup/SignUp.dart';
 import 'package:smarthelmet/shared/functions/showtoast.dart';
 import 'package:smarthelmet/shared/functions/navigation.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import '../../pageview.dart';
 import '../../shared/network/local/cache_helper.dart';
 import '../forgotPasswod/forgot_pass.dart';
@@ -95,7 +92,7 @@ class _SignInScreenState extends State<SignInScreen> {
                               : const Icon(Icons.visibility_off))),
                 ),
                 Container(
-                  height: MediaQuery.of(context).size.height * .1,
+                  height: MediaQuery.of(context).size.height * .4,
                 ),
                 TextButton(
                     onPressed: (() {
@@ -117,8 +114,7 @@ class _SignInScreenState extends State<SignInScreen> {
                               email: emailController.text,
                               password: passwordController.text)
                           .then((value) {
-                        CachHelper.saveData(
-                            key: "uid", value: value.user!.uid);
+                        CachHelper.saveData(key: "uid", value: value.user!.uid);
                         navigateAndFinish(context, PageViewScreen());
                       }).catchError((onError) {
                         showToast(
@@ -144,85 +140,6 @@ class _SignInScreenState extends State<SignInScreen> {
                     )),
                   ),
                 ),
-                Container(
-                  height: MediaQuery.of(context).size.height * .04,
-                ),
-                Row(
-                  children: [
-                    Expanded(
-                        child: Divider(
-                      thickness: 0.6,
-                      color: Colors.lightBlueAccent,
-                    )),
-                    Text(
-                      " Or Sign in with ",
-                      style: TextStyle(
-                        fontSize: 12,
-                      ),
-                    ),
-                    Expanded(
-                        child: Divider(
-                      thickness: 0.6,
-                      color: Colors.lightBlueAccent,
-                    )),
-                  ],
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                Container(
-                  width: MediaQuery.of(context).size.width * 0.9,
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: InkWell(
-                          onTap: () async {
-                            try {
-                              final GoogleSignInAccount? googleUser =
-                                  await GoogleSignIn().signIn();
-                              final GoogleSignInAuthentication? googleAuth =
-                                  await googleUser?.authentication;
-                              final credential =
-                                  GoogleAuthProvider.credential(
-                                accessToken: googleAuth?.accessToken,
-                                idToken: googleAuth?.idToken,
-                              );
-                              var user = await FirebaseAuth.instance
-                                  .signInWithCredential(credential);
-                              var UID = user.user!.uid;
-                              if (UID != null) {
-                                await CachHelper.saveData(
-                                    key: "uid", value: UID);
-                                navigateAndFinish(context, PageViewScreen());
-                              }
-                            } catch (e) {
-                              showToast(
-                                  text: "ERROR :  ${e} ",
-                                  color: Colors.white,
-                                  time: 3);
-                            }
-                          },
-                          child: Container(
-                            alignment: Alignment.center,
-                            height: 55,
-                            decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(8),
-                                boxShadow: [
-                                  BoxShadow(
-                                      color: Colors.black.withOpacity(.1),
-                                      blurRadius: 8)
-                                ]),
-                            child: SvgPicture.asset(
-                              "assets/images/google.svg",
-                              height: 40,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                )
               ],
             ),
           ),

@@ -31,13 +31,6 @@ class _FetchDataState extends State<FetchData> with TickerProviderStateMixin {
   Map<Object?, Object?> alertTable = {};
   Map<Object?, Object?> sensorsTable = {};
 
-  var COGroup = AutoSizeGroup();
-  var LPGGroup = AutoSizeGroup();
-  var Fall_DGroup = AutoSizeGroup();
-  var TEMPGroup = AutoSizeGroup();
-  var HUMGroup = AutoSizeGroup();
-  var O_FallGroup = AutoSizeGroup();
-
   void readRealTimeDatabase() async {
     tables.forEach((key, value) async {
       Query dbRef = FirebaseDatabase.instance.ref().child(key);

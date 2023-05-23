@@ -1,5 +1,6 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:smarthelmet/screens/Alerts/alerts_screen.dart';
 import 'screens/AboutUs/aboutus.dart';
 import 'screens/searchScreen/search.dart';
 import 'screens/home-page/HomePage.dart';
@@ -20,6 +21,7 @@ class _PageViewScreenState extends State<PageViewScreen> {
     SearchWorker(),
     AddWorker(),
     ProfilePage(),
+    AlertsScreen(),
     AboutScreen()
   ];
 
@@ -50,7 +52,8 @@ class _PageViewScreenState extends State<PageViewScreen> {
               Icon(Icons.search),
               Icon(Icons.add),
               Icon(Icons.person),
-              Icon(Icons.info),
+              Icon(Icons.warning_amber_outlined),
+              Icon(Icons.info_outline)
             ],
           ),
         ),

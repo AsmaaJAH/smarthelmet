@@ -61,6 +61,7 @@ dependencies:
   flutter_phone_direct_caller: ^2.1.1
   sqflite: ^2.2.6
   oscilloscope: ^0.2.0+1
+  intl: ^0.18.1
   
 
 dev_dependencies:
