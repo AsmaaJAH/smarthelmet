@@ -1,8 +1,9 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:smarthelmet/shared/functions/navigation.dart';
+import 'package:smarthelmet/shared/screens/Alert_info.dart';
 import '../network/position.dart';
-import 'Emergency Contacts/emergency.dart';
+import 'Emergency Contacts/main_screen.dart';
 import 'grid_data.dart';
 import 'worker_profile.dart';
 import '../../screens/sensors/Gas.dart';
@@ -108,7 +109,7 @@ class _FetchDataState extends State<FetchData> with TickerProviderStateMixin {
                   ));
             },
             child: Container(
-                height: size.height * .28,
+                height: size.height * .3,
                 width: double.infinity,
                 decoration: BoxDecoration(
                     color: Colors.cyan,
@@ -122,7 +123,7 @@ class _FetchDataState extends State<FetchData> with TickerProviderStateMixin {
                       top: size.height * .02,
                       left: size.width * .05,
                       child: SizedBox(
-                        height: size.height * .23,
+                        height: size.height * .25,
                         width: size.width * .35,
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(20),
@@ -155,6 +156,34 @@ class _FetchDataState extends State<FetchData> with TickerProviderStateMixin {
                             fontSize: 20, fontWeight: FontWeight.bold),
                       ),
                     ),
+                    Positioned(
+                      top: size.height * .22,
+                      left: size.width * .5,
+                      child: InkWell(
+                        onTap: () {
+                          navigateTo(
+                              context,
+                              EmergencyScreen(
+                                index: widget.snapshot.data!.docs[widget.index]
+                                    ["uid"],
+                              ));
+                        },
+                        child: Container(
+                          padding: EdgeInsets.symmetric(
+                              vertical: 10, horizontal: 20),
+                          decoration: BoxDecoration(
+                              color: Colors.lightBlueAccent.shade700,
+                              borderRadius: BorderRadius.circular(8)),
+                          child: Text(
+                            'Emergency Contacts',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 14),
+                          ),
+                        ),
+                      ),
+                    )
                   ],
                 )),
           ),
@@ -183,117 +212,20 @@ class _FetchDataState extends State<FetchData> with TickerProviderStateMixin {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Padding(
-                            padding: const EdgeInsets.all(4.0),
-                            child: Row(
-                              children: [
-                                AutoSizeText(
-                                  '- CO:',
-                                  group: COGroup,
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                alertTable['CO'] == ''
-                                    ? Text(
-                                        "All Good",
-                                        style: TextStyle(
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.green),
-                                      )
-                                    : Expanded(
-                                        child: AutoSizeText(
-                                          '${alertTable['CO']}',
-                                          maxLines: 2,
-                                          group: COGroup,
-                                          style: TextStyle(
-                                              fontSize: 16,
-                                              color: Colors.red,
-                                              fontWeight: FontWeight.bold),
-                                          overflowReplacement:
-                                              Text('Sorry String too long'),
-                                        ),
-                                      ),
-                              ],
-                            ),
+                          AlertInfo(
+                            data: alertTable['CO'].toString(),
+                            alertname: 'CO',
+                            fontsize: 16,
                           ),
-                          Padding(
-                            padding: const EdgeInsets.all(4.0),
-                            child: Row(
-                              children: [
-                                AutoSizeText(
-                                  '- LPG:  ',
-                                  group: LPGGroup,
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                alertTable['LPG'] == ''
-                                    ? Text(
-                                        "All Good",
-                                        style: TextStyle(
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.green),
-                                      )
-                                    : Expanded(
-                                        child: AutoSizeText(
-                                          '${alertTable['LPG']}',
-                                          maxLines: 2,
-                                          group: LPGGroup,
-                                          style: TextStyle(
-                                              fontSize: 16,
-                                              color: Colors.red,
-                                              fontWeight: FontWeight.bold),
-                                          overflowReplacement:
-                                              Text('Sorry String too long'),
-                                        ),
-                                      ),
-                              ],
-                            ),
+                          AlertInfo(
+                            data: alertTable['LPG'].toString(),
+                            alertname: 'LPG',
+                            fontsize: 16,
                           ),
-                          Padding(
-                            padding: const EdgeInsets.all(4.0),
-                            child: Row(
-                              children: [
-                                AutoSizeText(
-                                  '- obj_Falling Detector:  ',
-                                  group: O_FallGroup,
-                                  style: TextStyle(
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                alertTable['ultrasonic'] == null
-                                    ? Expanded(
-                                        child: AutoSizeText(
-                                          "All Good",
-                                          maxLines: 2,
-                                          group: O_FallGroup,
-                                          style: TextStyle(
-                                              fontSize: 10,
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.green),
-                                        ),
-                                      )
-                                    : Expanded(
-                                        child: AutoSizeText(
-                                          ' ${alertTable['ultrasonic']}',
-                                          maxLines: 2,
-                                          group: O_FallGroup,
-                                          style: TextStyle(
-                                              fontSize: 10,
-                                              color: Colors.red,
-                                              fontWeight: FontWeight.bold),
-                                          overflowReplacement:
-                                              Text('Sorry String too long'),
-                                        ),
-                                      ),
-                              ],
-                            ),
-                          ),
+                          AlertInfo(
+                              data: alertTable['object'].toString(),
+                              alertname: 'obj_Falling Detector',
+                              fontsize: 10),
                         ],
                       ),
                     )),
@@ -307,142 +239,25 @@ class _FetchDataState extends State<FetchData> with TickerProviderStateMixin {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Padding(
-                            padding: const EdgeInsets.all(4.0),
-                            child: Row(
-                              children: [
-                                AutoSizeText(
-                                  '- TEMP:  ',
-                                  group: TEMPGroup,
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                alertTable['TEMP'] == ''
-                                    ? Text(
-                                        "All Good",
-                                        style: TextStyle(
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.green),
-                                      )
-                                    : Expanded(
-                                        child: AutoSizeText(
-                                          ' ${alertTable['TEMP']}',
-                                          maxLines: 2,
-                                          group: TEMPGroup,
-                                          style: TextStyle(
-                                              fontSize: 16,
-                                              color: Colors.red,
-                                              fontWeight: FontWeight.bold),
-                                          overflowReplacement:
-                                              Text('Sorry String too long'),
-                                        ),
-                                      ),
-                              ],
-                            ),
+                          AlertInfo(
+                            data: alertTable['TEMP'].toString(),
+                            alertname: 'TEMP',
+                            fontsize: 16,
                           ),
-                          Padding(
-                            padding: const EdgeInsets.all(4.0),
-                            child: Row(
-                              children: [
-                                AutoSizeText(
-                                  '- HUM:  ',
-                                  group: HUMGroup,
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                alertTable['HUM'] == ''
-                                    ? Text(
-                                        "All Good",
-                                        style: TextStyle(
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.green),
-                                      )
-                                    : Expanded(
-                                        child: AutoSizeText(
-                                          ' ${alertTable['HUM']}',
-                                          maxLines: 2,
-                                          group: TEMPGroup,
-                                          style: TextStyle(
-                                              fontSize: 16,
-                                              color: Colors.red,
-                                              fontWeight: FontWeight.bold),
-                                          overflowReplacement:
-                                              Text('Sorry String too long'),
-                                        ),
-                                      ),
-                              ],
-                            ),
+                          AlertInfo(
+                            data: alertTable['HUM'].toString(),
+                            alertname: 'HUM',
+                            fontsize: 16,
                           ),
-                          Padding(
-                            padding: const EdgeInsets.all(4.0),
-                            child: Row(
-                              children: [
-                                AutoSizeText(
-                                  '- Fall Detector:  ',
-                                  group: Fall_DGroup,
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                alertTable['fall'] == ''
-                                    ? Expanded(
-                                        child: AutoSizeText(
-                                          "All Good",
-                                          style: TextStyle(
-                                              fontSize: 10,
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.green),
-                                        ),
-                                      )
-                                    : Expanded(
-                                        child: AutoSizeText(
-                                          ' ${alertTable['fall']}',
-                                          maxLines: 2,
-                                          group: Fall_DGroup,
-                                          style: TextStyle(
-                                              fontSize: 10,
-                                              color: Colors.red,
-                                              fontWeight: FontWeight.bold),
-                                          overflowReplacement:
-                                              Text('Sorry String too long'),
-                                        ),
-                                      ),
-                              ],
-                            ),
+                          AlertInfo(
+                            data: alertTable['fall'].toString(),
+                            alertname: 'Fall Detector',
+                            fontsize: 14,
                           ),
                         ],
                       ),
                     )),
               ],
-            ),
-          ),
-          InkWell(
-            onTap: () {
-              navigateTo(
-                  context,
-                  EmergencyScreen(
-                    index: widget.snapshot.data!.docs[widget.index]["uid"],
-                  ));
-            },
-            child: Container(
-              padding: EdgeInsets.symmetric(vertical: 10, horizontal: 25),
-              decoration: BoxDecoration(
-                  color: Colors.lightBlueAccent.shade700,
-                  borderRadius: BorderRadius.circular(8)),
-              child: Text(
-                'Emergency Contacts',
-                style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18),
-              ),
             ),
           ),
           Expanded(

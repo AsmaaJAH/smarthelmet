@@ -1,6 +1,6 @@
 
 import 'package:path/path.dart' show join;
-import 'package:smarthelmet/shared/screens/Emergency%20Contacts/Components/personal_emergency_contacts_model.dart';
+import 'package:smarthelmet/models/personal_emergency_contacts_model.dart';
 import 'package:sqflite/sqflite.dart';
 import 'dart:io' as io;
 import 'package:path_provider/path_provider.dart'

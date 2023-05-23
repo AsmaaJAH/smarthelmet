@@ -308,7 +308,7 @@ class _WorkerProfileState extends State<WorkerProfile> {
             ]),
           ),
           SizedBox(
-            height: MediaQuery.of(context).size.height * .07,
+            height: MediaQuery.of(context).size.height * .05,
           ),
           Expanded(
               child: ListView.builder(
