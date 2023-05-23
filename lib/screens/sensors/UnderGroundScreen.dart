@@ -83,15 +83,17 @@ class _UnderGroundScreenState extends State<UnderGroundScreen>
            child: Column(
                   children: [
                               CarouselSlider(
+                              
                                 items: [
                                   //1st Image of Slider
                                   Container(
                                     margin: EdgeInsets.all(6.0),
                                     decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(8.0),
+                                      borderRadius: BorderRadius.circular(1.0),
                                       image: DecorationImage(
                                         image: NetworkImage("https://raw.githubusercontent.com/AsmaaJAH/smarthelmet/main/assets/images/tracking_underGround/0.png"),
-                                        fit: BoxFit.cover,
+                                        fit: BoxFit.fill, // I use this to fill(full size) instead of cover(==crop)
+
                                       ),
                                     ),
                                   ),
@@ -100,10 +102,10 @@ class _UnderGroundScreenState extends State<UnderGroundScreen>
                                   Container(
                                     margin: EdgeInsets.all(6.0),
                                     decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(8.0),
+                                      borderRadius: BorderRadius.circular(1.0),
                                       image: DecorationImage(
                                         image: NetworkImage("https://raw.githubusercontent.com/AsmaaJAH/smarthelmet/main/assets/images/tracking_underGround/1.png"),
-                                        fit: BoxFit.cover,
+                                        fit: BoxFit.fill,
                                       ),
                                     ),
                                   ),
@@ -112,10 +114,10 @@ class _UnderGroundScreenState extends State<UnderGroundScreen>
                                   Container(
                                     margin: EdgeInsets.all(6.0),
                                     decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(8.0),
+                                      borderRadius: BorderRadius.circular(1.0),
                                       image: DecorationImage(
-                                        image: AssetImage("./assets/images/underGround/underground(2).png"),
-                                        fit: BoxFit.cover,
+                                        image: NetworkImage("https://raw.githubusercontent.com/AsmaaJAH/smarthelmet/main/assets/images/tracking_underGround/2.png"),
+                                        fit: BoxFit.fill,
                                       ),
                                     ),
                                   ),
@@ -124,10 +126,10 @@ class _UnderGroundScreenState extends State<UnderGroundScreen>
                                   Container(
                                     margin: EdgeInsets.all(6.0),
                                     decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(8.0),
+                                      borderRadius: BorderRadius.circular(1.0),
                                       image: DecorationImage(
-                                        image: AssetImage("./assets/images/underGround/underground(3).png"),
-                                        fit: BoxFit.cover,
+                                        image: NetworkImage("https://raw.githubusercontent.com/AsmaaJAH/smarthelmet/main/assets/images/tracking_underGround/3.png"),
+                                        fit: BoxFit.fill,
                                       ),
                                     ),
                                   ),
@@ -136,10 +138,10 @@ class _UnderGroundScreenState extends State<UnderGroundScreen>
                                   Container(
                                     margin: EdgeInsets.all(6.0),
                                     decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(8.0),
+                                      borderRadius: BorderRadius.circular(1.0),
                                       image: DecorationImage(
-                                        image: AssetImage("./assets/images/underGround/underground(4).png"),
-                                        fit: BoxFit.cover,
+                                        image: NetworkImage("https://raw.githubusercontent.com/AsmaaJAH/smarthelmet/main/assets/images/tracking_underGround/4.png"),
+                                        fit: BoxFit.fill,
                                       ),
                                     ),
                                   ),
@@ -148,8 +150,8 @@ class _UnderGroundScreenState extends State<UnderGroundScreen>
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(8.0),
                                       image: DecorationImage(
-                                        image: AssetImage("./assets/images/underGround/underground(5).png"),
-                                        fit: BoxFit.cover,
+                                        image: NetworkImage("https://raw.githubusercontent.com/AsmaaJAH/smarthelmet/main/assets/images/tracking_underGround/5.png"),
+                                        fit: BoxFit.fill,
                                       ),
                                     ),
                                   ),
@@ -158,8 +160,8 @@ class _UnderGroundScreenState extends State<UnderGroundScreen>
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(8.0),
                                       image: DecorationImage(
-                                        image: AssetImage("./assets/images/underGround/underground(6).png"),
-                                        fit: BoxFit.cover,
+                                        image: NetworkImage("https://raw.githubusercontent.com/AsmaaJAH/smarthelmet/main/assets/images/tracking_underGround/6.png"),
+                                        fit: BoxFit.fill,
                                       ),
                                     ),
                                   ),
@@ -168,8 +170,8 @@ class _UnderGroundScreenState extends State<UnderGroundScreen>
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(8.0),
                                       image: DecorationImage(
-                                        image: AssetImage("./assets/images/underGround/underground(7).png"),
-                                        fit: BoxFit.cover,
+                                        image: NetworkImage("https://raw.githubusercontent.com/AsmaaJAH/smarthelmet/main/assets/images/tracking_underGround/7.png"),
+                                        fit: BoxFit.fill,
                                       ),
                                     ),
                                   ),
@@ -177,10 +179,10 @@ class _UnderGroundScreenState extends State<UnderGroundScreen>
                    
                                 //Slider Container properties
                                 options: CarouselOptions(
-                                  height: 400,
+                                  height: 300,
                                   enlargeCenterPage: true,
                                   autoPlay: true,
-                                  aspectRatio: 16 / 9,
+                                  aspectRatio:  16/9,
                                   autoPlayCurve: Curves.fastOutSlowIn,
                                   enableInfiniteScroll: true,
                                   autoPlayAnimationDuration: Duration(milliseconds: 500),

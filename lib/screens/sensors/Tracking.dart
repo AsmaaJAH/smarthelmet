@@ -4,6 +4,7 @@ import 'dart:collection';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:smarthelmet/shared/constants/colors.dart';
 import 'package:smarthelmet/shared/network/position.dart';
+import 'package:smarthelmet/shared/screens/FetchData.dart';
 
 class Tracking extends StatefulWidget {
   late AsyncSnapshot<dynamic> snapshot;
@@ -15,45 +16,6 @@ class Tracking extends StatefulWidget {
 }
 
 class _TrackingState extends State<Tracking> with TickerProviderStateMixin {
-  late GoogleMapController _mapController;
-  Map<MarkerId, Marker> _markers = {};
-  var _center = LatLng(positions[0].latitude, positions[0].longitude);
-  void _onMapCreated(GoogleMapController controller) {
-    _mapController = controller;
-
-    // Add a marker to the map at the center location
-    final MarkerId markerId = MarkerId('center');
-    final Marker marker = Marker(
-      markerId: markerId,
-      position: _center,
-      infoWindow: InfoWindow(
-        title: 'Center',
-        snippet: 'The center of the map',
-      ),
-    );
-
-    setState(() {
-      _markers[markerId] = marker;
-    });
-  }
-  void _listenForChanges() {
-     tables.forEach((key, value) async {
-      Query dbRef = FirebaseDatabase.instance.ref().child(key);
-      await dbRef.onValue.listen((event) {
-        print(event.snapshot.value);
-        setState(() {
-          if (key == "gps") {
-            gpsTable = event.snapshot.value as Map<Object?, Object?>;
-            positions[0].latitude = double.parse('${gpsTable['latitude1']}');
-            positions[0].longitude = double.parse('${gpsTable['longitude1']}');
-            print("GGGGGGGG---------PPPPPPPPPP---------SSSSSSSSSSSSSSSSSSSSS");
-            print(positions[0].latitude);
-          }
-        });
-      });
-    });
-  }
-
   var myMarkers = HashSet<Marker>(); //collection
   Map<String, List<String>> tables = {
     "ALERT": ['HUM', 'LPG', 'CO', 'TEMP', 'fall', 'object'],
@@ -71,30 +33,46 @@ class _TrackingState extends State<Tracking> with TickerProviderStateMixin {
   };
   Map<Object?, Object?> gpsTable = {};
   void readGPSDatabase() async {
-   
+
+    tables.forEach((key, value) async {
+      Query dbRef = FirebaseDatabase.instance.ref().child(key);
+      await dbRef.onValue.listen((event) {
+        print(event.snapshot.value);
+        setState(() { 
+          if (key == "gps") {
+          gpsTable = event.snapshot.value as Map<Object?, Object?>;
+          positions[0].latitude = double.parse('${gpsTable['latitude1']}');
+          positions[0].longitude = double.parse('${gpsTable['longitude1']}');
+        }});
+      });
+    });
   }
+ final Map<String, Marker> _markers = {};
+  Future<void> _onMapCreated(GoogleMapController googleMapController) async {
+                
+                setState(() {
+                  myMarkers.add(
+                    Marker(
+                      markerId: MarkerId('1'),
+                      position:
+                          LatLng(positions[0].latitude, positions[0].longitude),
 
-  // final Map<String, Marker> _markers = {};
-  // Future<void> _onMap(GoogleMapController mapController) async {
-  //   setState(() {
-  //     myMarkers.add(
-  //       Marker(
-  //         markerId: MarkerId('1'),
-  //         position: LatLng(positions[0].latitude, positions[0].longitude),
-
-  //         infoWindow: InfoWindow(
-  //           title: 'khloud & Asmaa & Salah',
-  //         ),
-  //         icon: BitmapDescriptor.defaultMarkerWithHue(
-  //             BitmapDescriptor.hueCyan), //myIcon,
-  //       ),
-  //     );
-  //   });
-  // }
+                      infoWindow: InfoWindow(
+                        title: 'khloud & Asmaa',
+                      ),
+                      icon: BitmapDescriptor.defaultMarkerWithHue(
+                          BitmapDescriptor.hueCyan), //myIcon,
+                    ),
+                  );
+                }
+                );
+        
+            
+      }
 
   @override
   void initState() {
-    _listenForChanges();
+    readGPSDatabase();
     super.initState();
   }
 
@@ -121,14 +99,16 @@ class _TrackingState extends State<Tracking> with TickerProviderStateMixin {
             icon: Icon(Icons.arrow_back_ios_new),
           ),
         ),
-        body: Stack(
+        body:
+          Stack(
           children: [
+           
             GoogleMap(
               initialCameraPosition: CameraPosition(
-                  target: _center,
+                  target: LatLng(positions[0].latitude, positions[0].longitude),
                   zoom: 14),
               onMapCreated: _onMapCreated,
-              markers: Set<Marker>.of(_markers.values),
+              markers: myMarkers,
             ),
             Container(
               child: Text(
@@ -138,6 +118,7 @@ class _TrackingState extends State<Tracking> with TickerProviderStateMixin {
               alignment: Alignment.bottomCenter,
             )
           ],
-        ));
+        )
+        );
   }
 }
