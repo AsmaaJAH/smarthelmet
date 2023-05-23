@@ -5,9 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:smarthelmet/shared/functions/navigation.dart';
 import 'package:smarthelmet/shared/network/position.dart';
 import 'Emergency Contacts/emergency.dart';
-import 'grid_data.dart';
 import 'worker_profile.dart';
-import '../../screens/sensors/FallDeteting.dart';
 import '../../screens/sensors/Gas.dart';
 import '../../screens/sensors/Humidity.dart';
 import '../../screens/sensors/Tempreture.dart';
@@ -67,18 +65,18 @@ class _FetchDataState extends State<FetchData> with TickerProviderStateMixin {
 
   @override
   void initState() {
+
+    readRealTimeDatabase();
     screens = [
       TempretureScreen(),
       HumidityScreen(),
       GasScreen(),
-      FallDetection(),
       Tracking(
         snapshot: widget.snapshot,
         index: widget.index,
       ),
       UnderGroundScreen()
     ];
-    readRealTimeDatabase();
     super.initState();
   }
 
