@@ -33,19 +33,42 @@ class _TrackingState extends State<Tracking> with TickerProviderStateMixin {
   };
   Map<Object?, Object?> gpsTable = {};
   void readGPSDatabase() async {
+
     tables.forEach((key, value) async {
       Query dbRef = FirebaseDatabase.instance.ref().child(key);
       await dbRef.onValue.listen((event) {
         print(event.snapshot.value);
-        if (key == "gps") {
+        setState(() { 
+          if (key == "gps") {
           gpsTable = event.snapshot.value as Map<Object?, Object?>;
           positions[0].latitude = double.parse('${gpsTable['latitude1']}');
           positions[0].longitude = double.parse('${gpsTable['longitude1']}');
-        }
-        setState(() {});
+        }});
       });
     });
   }
+ final Map<String, Marker> _markers = {};
+  Future<void> _onMapCreated(GoogleMapController googleMapController) async {
+                
+                setState(() {
+                  myMarkers.add(
+                    Marker(
+                      markerId: MarkerId('1'),
+                      position:
+                          LatLng(positions[0].latitude, positions[0].longitude),
+
+                      infoWindow: InfoWindow(
+                        title: 'khloud & Asmaa',
+                      ),
+                      icon: BitmapDescriptor.defaultMarkerWithHue(
+                          BitmapDescriptor.hueCyan), //myIcon,
+                    ),
+                  );
+                }
+                );
+        
+            
+      }
 
   @override
   void initState() {
@@ -76,29 +99,15 @@ class _TrackingState extends State<Tracking> with TickerProviderStateMixin {
             icon: Icon(Icons.arrow_back_ios_new),
           ),
         ),
-        body: Stack(
+        body:
+          Stack(
           children: [
+           
             GoogleMap(
               initialCameraPosition: CameraPosition(
                   target: LatLng(positions[0].latitude, positions[0].longitude),
                   zoom: 14),
-              onMapCreated: (GoogleMapController googleMapController) {
-                setState(() {
-                  myMarkers.add(
-                    Marker(
-                      markerId: MarkerId('1'),
-                      position:
-                          LatLng(positions[0].latitude, positions[0].longitude),
-
-                      infoWindow: InfoWindow(
-                        title: 'khloud & Asmaa',
-                      ),
-                      icon: BitmapDescriptor.defaultMarkerWithHue(
-                          BitmapDescriptor.hueCyan), //myIcon,
-                    ),
-                  );
-                });
-              },
+              onMapCreated: _onMapCreated,
               markers: myMarkers,
             ),
             Container(
@@ -109,6 +118,7 @@ class _TrackingState extends State<Tracking> with TickerProviderStateMixin {
               alignment: Alignment.bottomCenter,
             )
           ],
-        ));
+        )
+        );
   }
 }

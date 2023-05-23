@@ -1,3 +1,4 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:smarthelmet/shared/constants/colors.dart';
@@ -27,8 +28,7 @@ class _UnderGroundScreenState extends State<UnderGroundScreen>
         else if (key == "sensors")
           sensorsTable = event.snapshot.value as Map<Object?, Object?>;
 
-        setState(() {
-        });
+        setState(() {});
       });
     });
   }
@@ -55,42 +55,9 @@ class _UnderGroundScreenState extends State<UnderGroundScreen>
     super.initState();
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-       body: Container(
-        height: 500,
-        width: 400,
-        alignment:Alignment.center,
-        margin: const EdgeInsets.fromLTRB(10,50,10,10),
-        padding: const EdgeInsets.fromLTRB(30, 10, 30, 10),
-        decoration: BoxDecoration(
-                        color: Colors.cyan,
-                        borderRadius: BorderRadius.circular(15)),
-         child: Center(
-            child: SelectionArea(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                      Text(
-                        "The Results of The UnderGround Tracking: ",
-                        style:
-                            TextStyle(fontSize: 36, fontWeight: FontWeight.bold),
-                        textAlign: TextAlign.center,
-
-                      ),
-                      Text(
-                        "${sensorsTable['underGround'] == null ? "" : sensorsTable['underGround']}",
-                        style:
-                            TextStyle(fontSize: 30, fontWeight: FontWeight.w400,),
-                        
-                      ),
-                    ],
-                  ),
-              ),
-            ),
-       ),
       appBar: AppBar(
         title: const Text(
           'UnderGround Tracking',
@@ -109,6 +76,154 @@ class _UnderGroundScreenState extends State<UnderGroundScreen>
             Navigator.pop(context);
           },
           icon: const Icon(Icons.arrow_back_ios_new),
+        ),
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            CarouselSlider(
+              items: [
+                //1st Image of Slider
+                Container(
+                  margin: EdgeInsets.all(6.0),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8.0),
+                    image: DecorationImage(
+                      image: AssetImage(
+                          'assets/images/tracking_underGround/0.png'),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+
+                //2nd Image of Slider
+                Container(
+                  margin: EdgeInsets.all(6.0),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8.0),
+                    image: DecorationImage(
+                      image: AssetImage(
+                          'assets/images/tracking_underGround/1.png'),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+
+                //3rd Image of Slider
+                Container(
+                  margin: EdgeInsets.all(6.0),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8.0),
+                    image: DecorationImage(
+                      image: AssetImage(
+                          'assets/images/tracking_underGround/2.png'),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+
+                //4th Image of Slider
+                Container(
+                  margin: EdgeInsets.all(6.0),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8.0),
+                    image: DecorationImage(
+                      image: AssetImage(
+                          'assets/images/tracking_underGround/3.png'),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+
+                //5th Image of Slider
+                Container(
+                  margin: EdgeInsets.all(6.0),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8.0),
+                    image: DecorationImage(
+                      image: AssetImage(
+                          'assets/images/tracking_underGround/4.png'),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+                Container(
+                  margin: EdgeInsets.all(6.0),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8.0),
+                    image: DecorationImage(
+                      image: AssetImage(
+                          'assets/images/tracking_underGround/5.png'),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+                Container(
+                  margin: EdgeInsets.all(6.0),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8.0),
+                    image: DecorationImage(
+                      image: AssetImage(
+                          'assets/images/tracking_underGround/6.png'),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+                Container(
+                  margin: EdgeInsets.all(6.0),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8.0),
+                    image: DecorationImage(
+                      image: AssetImage(
+                          'assets/images/tracking_underGround/7.png'),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+              ],
+
+              //Slider Container properties
+              options: CarouselOptions(
+                height: 400,
+                enlargeCenterPage: true,
+                autoPlay: true,
+                aspectRatio: 16 / 9,
+                autoPlayCurve: Curves.fastOutSlowIn,
+                enableInfiniteScroll: true,
+                autoPlayAnimationDuration: Duration(milliseconds: 500),
+                viewportFraction: 0.8,
+              ),
+            ),
+            Container(
+              alignment: Alignment.bottomCenter,
+              margin: const EdgeInsets.fromLTRB(10, 50, 10, 10),
+              padding: const EdgeInsets.fromLTRB(30, 10, 30, 10),
+              decoration: BoxDecoration(
+                  color: Colors.cyan, borderRadius: BorderRadius.circular(15)),
+              child: Center(
+                child: SelectionArea(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "The Results of The UnderGround Tracking: ",
+                        style: TextStyle(
+                            fontSize: 26, fontWeight: FontWeight.bold),
+                        textAlign: TextAlign.center,
+                      ),
+                      Text(
+                        "${sensorsTable['underGround'] == null ? "" : sensorsTable['underGround']}",
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );
