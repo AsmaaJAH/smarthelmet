@@ -42,59 +42,9 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         home: AnimatedSplashScreen(
             duration: 3000,
-            splashIconSize: 400,
-            splash: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Column(
-                        children: [
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Text(
-                            'Smart     ',
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 22,
-                                fontFamily: 'splashfont'),
-                          ),
-                          SizedBox(
-                            height: 4,
-                          ),
-                          Text(
-                            '   Safety',
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 22,
-                                fontFamily: 'splashfont'),
-                          ),
-                        ],
-                      ),
-                      Container(
-                        width: 80,
-                        height: 80,
-                        child: Image.asset(
-                          'assets/images/splash.jpeg',
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Text(
-                    'Helmet',
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 50,
-                        fontFamily: 'splashfont'),
-                  )
-                ],
-              ),
+            splashIconSize: 100,
+            splash: Image.asset(
+              'assets/images/splash.jpeg',
             ),
             nextScreen: startWidget,
             splashTransition: SplashTransition.fadeTransition,
