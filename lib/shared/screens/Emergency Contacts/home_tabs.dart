@@ -34,7 +34,7 @@ class _HomeScreenTabsState extends State<HomeScreenTabs>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Call Emergency Help",
+        title: const Text("1 click to call Emergency",
             style: TextStyle(color: Colors.white)),
         elevation: 0.7,
         bottom: TabBar(
