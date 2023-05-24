@@ -1,11 +1,10 @@
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:smarthelmet/screens/SignIn/SignIn.dart';
-// ignore_for_file: prefer_equal_for_default_values
 import 'package:firebase_core/firebase_core.dart';
 import 'package:smarthelmet/pageview.dart';
+import 'package:smarthelmet/screens/Splash/splash.dart';
 import 'package:smarthelmet/shared/network/local/cache_helper.dart';
 import 'firebase_options.dart';
 import 'package:page_transition/page_transition.dart';
@@ -42,12 +41,9 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         home: AnimatedSplashScreen(
             duration: 3000,
-            splashIconSize: 100,
-            splash: Image.asset(
-              'assets/images/splash.jpeg',
-            ),
+            splashIconSize: 400,
+            splash: SplashScreen(),
             nextScreen: startWidget,
-            splashTransition: SplashTransition.rotationTransition,
             pageTransitionType: PageTransitionType.fade,
             backgroundColor: Colors.white));
   }

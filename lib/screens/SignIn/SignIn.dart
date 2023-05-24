@@ -38,7 +38,7 @@ class _SignInScreenState extends State<SignInScreen> {
             child: Column(
               children: [
                 Container(
-                  height: MediaQuery.of(context).size.height * .03,
+                  height: MediaQuery.of(context).size.height * .1,
                 ),
                 const Center(
                   child: CircleAvatar(
@@ -92,7 +92,7 @@ class _SignInScreenState extends State<SignInScreen> {
                               : const Icon(Icons.visibility_off))),
                 ),
                 Container(
-                  height: MediaQuery.of(context).size.height * .4,
+                  height: MediaQuery.of(context).size.height * .2,
                 ),
                 TextButton(
                     onPressed: (() {

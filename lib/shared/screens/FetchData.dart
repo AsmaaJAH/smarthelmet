@@ -102,7 +102,7 @@ class _FetchDataState extends State<FetchData> with TickerProviderStateMixin {
                   ));
             },
             child: Container(
-                height: size.height * .3,
+                height: size.height * .28,
                 width: double.infinity,
                 decoration: BoxDecoration(
                     color: Colors.cyan,
@@ -116,7 +116,7 @@ class _FetchDataState extends State<FetchData> with TickerProviderStateMixin {
                       top: size.height * .02,
                       left: size.width * .05,
                       child: SizedBox(
-                        height: size.height * .25,
+                        height: size.height * .23,
                         width: size.width * .35,
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(20),
@@ -128,7 +128,7 @@ class _FetchDataState extends State<FetchData> with TickerProviderStateMixin {
                       ),
                     ),
                     Positioned(
-                      top: size.height * .1,
+                      top: size.height * .08,
                       left: size.width * .5,
                       child: Container(
                         width: size.width * .5,
@@ -141,7 +141,7 @@ class _FetchDataState extends State<FetchData> with TickerProviderStateMixin {
                       ),
                     ),
                     Positioned(
-                      top: size.height * .16,
+                      top: size.height * .14,
                       left: size.width * .5,
                       child: Text(
                         "age     : ${widget.snapshot.data!.docs[widget.index]["age"]}",
@@ -150,7 +150,7 @@ class _FetchDataState extends State<FetchData> with TickerProviderStateMixin {
                       ),
                     ),
                     Positioned(
-                      top: size.height * .22,
+                      top: size.height * .20,
                       left: size.width * .5,
                       child: InkWell(
                         onTap: () {

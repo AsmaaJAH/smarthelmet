@@ -1,6 +1,5 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
-import 'package:oscilloscope/oscilloscope.dart';
 import 'package:smarthelmet/shared/constants/colors.dart';
 import 'package:smarthelmet/shared/functions/CircleProgress.dart';
 
@@ -82,44 +81,41 @@ class _TempretureScreenState extends State<TempretureScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  CustomPaint(
-                    foregroundPainter:
-                        CircleProgress(tempAnimation.value, true),
-                    child: Container(
-                      width: 200,
-                      height: 200,
-                      child: Center(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Text('Temperature'),
-                            Text(
-                              '${tempAnimation.value.toInt()}',
-                              style: TextStyle(
-                                  fontSize: 50, fontWeight: FontWeight.bold),
-                            ),
-                            Text(
-                              '°C',
-                              style: TextStyle(
-                                  fontSize: 20, fontWeight: FontWeight.bold),
-                            ),
-                          ],
-                        ),
+      body: Column(
+        children: [
+          Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                CustomPaint(
+                  foregroundPainter: CircleProgress(tempAnimation.value, true),
+                  child: Container(
+                    width: 200,
+                    height: 200,
+                    child: Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Text('Temperature'),
+                          Text(
+                            '${tempAnimation.value.toInt()}',
+                            style: TextStyle(
+                                fontSize: 50, fontWeight: FontWeight.bold),
+                          ),
+                          Text(
+                            '°C',
+                            style: TextStyle(
+                                fontSize: 20, fontWeight: FontWeight.bold),
+                          ),
+                        ],
                       ),
                     ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
       appBar: AppBar(
         title: const Text(
