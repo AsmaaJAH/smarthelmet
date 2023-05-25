@@ -110,8 +110,8 @@ class _TempretureScreenState extends State<TempretureScreen>
                 CustomPaint(
                   foregroundPainter: CircleProgress(tempAnimation.value, true),
                   child: Container(
-                    width: 200,
-                    height: 200,
+                    width: 180,
+                    height: 180,
                     child: Center(
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -120,7 +120,7 @@ class _TempretureScreenState extends State<TempretureScreen>
                           Text(
                             '${tempAnimation.value.toInt()}',
                             style: TextStyle(
-                                fontSize: 50, fontWeight: FontWeight.bold),
+                                fontSize: 40, fontWeight: FontWeight.bold),
                           ),
                           Text(
                             '°C',

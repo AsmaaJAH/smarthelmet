@@ -2,12 +2,11 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:smarthelmet/shared/functions/navigation.dart';
 import 'package:smarthelmet/shared/screens/Alert_info.dart';
-import '../../screens/sensors/Gas_lpg.dart';
 import '../network/position.dart';
 import 'Emergency Contacts/main_screen.dart';
 import 'grid_data.dart';
 import 'worker_profile.dart';
-import '../../screens/sensors/Gas_co.dart';
+import '../../screens/sensors/Gas.dart';
 import '../../screens/sensors/Humidity.dart';
 import '../../screens/sensors/Tempreture.dart';
 import '../../screens/sensors/Tracking.dart';
@@ -70,7 +69,6 @@ class _FetchDataState extends State<FetchData> with TickerProviderStateMixin {
   List grid_photo = [
     'assets/images/temperature-icon-png-1.png',
     'assets/images/humidity.png',
-    'assets/images/icons8-gas-mask-64.png',
     'assets/images/icons8-gas-mask-64.png',
     'assets/images/icons8-google-maps-old-100.png',
     'assets/images/icons8-road-map-66.png',
@@ -269,8 +267,7 @@ class _FetchDataState extends State<FetchData> with TickerProviderStateMixin {
                     List screens = [
                       TempretureScreen(),
                       HumidityScreen(),
-                      GasCoScreen(),
-                      GasLpgScreen(),
+                      GasScreen(),
                       Tracking(
                         snapshot: widget.snapshot,
                         index: widget.index,
@@ -281,8 +278,7 @@ class _FetchDataState extends State<FetchData> with TickerProviderStateMixin {
                     List grid_text = [
                       'Temperature :  ${sensorsTable['temp']} °C',
                       'Humidity : ${sensorsTable['Humdity']} g.m^3',
-                      'CO Detection',
-                      'LPG Detection',
+                      'Gas Detection',
                       'GPS Tracking',
                       'Under ground tracking',
                     ];

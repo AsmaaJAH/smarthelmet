@@ -1,14 +1,9 @@
-
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
-// import 'package:smarthelmet/shared/constants/Constants.dart';
-
 import 'dart:collection';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:smarthelmet/shared/constants/colors.dart';
-
-// import '../modules/home-page/workers.dart';
-// import '../shared/network/position.dart';
-// import 'FetchData.dart';
+import 'package:smarthelmet/shared/network/position.dart';
 
 class Tracking extends StatefulWidget {
   late AsyncSnapshot<dynamic> snapshot;
@@ -21,30 +16,60 @@ class Tracking extends StatefulWidget {
 
 class _TrackingState extends State<Tracking> with TickerProviderStateMixin {
   var myMarkers = HashSet<Marker>(); //collection
-  List<Polyline> myPolyline = [];
-  late BitmapDescriptor myIcon;
-  // loadImage() async {
-  //   final http.Response response = await http.get(widget.snapshot.data!.docs[widget.index]["imgurl"],);
-  //   myIcon = BitmapDescriptor.fromBytes(response.bodyBytes);
-  // setState(() {});
-  // }
-  @override
-  void initState() {
-    //loadImage();
-    
-
-     BitmapDescriptor.fromAssetImage(
-      ImageConfiguration(
-        size: Size(28, 28)),
-      "assets\images\icons\worker_locator_mapMarker.png",
-    )
-    .then((onValue) {
-      myIcon = onValue;
+  Map<String, List<String>> tables = {
+    "ALERT": ['HUM', 'LPG', 'CO', 'TEMP', 'fall', 'object'],
+    "sensors": [
+      'CO PPM value',
+      'Humdity',
+      'LPG PPM value',
+      'temp',
+      'underGround'
+    ],
+    "gps": [
+      'latitude1',
+      'longitude1',
+    ],
+  };
+  Map<Object?, Object?> gpsTable = {};
+  void readGPSDatabase() async {
+    tables.forEach((key, value) async {
+      Query dbRef = FirebaseDatabase.instance.ref().child(key);
+      await dbRef.onValue.listen((event) {
+        print(event.snapshot.value);
+        setState(() {
+          if (key == "gps") {
+            gpsTable = event.snapshot.value as Map<Object?, Object?>;
+            positions[0].latitude = double.parse('${gpsTable['latitude1']}');
+            positions[0].longitude = double.parse('${gpsTable['longitude1']}');
+          }
+        });
+      });
     });
-    super.initState();
-
   }
 
+  final Map<String, Marker> _markers = {};
+  Future<void> _onMapCreated(GoogleMapController googleMapController) async {
+    setState(() {
+      myMarkers.add(
+        Marker(
+          markerId: MarkerId('1'),
+          position: LatLng(positions[0].latitude, positions[0].longitude),
+
+          infoWindow: InfoWindow(
+            title: 'khloud & Asmaa',
+          ),
+          icon: BitmapDescriptor.defaultMarkerWithHue(
+              BitmapDescriptor.hueCyan), //myIcon,
+        ),
+      );
+    });
+  }
+
+  @override
+  void initState() {
+    readGPSDatabase();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -73,24 +98,10 @@ class _TrackingState extends State<Tracking> with TickerProviderStateMixin {
           children: [
             GoogleMap(
               initialCameraPosition: CameraPosition(
-                  target: LatLng(31.205200646477095, 29.919690313405248),
+                  target: LatLng(positions[0].latitude, positions[0].longitude),
                   zoom: 14),
-              onMapCreated: (GoogleMapController googleMapController) {
-                setState(() {
-                  myMarkers.add(
-                    Marker(
-                      markerId: MarkerId('1'),
-                      position: LatLng(31.205200646477095, 29.919690313405248),
-                      infoWindow: InfoWindow(
-                          title: 'khloud & Asmaa',
-                          ),
-                      icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueCyan), //myIcon,
-                    ),
-                  );
-                });
-              },
+              onMapCreated: _onMapCreated,
               markers: myMarkers,
-              polylines: myPolyline.toSet(),
             ),
             Container(
               child: Text(

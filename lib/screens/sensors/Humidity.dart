@@ -112,8 +112,8 @@ class _HumidityScreenState extends State<HumidityScreen>
                 CustomPaint(
                   foregroundPainter: CircleProgress(humAnimation.value, true),
                   child: Container(
-                    width: 200,
-                    height: 200,
+                    width: 180,
+                    height: 180,
                     child: Center(
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -122,7 +122,7 @@ class _HumidityScreenState extends State<HumidityScreen>
                           Text(
                             '${humAnimation.value.toInt()}',
                             style: TextStyle(
-                                fontSize: 50, fontWeight: FontWeight.bold),
+                                fontSize: 40, fontWeight: FontWeight.bold),
                           ),
                           Text(
                             '%',
