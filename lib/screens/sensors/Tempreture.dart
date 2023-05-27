@@ -1,8 +1,9 @@
+import 'dart:async';
+
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:smarthelmet/shared/constants/colors.dart';
 import 'package:smarthelmet/shared/functions/CircleProgress.dart';
-
 
 class TempretureScreen extends StatefulWidget {
   TempretureScreen({super.key});
@@ -11,7 +12,8 @@ class TempretureScreen extends StatefulWidget {
   State<TempretureScreen> createState() => _TempretureScreenState();
 }
 
-class _TempretureScreenState extends State<TempretureScreen> with TickerProviderStateMixin {
+class _TempretureScreenState extends State<TempretureScreen>
+    with TickerProviderStateMixin {
   double temp = 20;
   final dataBase = FirebaseDatabase.instance.ref();
   late Animation<double> tempAnimation;
@@ -23,29 +25,32 @@ class _TempretureScreenState extends State<TempretureScreen> with TickerProvider
     tables.forEach((key, value) async {
       Query dbRef = FirebaseDatabase.instance.ref().child(key);
       await dbRef.onValue.listen((event) {
-        print(event.snapshot.value);
+        // print(event.snapshot.value);
         if (key == "ALERT")
           alertTable = event.snapshot.value as Map<Object?, Object?>;
         else if (key == "sensors")
           sensorsTable = event.snapshot.value as Map<Object?, Object?>;
-        print(sensorsTable);
+        // print(sensorsTable);
         String? nullableString = '${sensorsTable['temp']}'.toString();
-        print(nullableString);
-        temp = double.tryParse(nullableString ) ?? 0.0;
+        // print(nullableString);
+        temp = double.tryParse(nullableString) ?? 0.0;
 
-       
         setState(() {
-        _TempretureScreenInit(temp,0.0 );
-
-
+          _TempretureScreenInit(temp, 0.0);
         });
       });
     });
   }
 
   Map<String, List<String>> tables = {
-    "ALERT": ['HUM', 'LPG', 'CO', 'TEMP','fall','object'],
-    "sensors": ['CO PPM value', 'Humdity', 'LPG PPM value', 'temp','underGround'],
+    "ALERT": ['HUM', 'LPG', 'CO', 'TEMP', 'fall', 'object'],
+    "sensors": [
+      'CO PPM value',
+      'Humdity',
+      'LPG PPM value',
+      'temp',
+      'underGround'
+    ],
     "gps": [
       'latitude1',
       'longitude1',
@@ -58,14 +63,13 @@ class _TempretureScreenState extends State<TempretureScreen> with TickerProvider
     temp = double.tryParse('${sensorsTable['temp']}') ?? 0.0;
 
     double humdity = 100;
-
     _TempretureScreenInit(temp, humdity);
     super.initState();
   }
 
   _TempretureScreenInit(double temp, double humid) {
     progressController = AnimationController(
-        vsync: this, duration: Duration(milliseconds: 0)); //5s
+        vsync: this, duration: Duration(milliseconds: 1)); //5s
 
     tempAnimation =
         Tween<double>(begin: 0, end: temp).animate(progressController)
