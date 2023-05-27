@@ -55,7 +55,7 @@ class DBHelper {
     return contacts;
   }
 
-  Future<int> delete(int id) async {
+  Future<int> deleteSQFLITE(String id) async {
     var dbClient = await db;
     return await dbClient.delete(
       'contacts',

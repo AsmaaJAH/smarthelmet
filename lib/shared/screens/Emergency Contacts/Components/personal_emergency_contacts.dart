@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:smarthelmet/shared/screens/Emergency%20Contacts/Components/personal_emergency_contacts_model.dart';
@@ -112,9 +110,8 @@ class _PersonalEmergencyContactsState extends State<PersonalEmergencyContacts> {
                                                     Icons.delete,  
                                                   ),
                                                   onPressed: () async {
-                                                      // delete(id);
-                                                    //await PersonalEmergencyContacts(widget.id );
-                                                    // setState(() {});
+                                                    await DBHelper().deleteSQFLITE( widget.id);
+                                                    setState(() {});
                                                   }
                                               ),
                                         leading: CircleAvatar(

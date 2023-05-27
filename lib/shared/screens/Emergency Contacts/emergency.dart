@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:animated_splash_screen/animated_splash_screen.dart';
-
-import 'Components/splash_screen.dart';
 import 'home_tabs.dart';
 class EmergencyScreen extends StatefulWidget {
   late String index;
@@ -35,12 +33,8 @@ class _EmergencyScreenState extends State<EmergencyScreen> {
           icon: const Icon(Icons.arrow_back_ios_new),
         ),
       ),
-      body: AnimatedSplashScreen(
-          duration: 10,
-          splash: const SplashScreen(),
-          nextScreen: HomeScreenTabs(widget.index),
-          splashTransition: SplashTransition.fadeTransition,
-          backgroundColor: Colors.white),
+      body:  HomeScreenTabs(widget.index),
+          
     );
   }
 }
