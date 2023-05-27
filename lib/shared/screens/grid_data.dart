@@ -28,16 +28,18 @@ class _GridCardState extends State<GridCard> {
             borderRadius: BorderRadius.circular(15)),
         child: Column(
           children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: SizedBox(
-                  height: 100,
-                  width: 100,
-                  child: Image.asset(
-                    widget.imgpath,
-                    scale: sqrt1_2,
-                    color: Colors.blueAccent,
-                  )),
+            Center(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: SizedBox(
+                    height: 100,
+                    width: 100,
+                    child: Image.asset(
+                      widget.imgpath,
+                      scale: sqrt1_2,
+                      color: Colors.blueAccent,
+                    )),
+              ),
             ),
             AutoSizeText(
               widget.text,

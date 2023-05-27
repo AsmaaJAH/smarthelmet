@@ -147,7 +147,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     validator: (value) {
                       if (value!.isEmpty) {
                         return 'This field is requreid';
-                      } else if (value.length != 13) {
+                      } else if (value.length != 11) {
                         return 'Please enter a valid number';
                       }
                     },
