@@ -3,15 +3,15 @@ import 'package:flutter/material.dart';
 import 'Components/emergency_contacts_data.dart';
 import 'Components/personal_emergency_contacts.dart';
 
-class EmergancyTabs extends StatefulWidget {
+class HomeScreenTabs extends StatefulWidget {
   late String index;
-  EmergancyTabs({required this.index});
+  HomeScreenTabs(this.index);
 
   @override
-  _EmergancyTabsState createState() => _EmergancyTabsState();
+  _HomeScreenTabsState createState() => _HomeScreenTabsState();
 }
 
-class _EmergancyTabsState extends State<EmergancyTabs>
+class _HomeScreenTabsState extends State<HomeScreenTabs>
     with SingleTickerProviderStateMixin {
   late TabController _controller;
   @override
@@ -49,10 +49,7 @@ class _EmergancyTabsState extends State<EmergancyTabs>
       body: TabBarView(
           controller: _controller,
           // ignore: prefer_const_literals_to_create_immutables
-          children: <Widget>[
-            ContactsData(),
-            PersonalEmergencyContacts(widget.index)
-          ]),
+          children: <Widget>[ContactsData(), PersonalEmergencyContacts(widget.index)]),
     );
   }
 }
