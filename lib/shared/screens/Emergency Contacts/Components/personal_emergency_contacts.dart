@@ -17,11 +17,8 @@ class PersonalEmergencyContacts extends StatefulWidget {
 }
 
 class _PersonalEmergencyContactsState extends State<PersonalEmergencyContacts> {
-  final GlobalKey<FormState> _formStateKey = GlobalKey<FormState>();
   static Future<List<PersonalEmergency>>? contacts;
-
   late DBHelper dbHelper;
-
   static List<String> emergencyContactsName = [];
   static List<String> emergencyContactsInitials = [];
   static List<String> emergencyContactsNo = [];

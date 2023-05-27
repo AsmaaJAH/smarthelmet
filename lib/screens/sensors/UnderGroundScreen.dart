@@ -2,7 +2,6 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:smarthelmet/shared/constants/colors.dart';
-import 'package:smarthelmet/shared/functions/CircleProgress.dart';
 
 class UnderGroundScreen extends StatefulWidget {
   UnderGroundScreen({super.key});

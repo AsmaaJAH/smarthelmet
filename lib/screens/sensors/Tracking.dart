@@ -4,7 +4,6 @@ import 'dart:collection';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:smarthelmet/shared/constants/colors.dart';
 import 'package:smarthelmet/shared/network/position.dart';
-import 'package:smarthelmet/shared/screens/FetchData.dart';
 
 class Tracking extends StatefulWidget {
   late AsyncSnapshot<dynamic> snapshot;

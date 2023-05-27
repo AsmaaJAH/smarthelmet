@@ -73,7 +73,8 @@ class _SignInScreenState extends State<SignInScreen> {
                 TextFormField(
                   controller: passwordController,
                   validator: (value) {
-                    if (value!.isEmpty) return 'This field is requreid';
+                    if (value!.isEmpty) 
+                    return 'This field is requreid';
                   },
                   autovalidateMode: AutovalidateMode.onUserInteraction,
                   keyboardType: TextInputType.visiblePassword,

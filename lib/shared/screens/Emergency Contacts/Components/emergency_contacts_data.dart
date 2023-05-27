@@ -46,7 +46,7 @@ class _ContactsDataState extends State<ContactsData> {
       emergencyContactsName.length,
       (index) => EmergencyContacts(emergencyContactsInitials[index],
           emergencyContactsName[index], emergencyContactsNo[index]));
-  String? _selectedCity;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

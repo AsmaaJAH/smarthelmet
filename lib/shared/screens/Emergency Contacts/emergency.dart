@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'home_tabs.dart';
 class EmergencyScreen extends StatefulWidget {
   late String index;

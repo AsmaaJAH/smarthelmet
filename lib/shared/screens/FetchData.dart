@@ -6,7 +6,6 @@ import 'package:smarthelmet/shared/functions/navigation.dart';
 import 'package:smarthelmet/shared/screens/Alert_info.dart';
 import '../network/position.dart';
 import 'Emergency Contacts/emergency.dart';
-import 'grid_data.dart';
 import 'worker_profile.dart';
 import '../../screens/sensors/Gas.dart';
 import '../../screens/sensors/Humidity.dart';

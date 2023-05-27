@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'Components/emergency_contacts_data.dart';
 import 'Components/personal_emergency_contacts.dart';
 
