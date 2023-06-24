@@ -60,14 +60,14 @@ class _PersonalEmergencyContactsState extends State<PersonalEmergencyContacts> {
       emergencyContactsNo.add(contact.contactNo.toString());
     });
   }
-
-  void _removetile(int index) {
-    setState(() {
-      emergencyContactsName.reversed.toList().removeAt(index);
-      emergencyContactsInitials.reversed.toList().removeAt(index);
-      emergencyContactsNo.reversed.toList().removeAt(index);
-    });
-  }
+//Asmaa's instantanous delete for an item from listTile
+  // void _removetile(int index) {
+  //   setState(() {
+  //     emergencyContactsName.reversed.toList().removeAt(index);
+  //     emergencyContactsInitials.reversed.toList().removeAt(index);
+  //     emergencyContactsNo.reversed.toList().removeAt(index);
+  //   });
+  // }
 
   refreshContacts(String id) {
     setState(() {
