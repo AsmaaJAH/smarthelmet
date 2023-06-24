@@ -61,6 +61,14 @@ class _PersonalEmergencyContactsState extends State<PersonalEmergencyContacts> {
     });
   }
 
+  void _removetile(int index) {
+    setState(() {
+      emergencyContactsName.reversed.toList().removeAt(index);
+      emergencyContactsInitials.reversed.toList().removeAt(index);
+      emergencyContactsNo.reversed.toList().removeAt(index);
+    });
+  }
+
   refreshContacts(String id) {
     setState(() {
       emergencyContactsName = [];
@@ -102,15 +110,17 @@ class _PersonalEmergencyContactsState extends State<PersonalEmergencyContacts> {
                                         subtitle:
                                             Text(emergencyContactsNo[index]),
                                         dense: true,
-                                        trailing:  IconButton(
-                                                  icon: Icon(
-                                                    Icons.delete,  
-                                                  ),
-                                                  onPressed: () async {
-                                                    await DBHelper().deleteSQFLITE( widget.id);
-                                                    setState(() {});
-                                                  }
-                                              ),
+                                        trailing: IconButton(
+                                            icon: Icon(
+                                              Icons.delete,
+                                            ),
+                                            onPressed: () async {
+                                              await DBHelper()
+                                                  .deleteSQFLITE(widget.id);
+                                              setState(() {
+                                                snapshot.data.removeAt(index);
+                                              });
+                                            }),
                                         leading: CircleAvatar(
                                             child: Text(
                                                 emergencyContactsInitials[
