@@ -1,6 +1,5 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:smarthelmet/screens/Alerts/alerts_screen.dart';
 import 'screens/AboutUs/aboutus.dart';
 import 'screens/searchScreen/search.dart';
 import 'screens/home-page/HomePage.dart';
