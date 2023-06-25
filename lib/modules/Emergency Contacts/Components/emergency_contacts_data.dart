@@ -55,7 +55,7 @@ class _ContactsDataState extends State<ContactsData> {
             child: Wrap(children: [
               Column(children: <Widget>[
                 DropdownButton(
-                  iconEnabledColor: Colors.cyan,
+                  iconEnabledColor: Colors.amber,
                   hint: _selectedCity == null
                       ? const Text('Select City')
                       : Text(

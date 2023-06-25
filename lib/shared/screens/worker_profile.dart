@@ -160,7 +160,7 @@ class _WorkerProfileState extends State<WorkerProfile> {
         return Container(
           padding: EdgeInsets.all(22),
           height: 170,
-          color: Colors.cyan,
+          color: Colors.amber,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -231,7 +231,7 @@ class _WorkerProfileState extends State<WorkerProfile> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.cyan,
+        backgroundColor: Colors.amber,
         title: Text(
           'Worker Profile',
           style: TextStyle(color: Colors.white),
@@ -262,7 +262,7 @@ class _WorkerProfileState extends State<WorkerProfile> {
                 width: 170,
                 height: 170,
                 decoration: BoxDecoration(
-                  border: Border.all(width: 4, color: Colors.cyan),
+                  border: Border.all(width: 4, color: Colors.amber),
                   boxShadow: [
                     BoxShadow(
                         spreadRadius: 2,
@@ -292,8 +292,8 @@ class _WorkerProfileState extends State<WorkerProfile> {
                       width: 50,
                       decoration: BoxDecoration(
                           shape: BoxShape.circle,
-                          border: Border.all(width: 5, color: Colors.cyan),
-                          color: Colors.cyan),
+                          border: Border.all(width: 5, color: Colors.amber),
+                          color: Colors.amber),
                       child: IconButton(
                         onPressed: () async {
                           await showmodel();
@@ -324,7 +324,7 @@ class _WorkerProfileState extends State<WorkerProfile> {
                         leading: Icon(
                           workerdata[index].photo,
                           size: 35,
-                          color: Colors.cyan,
+                          color: Colors.amber,
                         ),
                         title: Text(
                           workerdata[index].title,
@@ -349,7 +349,7 @@ class _WorkerProfileState extends State<WorkerProfile> {
                             },
                             icon: Icon(
                               Icons.edit,
-                              color: Colors.blueGrey,
+                              color: Colors.grey,
                             )),
                       ),
                     );

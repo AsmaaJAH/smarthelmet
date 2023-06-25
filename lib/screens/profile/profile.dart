@@ -25,7 +25,7 @@ class _ProfilePageState extends State<ProfilePage> {
       appBar: AppBar(
         centerTitle: true,
         elevation: 0,
-        backgroundColor: Colors.cyan,
+        backgroundColor: Colors.amber,
         actions: [
           IconButton(
             color: Colors.white,
@@ -54,7 +54,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   await FirebaseAuth.instance
                       .sendPasswordResetEmail(email: credential!.email!);
                   showToast(
-                      color: Colors.lightBlue,
+                      color: Colors.amber,
                       text: "Please check your e-mail",
                       time: 5);
                 },
@@ -65,7 +65,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     width: double.infinity,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
-                        color: Colors.cyan),
+                        color: Colors.amber),
                     child: const Center(
                         child: Text(
                       'Reset Psasword',
@@ -90,7 +90,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     width: double.infinity,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
-                        color: Colors.cyan),
+                        color: Colors.amber),
                     child: const Center(
                         child: Text(
                       'Delete Account',

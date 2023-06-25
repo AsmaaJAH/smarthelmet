@@ -26,7 +26,7 @@ class _EmergencyScreenState extends State<EmergencyScreen> {
             fontFamily: 'Ubuntu',
           ),
         ),
-        backgroundColor: Colors.cyan,
+        backgroundColor: Colors.amber,
         elevation: 0.0,
         leading: IconButton(
           onPressed: () {

@@ -31,7 +31,7 @@ class CircleProgress extends CustomPainter {
 
     Paint gasArc = Paint()
       ..strokeWidth = 14
-      ..color = Colors.blue
+      ..color = Colors.amber
       ..style = PaintingStyle.stroke
       ..strokeCap = StrokeCap.round;
 

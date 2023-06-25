@@ -123,7 +123,7 @@ class _AddWorkerState extends State<AddWorker> {
         return Container(
           padding: EdgeInsets.all(22),
           height: 170,
-          color: Colors.cyan,
+          color: Colors.amber,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -205,7 +205,7 @@ class _AddWorkerState extends State<AddWorker> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        backgroundColor: Colors.cyan,
+        backgroundColor: Colors.amber,
         title: Text(
           'Add Worker',
           style: TextStyle(fontSize: 22, color: Colors.white),
@@ -230,7 +230,7 @@ class _AddWorkerState extends State<AddWorker> {
                           width: 170,
                           height: 170,
                           decoration: BoxDecoration(
-                            border: Border.all(width: 4, color: Colors.cyan),
+                            border: Border.all(width: 4, color: Colors.amber),
                             boxShadow: [
                               BoxShadow(
                                   spreadRadius: 2,
@@ -261,8 +261,8 @@ class _AddWorkerState extends State<AddWorker> {
                                 decoration: BoxDecoration(
                                     shape: BoxShape.circle,
                                     border: Border.all(
-                                        width: 5, color: Colors.cyan),
-                                    color: Colors.cyan),
+                                        width: 5, color: Colors.amber),
+                                    color: Colors.amber),
                                 child: imgPath == null
                                     ? IconButton(
                                         onPressed: () {
@@ -330,7 +330,7 @@ class _AddWorkerState extends State<AddWorker> {
             height: 40,
             width: double.infinity,
             decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10), color: Colors.cyan),
+                borderRadius: BorderRadius.circular(10), color: Colors.amber),
             child: Center(
                 child: loading
                     ? const CircularProgressIndicator(

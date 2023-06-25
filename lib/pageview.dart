@@ -29,7 +29,7 @@ class _PageViewScreenState extends State<PageViewScreen> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(primarySwatch: Colors.cyan),
+      theme: ThemeData(primarySwatch: Colors.amber),
       home: Scaffold(
         // extendBody: true,
         body: screens[index],
@@ -40,7 +40,7 @@ class _PageViewScreenState extends State<PageViewScreen> {
             height: 50,
             animationDuration: Duration(milliseconds: 300),
             backgroundColor: Colors.transparent,
-            color: Colors.cyan,
+            color: Colors.amber,
             index: index,
             onTap: (index) {
               setState(() {

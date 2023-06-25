@@ -38,7 +38,7 @@ class _AlertInfoState extends State<AlertInfo> {
                     style: TextStyle(
                         fontSize: widget.fontsize,
                         fontWeight: FontWeight.bold,
-                        color: Colors.cyan),
+                        color: Colors.green),
                   ),
                 )
               : Expanded(

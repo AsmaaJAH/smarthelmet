@@ -37,7 +37,7 @@ class _GridCardState extends State<GridCard> {
                     child: Image.asset(
                       widget.imgpath,
                       scale: sqrt1_2,
-                      color: Colors.blueAccent,
+                      color: Colors.amber,
                     )),
               ),
             ),

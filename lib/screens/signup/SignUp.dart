@@ -99,12 +99,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
             },
             icon: Icon(
               Icons.arrow_back,
-              color: Colors.lightBlueAccent,
+              color: Colors.amberAccent,
             )),
         title: Text(
           "Sign up",
           style:
-              TextStyle(color: Colors.lightBlue, fontWeight: FontWeight.bold),
+              TextStyle(color: Colors.amberAccent, fontWeight: FontWeight.bold),
         ),
         backgroundColor: Colors.white,
         elevation: 0,
@@ -245,7 +245,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     width: double.infinity,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
-                        color: Colors.blue),
+                        color: Colors.amberAccent),
                     child: Center(
                         child: Loading
                             ? const CircularProgressIndicator(
@@ -279,7 +279,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 child: const Text(
                   'Sign in',
                   style: TextStyle(
-                      decoration: TextDecoration.underline, color: Colors.blue),
+                      decoration: TextDecoration.underline, color: Colors.amber),
                 )),
           ],
         ),

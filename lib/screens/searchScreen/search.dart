@@ -38,7 +38,7 @@ class _SearchState extends State<SearchWorker> {
         backgroundColor: Colors.white,
         appBar: AppBar(
           elevation: 0,
-          backgroundColor: Colors.cyan,
+          backgroundColor: Colors.amberAccent,
           title: TextFormField(
             controller: myController,
             decoration: InputDecoration(
@@ -81,7 +81,7 @@ class _SearchState extends State<SearchWorker> {
             
             return Center(
                 child: CircularProgressIndicator(
-              color: Colors.cyan,
+              color: Colors.amber,
             ));
           },
         ));

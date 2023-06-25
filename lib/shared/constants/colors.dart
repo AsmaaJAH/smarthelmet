@@ -1,3 +1,3 @@
 import 'package:flutter/material.dart';
 
-Color navBarColor = Colors.cyan;
+Color navBarColor = Colors.amber;

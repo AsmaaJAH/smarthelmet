@@ -14,7 +14,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(primarySwatch: Colors.cyan),
+      theme: ThemeData(primarySwatch: Colors.amber),
       home: Scaffold(
           extendBody: true,
           appBar: AppBar(
@@ -43,7 +43,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                 }
                 return Center(
                     child: CircularProgressIndicator(
-                  color: Colors.cyan,
+                  color: Colors.amber,
                 ));
               })),
     );

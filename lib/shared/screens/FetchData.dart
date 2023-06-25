@@ -88,7 +88,7 @@ class _FetchDataState extends State<FetchData> with TickerProviderStateMixin {
       backgroundColor: Colors.white,
       // drawer: NavBar(),
       appBar: AppBar(
-        backgroundColor: Colors.cyan,
+        backgroundColor: Colors.amber,
         elevation: 0.0,
       ),
 
@@ -107,7 +107,7 @@ class _FetchDataState extends State<FetchData> with TickerProviderStateMixin {
                 height: size.height * .3,
                 width: double.infinity,
                 decoration: BoxDecoration(
-                    color: Colors.cyan,
+                    color: Colors.amber,
                     borderRadius: BorderRadius.only(
                       bottomLeft: Radius.circular(50),
                       bottomRight: Radius.circular(50),
@@ -161,7 +161,7 @@ class _FetchDataState extends State<FetchData> with TickerProviderStateMixin {
             child: Text(
               "Emergency Alerts",
               style: TextStyle(
-                color: Colors.cyan,
+                color: Colors.amber,
                 fontSize: 38,
                 fontWeight: FontWeight.bold,
               ),
@@ -188,7 +188,7 @@ class _FetchDataState extends State<FetchData> with TickerProviderStateMixin {
                     child: Container(
                       padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                       decoration: BoxDecoration(
-                          color: Colors.cyan,
+                          color: Colors.amber,
                           borderRadius: BorderRadius.circular(8)),
                       child: Text(
                         ' Call Emergency',
@@ -256,7 +256,7 @@ class _FetchDataState extends State<FetchData> with TickerProviderStateMixin {
                           AlertInfo(
                             data: alertTable['medicalAssistance'].toString(),
                             alertname: 'Medical Help',
-                            fontsize: 14,
+                            fontsize: 13,
                           ),
 
 
@@ -294,7 +294,7 @@ class _FetchDataState extends State<FetchData> with TickerProviderStateMixin {
                                     width: 100,
                                     child: Image.asset(
                                       'assets/images/temperature-icon-png-1.png',
-                                      color: Colors.blue,
+                                      color: Colors.amber,
                                     )),
                               ),
                               Text(
@@ -328,7 +328,7 @@ class _FetchDataState extends State<FetchData> with TickerProviderStateMixin {
                                     width: 100,
                                     child: Image.asset(
                                       'assets/images/humidity.png',
-                                      color: Colors.blue,
+                                      color: Colors.amber,
                                     )),
                               ),
                               Text(
@@ -368,7 +368,7 @@ class _FetchDataState extends State<FetchData> with TickerProviderStateMixin {
                                     child: Image.asset(
                                       'assets/images/icons8-gas-mask-64.png',
                                       scale: sqrt1_2,
-                                      color: Colors.blueAccent,
+                                      color: Colors.amber,
                                     )),
                               ),
                               Text(
@@ -406,7 +406,7 @@ class _FetchDataState extends State<FetchData> with TickerProviderStateMixin {
                                     width: 100,
                                     child: Image.asset(
                                       'assets/images/icons8-google-maps-old-100.png',
-                                      color: Colors.blue,
+                                      color: Colors.amber,
                                     )),
                               ),
                               Text(
@@ -446,7 +446,7 @@ class _FetchDataState extends State<FetchData> with TickerProviderStateMixin {
                                     child: Image.asset(
                                       'assets/images/icons8-road-map-66.png',
                                       scale: sqrt1_2,
-                                      color: Colors.blue,
+                                      color: Colors.amber,
                                     )),
                               ),
                               Text(

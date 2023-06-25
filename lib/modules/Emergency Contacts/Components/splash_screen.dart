@@ -13,7 +13,7 @@ class SplashScreen extends StatelessWidget {
           textAlign: TextAlign.center,
           style: TextStyle(
               fontSize: 42,
-              color: Colors.cyan,
+              color: Colors.amber,
               fontWeight: FontWeight.w600,
               fontStyle: FontStyle.italic),
         ),

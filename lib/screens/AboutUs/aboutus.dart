@@ -33,15 +33,7 @@ class _AboutScreenState extends State<AboutScreen> {
             "About us",
             style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
           ),
-          backgroundColor: Colors.cyan,
-          // leading: IconButton(
-          //     onPressed: () {
-          //       navigateAndFinish(context,PageViewScreen());
-          //     },
-          //     icon: Icon(
-          //       Icons.arrow_back,
-          //       color: Colors.white,
-          //     )),
+          backgroundColor: Colors.amber,
         ),
         body: SingleChildScrollView(
           child: Padding(
@@ -102,7 +94,7 @@ class _AboutScreenState extends State<AboutScreen> {
               width: double.infinity,
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
-                  color: Colors.cyan),
+                  color: Colors.amber),
               child: const Center(
                   child: Text(
                 'Team Members',
@@ -124,10 +116,10 @@ Widget textfun(String text) {
     text,
     trimCollapsedText: 'Read More',
     moreStyle: TextStyle(
-        fontSize: 15, fontWeight: FontWeight.bold, color: Colors.cyan),
+        fontSize: 15, fontWeight: FontWeight.bold, color: Colors.amber),
     trimExpandedText: ' Read Less',
     lessStyle: TextStyle(
-        fontSize: 15, fontWeight: FontWeight.bold, color: Colors.cyan),
+        fontSize: 15, fontWeight: FontWeight.bold, color: Colors.amber),
     style: TextStyle(
       fontSize: 20,
     ),
@@ -140,7 +132,7 @@ Widget Dotedfun(List<String> image, int activeindex) {
     count: image.length,
     effect: ScrollingDotsEffect(
       fixedCenter: true,
-      activeDotColor: Colors.cyan,
+      activeDotColor: Colors.amber,
       dotColor: Colors.grey,
       dotWidth: 10,
       dotHeight: 10,

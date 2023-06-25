@@ -32,7 +32,7 @@ class _ForgotPassState extends State<ForgotPass> {
       Navigator.pushReplacement(context,
           MaterialPageRoute(builder: (BuildContext context) => SignInScreen()));
     } on FirebaseAuthException catch (e) {
-      showToast(color: Colors.lightBlue, text: "Erroe : ${e.code}", time: 5);
+      showToast(color: Colors.amber, text: "Erroe : ${e.code}", time: 5);
     }
     Loading = false;
   }
@@ -49,12 +49,12 @@ class _ForgotPassState extends State<ForgotPass> {
             },
             icon: Icon(
               Icons.arrow_back,
-              color: Colors.lightBlueAccent,
+              color: Colors.amber,
             )),
         title: Text(
           "Reset Password",
           style:
-          TextStyle(color: Colors.lightBlue, fontWeight: FontWeight.bold),
+          TextStyle(color: Colors.amber, fontWeight: FontWeight.bold),
         ),
         backgroundColor: Colors.white,
         elevation: 0,
@@ -98,7 +98,7 @@ class _ForgotPassState extends State<ForgotPass> {
                       navigateAndFinish(context, SignInScreen());
                     } else {
                       showToast(
-                          color: Colors.lightBlue, text: "Error", time: 5);
+                          color: Colors.amber, text: "Error", time: 5);
                     }
                   },
                   child: Container(
@@ -106,7 +106,7 @@ class _ForgotPassState extends State<ForgotPass> {
                     width: double.infinity,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
-                        color: Colors.blue),
+                        color: Colors.amber),
                     child: Center(
                         child: Loading
                             ? const CircularProgressIndicator(

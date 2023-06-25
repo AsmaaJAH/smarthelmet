@@ -130,7 +130,7 @@ class _SignInScreenState extends State<SignInScreen> {
                     width: double.infinity,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
-                        color: Colors.blue),
+                        color: Colors.amber),
                     child: const Center(
                         child: Text(
                       'Log In',
@@ -160,7 +160,7 @@ class _SignInScreenState extends State<SignInScreen> {
                 child: const Text(
                   'Sign Up',
                   style: TextStyle(
-                      decoration: TextDecoration.underline, color: Colors.blue),
+                      decoration: TextDecoration.underline, color: Colors.amber),
                 )),
           ],
         ),
