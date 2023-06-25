@@ -62,8 +62,7 @@ class _TrackingState extends State<Tracking> with TickerProviderStateMixin {
                       infoWindow: InfoWindow(
                         title: 'khloud & Asmaa',
                       ),
-                      icon: BitmapDescriptor.defaultMarkerWithHue(
-                          BitmapDescriptor.hueCyan), //myIcon,
+                      icon: BitmapDescriptor.defaultMarker, //myIcon,
                     ),
                   );
                 }
@@ -115,7 +114,7 @@ class _TrackingState extends State<Tracking> with TickerProviderStateMixin {
             Container(
               child: Text(
                 "${widget.snapshot.data!.docs[widget.index]["firstName"]} ${widget.snapshot.data!.docs[widget.index]["lastName"]}",
-                style: TextStyle(fontSize: 50),
+                style: TextStyle(fontSize: 30 , fontFamily: 'Ubuntu',   fontWeight: FontWeight.bold,),
               ),
               alignment: Alignment.bottomCenter,
             )

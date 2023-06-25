@@ -225,8 +225,8 @@ class _FetchDataState extends State<FetchData> with TickerProviderStateMixin {
                           ),
                           AlertInfo(
                               data: alertTable['object'].toString(),
-                              alertname: 'Falling object:',
-                              fontsize: 11,
+                              alertname: 'Falling Object',
+                              fontsize: 12,
                               snapshot: widget.snapshot,
                             index: widget.index,),
                         ],
@@ -244,15 +244,15 @@ class _FetchDataState extends State<FetchData> with TickerProviderStateMixin {
                         children: [
                           AlertInfo(
                             data: alertTable['TEMP'].toString(),
-                            alertname: 'TEMP',
-                            fontsize: 16,
+                            alertname: 'Tempreture',
+                            fontsize: 14,
                             snapshot: widget.snapshot,
                             index: widget.index,
                           ),
                           AlertInfo(
                             data: alertTable['HUM'].toString(),
-                            alertname: 'HUM',
-                            fontsize: 16,
+                            alertname: 'Humidity',
+                            fontsize: 14,
                             snapshot: widget.snapshot,
                             index: widget.index,
                           ),
@@ -462,7 +462,7 @@ class _FetchDataState extends State<FetchData> with TickerProviderStateMixin {
                                     )),
                               ),
                               Text(
-                                'Under ground tracking',
+                                'Underground Tracking',
                                 style: TextStyle(
                                     fontSize: 14, fontWeight: FontWeight.bold),
                               ),

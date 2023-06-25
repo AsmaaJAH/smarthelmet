@@ -70,45 +70,50 @@ class _AlertInfoState extends State<AlertInfo> {
       padding: const EdgeInsets.all(4.0),
       child: Row(
         children: [
-          AutoSizeText(
+          Text(
             '- ${widget.alertname}:  ',
-            group: Group,
-            minFontSize: 10,
+          
             style: TextStyle(
-                fontSize: 16, color: Colors.black, fontWeight: FontWeight.bold),
+                fontSize: 14, color: Colors.black, fontWeight: FontWeight.bold),
           ),
-        widget.data == 'normal' 
+        widget.data == 'normal'
               ? Expanded(
-                  child: AutoSizeText(
+                  child: Text(
                     "Normal",
                     maxLines: 2,
-                    group: Group,
                     style: TextStyle(
                         fontSize: widget.fontsize,
                         fontWeight: FontWeight.bold,
                         color: Colors.green),
                   ),
                 )
-              :  "${widget.snapshot.data!.docs[widget.index]["uid"]}" == alertTable['uid'].toString()?
-              Expanded(
-                  child: AutoSizeText(
-                    widget.data,
+              : widget.data == 'not required' 
+              ? Expanded(
+                  child: Text(
+                    "Not Required",
                     maxLines: 2,
-                    group: Group,
-                    minFontSize: 10,
+                    style: TextStyle(
+                        fontSize: widget.fontsize,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.green),
+                  ),
+                )
+              :"${widget.snapshot.data!.docs[widget.index]["uid"]}" == alertTable['uid'].toString()?
+              Expanded(
+                  child: Text(
+                    widget.data,
+
                     style: TextStyle(
                         fontSize: widget.fontsize,
                         color: Colors.red,
                         fontWeight: FontWeight.bold),
-                    overflowReplacement: Text('Sorry String too long'),
                   ),
                 )
                 :
                 Expanded(
-                  child: AutoSizeText(
+                  child: Text(
                     "Normal",
-                    maxLines: 2,
-                    group: Group,
+
                     style: TextStyle(
                         fontSize: widget.fontsize,
                         fontWeight: FontWeight.bold,

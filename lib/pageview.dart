@@ -21,7 +21,6 @@ class _PageViewScreenState extends State<PageViewScreen> {
     SearchWorker(),
     AddWorker(),
     ProfilePage(),
-    AlertsScreen(),
     AboutScreen()
   ];
 
@@ -52,8 +51,7 @@ class _PageViewScreenState extends State<PageViewScreen> {
               Icon(Icons.search),
               Icon(Icons.add),
               Icon(Icons.person),
-              Icon(Icons.warning_amber_outlined),
-              Icon(Icons.info_outline)
+              Icon(Icons.info_outline),
             ],
           ),
         ),
