@@ -43,7 +43,7 @@ class _SignInScreenState extends State<SignInScreen> {
                 const Center(
                   child: CircleAvatar(
                     radius: 70.0,
-                    backgroundImage: AssetImage('assets/images/helmet.jpeg'),
+                    backgroundImage: AssetImage('assets/images/myappLogo.png'),
                     backgroundColor: Colors.transparent,
                   ),
                 ),
