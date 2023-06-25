@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:smarthelmet/shared/functions/navigation.dart';
@@ -24,6 +26,7 @@ class FetchData extends StatefulWidget {
 
 class _FetchDataState extends State<FetchData> with TickerProviderStateMixin {
   final dataBase = FirebaseDatabase.instance.ref();
+
   late Animation<double> tempAnimation;
   late AnimationController progressController;
 
@@ -37,10 +40,8 @@ class _FetchDataState extends State<FetchData> with TickerProviderStateMixin {
       await dbRef.onValue.listen((event) {
         print(event.snapshot.value);
         if (key == "ALERT") {
-          print("----------------------Alerts---------------");
           alertTable = event.snapshot.value as Map<Object?, Object?>;
         } else if (key == "sensors") {
-          print("-------------///sensors///------------------");
           sensorsTable = event.snapshot.value as Map<Object?, Object?>;
         } else if (key == "gps") {
           gpsTable = event.snapshot.value as Map<Object?, Object?>;
@@ -84,7 +85,6 @@ class _FetchDataState extends State<FetchData> with TickerProviderStateMixin {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Colors.white,
-      // drawer: NavBar(),
       appBar: AppBar(
         backgroundColor: Colors.cyan,
         elevation: 0.0,

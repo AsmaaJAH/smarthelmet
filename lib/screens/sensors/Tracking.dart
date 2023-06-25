@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'dart:collection';
@@ -17,14 +19,6 @@ class Tracking extends StatefulWidget {
 class _TrackingState extends State<Tracking> with TickerProviderStateMixin {
   var myMarkers = HashSet<Marker>(); //collection
   Map<String, List<String>> tables = {
-    "ALERT": ['HUM', 'LPG', 'CO', 'TEMP', 'fall', 'object'],
-    "sensors": [
-      'CO PPM value',
-      'Humdity',
-      'LPG PPM value',
-      'temp',
-      'underGround'
-    ],
     "gps": [
       'latitude1',
       'longitude1',
@@ -47,7 +41,6 @@ class _TrackingState extends State<Tracking> with TickerProviderStateMixin {
     });
   }
 
-  final Map<String, Marker> _markers = {};
   Future<void> _onMapCreated(GoogleMapController googleMapController) async {
     setState(() {
       myMarkers.add(

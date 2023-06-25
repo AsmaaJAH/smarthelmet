@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:smarthelmet/shared/constants/colors.dart';
@@ -16,35 +15,29 @@ class GasScreen extends StatefulWidget {
 class _GasScreenState extends State<GasScreen> with TickerProviderStateMixin {
   double co = 20;
   double lpg = 20;
-  int c = 10;
+  int min = 10;
 
   final dataBase = FirebaseDatabase.instance.ref();
+
   late Animation<double> coAnimation;
   late Animation<double> lpgAnimation;
   late AnimationController progressController;
   late ChartSeriesController _chartSeriesController1;
   late ChartSeriesController _chartSeriesController2;
 
-  Map<Object?, Object?> alertTable = {};
   Map<Object?, Object?> sensorsTable = {};
+
   void read() async {
-    tables.forEach((key, value) async {
-      Query dbRef = FirebaseDatabase.instance.ref().child(key);
-      await dbRef.onValue.listen((event) {
-        print(event.snapshot.value);
-        if (key == "ALERT")
-          alertTable = event.snapshot.value as Map<Object?, Object?>;
-        else if (key == "sensors")
-          sensorsTable = event.snapshot.value as Map<Object?, Object?>;
+    Query dbRef = FirebaseDatabase.instance.ref().child("sensors");
+    await dbRef.onValue.listen((event) {
+      sensorsTable = event.snapshot.value as Map<Object?, Object?>;
 
-        co = double.tryParse('${sensorsTable['CO PPM value']}'.toString()) ??
-            0.0;
-        lpg = double.tryParse('${sensorsTable['LPG PPM value']}'.toString()) ??
-            0.0;
+      co = double.tryParse('${sensorsTable['CO PPM value']}'.toString()) ?? 0.0;
+      lpg =
+          double.tryParse('${sensorsTable['LPG PPM value']}'.toString()) ?? 0.0;
 
-        setState(() {
-          _GasScreenInit(co, lpg);
-        });
+      setState(() {
+        _GasScreenInit(co, lpg);
       });
     });
   }
@@ -75,26 +68,11 @@ class _GasScreenState extends State<GasScreen> with TickerProviderStateMixin {
     ChartData(x: 9, y: 0),
   ];
 
-  Map<String, List<String>> tables = {
-    "ALERT": ['HUM', 'LPG', 'CO', 'TEMP', 'fall', 'object'],
-    "sensors": [
-      'CO PPM value',
-      'Humdity',
-      'LPG PPM value',
-      'temp',
-      'underGround'
-    ],
-    "gps": [
-      'latitude1',
-      'longitude1',
-    ],
-  };
-
   void updateDataSource(Timer timer) {
-    Codata.add(ChartData(x: c, y: co));
-    Lpgdata.add(ChartData(x: c, y: lpg));
+    Codata.add(ChartData(x: min, y: co));
+    Lpgdata.add(ChartData(x: min, y: lpg));
 
-    c++;
+    min++;
     Codata.removeAt(0);
     Lpgdata.removeAt(0);
 
@@ -205,7 +183,7 @@ class _GasScreenState extends State<GasScreen> with TickerProviderStateMixin {
                   axisLine: AxisLine(width: 0),
                   majorTickLines: const MajorTickLines(size: 0),
                   majorGridLines: MajorGridLines(color: Colors.transparent),
-                  title: AxisTitle(text: 'Humidity (g.m^3)')),
+                  title: AxisTitle(text: 'GAS (ppm)')),
               series: <SplineSeries<ChartData, num>>[
                 SplineSeries<ChartData, num>(
                     onRendererCreated: (ChartSeriesController controller) {

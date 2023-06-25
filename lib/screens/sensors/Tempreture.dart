@@ -15,34 +15,32 @@ class TempretureScreen extends StatefulWidget {
 
 class _TempretureScreenState extends State<TempretureScreen>
     with TickerProviderStateMixin {
-  double temp = 20;
-  int c = 10;
+      
+  late double temp;
+  int min = 10;
+
   final dataBase = FirebaseDatabase.instance.ref();
+
   late Animation<double> tempAnimation;
   late AnimationController progressController;
   late ChartSeriesController _chartSeriesController;
 
-  Map<Object?, Object?> alertTable = {};
   Map<Object?, Object?> sensorsTable = {};
   List<ChartData> data = [
-    ChartData(x: 0, y: 0),
-    ChartData(x: 1, y: 0),
-    ChartData(x: 2, y: 0),
-    ChartData(x: 3, y: 0),
-    ChartData(x: 4, y: 0),
-    ChartData(x: 5, y: 0),
-    ChartData(x: 6, y: 0),
-    ChartData(x: 7, y: 0),
-    ChartData(x: 8, y: 0),
-    ChartData(x: 9, y: 0),
-  ];
+      ChartData(x: 0, y: 0),
+      ChartData(x: 1, y: 0),
+      ChartData(x: 2, y: 0),
+      ChartData(x: 3, y: 0),
+      ChartData(x: 4, y: 0),
+      ChartData(x: 5, y: 0),
+      ChartData(x: 6, y: 0),
+      ChartData(x: 7, y: 0),
+      ChartData(x: 8, y: 0),
+      ChartData(x: 9, y: 0),
+    ];
   void read() async {
-    tables.forEach((key, value) async {
-      Query dbRef = FirebaseDatabase.instance.ref().child(key);
+      Query dbRef = FirebaseDatabase.instance.ref().child('sensors');
       await dbRef.onValue.listen((event) {
-        if (key == "ALERT")
-          alertTable = event.snapshot.value as Map<Object?, Object?>;
-        else if (key == "sensors")
           sensorsTable = event.snapshot.value as Map<Object?, Object?>;
         String? nullableString = '${sensorsTable['temp']}'.toString();
         temp = double.tryParse(nullableString) ?? 0.0;
@@ -50,27 +48,11 @@ class _TempretureScreenState extends State<TempretureScreen>
           _TempretureScreenInit(temp);
         });
       });
-    });
   }
 
-  Map<String, List<String>> tables = {
-    "ALERT": ['HUM', 'LPG', 'CO', 'TEMP', 'fall', 'object'],
-    "sensors": [
-      'CO PPM value',
-      'Humdity',
-      'LPG PPM value',
-      'temp',
-      'underGround'
-    ],
-    "gps": [
-      'latitude1',
-      'longitude1',
-    ],
-  };
-
   void updateDataSource(Timer timer) {
-    data.add(ChartData(x: c, y: temp));
-    c++;
+    data.add(ChartData(x: min, y: temp));
+    min++;
     data.removeAt(0);
     _chartSeriesController.updateDataSource(
         addedDataIndex: data.length - 1, removedDataIndex: 0);
@@ -82,6 +64,7 @@ class _TempretureScreenState extends State<TempretureScreen>
     read();
     temp = double.tryParse('${sensorsTable['temp']}') ?? 0.0;
     _TempretureScreenInit(temp);
+    
     super.initState();
   }
 

@@ -16,13 +16,11 @@ class HumidityScreen extends StatefulWidget {
 class _HumidityScreenState extends State<HumidityScreen>
     with TickerProviderStateMixin {
   double hum = 20;
-  int c = 10;
+  int min = 10;
   final dataBase = FirebaseDatabase.instance.ref();
   late Animation<double> humAnimation;
   late AnimationController progressController;
   late ChartSeriesController _chartSeriesController;
-
-  Map<Object?, Object?> alertTable = {};
   Map<Object?, Object?> sensorsTable = {};
   List<ChartData> data = [
     ChartData(x: 0, y: 0),
@@ -40,10 +38,7 @@ class _HumidityScreenState extends State<HumidityScreen>
     tables.forEach((key, value) async {
       Query dbRef = FirebaseDatabase.instance.ref().child(key);
       await dbRef.onValue.listen((event) {
-        print(event.snapshot.value);
-        if (key == "ALERT")
-          alertTable = event.snapshot.value as Map<Object?, Object?>;
-        else if (key == "sensors")
+        if (key == "sensors")
           sensorsTable = event.snapshot.value as Map<Object?, Object?>;
         String? nullableString = '${sensorsTable['Humdity']}'.toString();
         hum = double.tryParse(nullableString) ?? 0.0;
@@ -55,7 +50,6 @@ class _HumidityScreenState extends State<HumidityScreen>
   }
 
   Map<String, List<String>> tables = {
-    "ALERT": ['HUM', 'LPG', 'CO', 'TEMP', 'fall', 'object'],
     "sensors": [
       'CO PPM value',
       'Humdity',
@@ -63,15 +57,11 @@ class _HumidityScreenState extends State<HumidityScreen>
       'temp',
       'underGround'
     ],
-    "gps": [
-      'latitude1',
-      'longitude1',
-    ]
   };
 
   void updateDataSource(Timer timer) {
-    data.add(ChartData(x: c, y: hum));
-    c++;
+    data.add(ChartData(x: min, y: hum));
+    min++;
     data.removeAt(0);
     _chartSeriesController.updateDataSource(
         addedDataIndex: data.length - 1, removedDataIndex: 0);
