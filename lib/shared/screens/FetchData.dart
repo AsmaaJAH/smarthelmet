@@ -169,7 +169,7 @@ class _FetchDataState extends State<FetchData> with TickerProviderStateMixin {
             ),
           ),
           Container(
-            height: size.height * .25,
+            height: size.height * .26,
             width: double.infinity,
             child: Stack(
               children: [
@@ -223,14 +223,14 @@ class _FetchDataState extends State<FetchData> with TickerProviderStateMixin {
                           ),
                           AlertInfo(
                               data: alertTable['object'].toString(),
-                              alertname: 'object Falling:',
-                              fontsize: 10),
+                              alertname: 'Falling object:',
+                              fontsize: 11),
                         ],
                       ),
                     )),
                 Positioned(
                     top: size.height * .01,
-                    right: size.width * .1,
+                    right: size.width * .09,
                     bottom: size.height * .09,
                     child: Container(
                       height: size.height,
