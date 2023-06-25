@@ -1,7 +1,10 @@
-import 'package:carousel_slider/carousel_slider.dart';
+import 'dart:async';
+
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:smarthelmet/shared/constants/colors.dart';
+import 'package:smarthelmet/shared/functions/CircleProgress.dart';
+import 'package:syncfusion_flutter_charts/charts.dart';
 
 class UnderGroundScreen extends StatefulWidget {
   UnderGroundScreen({super.key});
@@ -12,51 +15,66 @@ class UnderGroundScreen extends StatefulWidget {
 
 class _UnderGroundScreenState extends State<UnderGroundScreen>
     with TickerProviderStateMixin {
-  double temp = 20;
+  late ChartSeriesController _chartSeriesController;
   final dataBase = FirebaseDatabase.instance.ref();
-
-  Map<Object?, Object?> alertTable = {};
+  late double undergroundX ;
+  late double undergroundY ;
   Map<Object?, Object?> sensorsTable = {};
+  List<ChartData> data = <ChartData>[
+    ChartData(x: 0, y: 0),
+  ];
   void read() async {
-    tables.forEach((key, value) async {
-      Query dbRef = FirebaseDatabase.instance.ref().child(key);
-      await dbRef.onValue.listen((event) {
-        print(event.snapshot.value);
-        if (key == "ALERT")
-          alertTable = event.snapshot.value as Map<Object?, Object?>;
-        else if (key == "sensors")
-          sensorsTable = event.snapshot.value as Map<Object?, Object?>;
-
-        setState(() {});
-      });
+    Query dbRef = FirebaseDatabase.instance.ref().child('sensors');
+    await dbRef.onValue.listen((event) {
+      sensorsTable = event.snapshot.value as Map<Object?, Object?>;
+      undergroundX =
+          double.tryParse('${sensorsTable['undergroundX']}'.toString()) ?? 0.0;
+      undergroundY =
+          double.tryParse('${sensorsTable['undergroundY']}'.toString()) ?? 0.0;
     });
   }
-  Map<String, List<String>> tables = {
-    "ALERT": ['HUM', 'LPG', 'CO', 'TEMP', 'fall', 'object','uid','medicalAssistance'],
-    "sensors": [
-      'CO PPM value',
-      'Humdity',
-      'LPG PPM value',
-      'temp',
-      'undergroundX',
-      'undergroundY',
-    ],
-    "gps": [
-      'latitude1',
-      'longitude1',
-    ],
-  };
+
+  void updateDataSource(Timer timer) {
+    data.add(ChartData(x: undergroundX, y: undergroundY));
+    _chartSeriesController.updateDataSource(addedDataIndex: data.length - 1);
+  }
 
   @override
   void initState() {
     read();
-
+    Timer.periodic(const Duration(milliseconds: 1000), updateDataSource);
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      body: Column(
+        children: [
+          Expanded(
+              child: SfCartesianChart(
+                  isTransposed: true,
+                  plotAreaBorderWidth: 0,
+                  primaryXAxis: NumericAxis(
+                    title: AxisTitle(text: 'X(s)'),
+                    majorGridLines:
+                        const MajorGridLines(color: Colors.transparent),
+                  ),
+                  primaryYAxis: NumericAxis(title: AxisTitle(text: 'Y(s)')),
+                  series: <LineSeries<ChartData, num>>[
+                LineSeries<ChartData, num>(
+                  onRendererCreated: (ChartSeriesController controller) {
+                    _chartSeriesController = controller;
+                  },
+                  dataSource: data,
+                  animationDuration: 0,
+                  xValueMapper: (ChartData moves, _) => moves.x,
+                  yValueMapper: (ChartData moves, _) => moves.y,
+                  width: 2,
+                ),
+              ])),
+        ],
+      ),
       appBar: AppBar(
         title: const Text(
           'UnderGround Tracking',
@@ -70,158 +88,13 @@ class _UnderGroundScreenState extends State<UnderGroundScreen>
         ),
         backgroundColor: navBarColor,
         elevation: 0.0,
-        leading: IconButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          icon: const Icon(Icons.arrow_back_ios_new),
-        ),
       ),
-
-         body: SingleChildScrollView(
-           child: Column(
-                  children: [
-                              CarouselSlider(
-                              
-                                items: [
-                                  //1st Image of Slider
-                                  Container(
-                                    margin: EdgeInsets.all(6.0),
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(1.0),
-                                      image: DecorationImage(
-                                        image: NetworkImage("https://raw.githubusercontent.com/AsmaaJAH/smarthelmet/main/assets/images/tracking_underGround/0.png"),
-                                        fit: BoxFit.fill, // I use this to fill(full size) instead of cover(==crop)
-
-                                      ),
-                                    ),
-                                  ),
-                   
-                                  //2nd Image of Slider
-                                  Container(
-                                    margin: EdgeInsets.all(6.0),
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(1.0),
-                                      image: DecorationImage(
-                                        image: NetworkImage("https://raw.githubusercontent.com/AsmaaJAH/smarthelmet/main/assets/images/tracking_underGround/1.png"),
-                                        fit: BoxFit.fill,
-                                      ),
-                                    ),
-                                  ),
-                   
-                                  //3rd Image of Slider
-                                  Container(
-                                    margin: EdgeInsets.all(6.0),
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(1.0),
-                                      image: DecorationImage(
-                                        image: NetworkImage("https://raw.githubusercontent.com/AsmaaJAH/smarthelmet/main/assets/images/tracking_underGround/2.png"),
-                                        fit: BoxFit.fill,
-                                      ),
-                                    ),
-                                  ),
-                   
-                                  //4th Image of Slider
-                                  Container(
-                                    margin: EdgeInsets.all(6.0),
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(1.0),
-                                      image: DecorationImage(
-                                        image: NetworkImage("https://raw.githubusercontent.com/AsmaaJAH/smarthelmet/main/assets/images/tracking_underGround/3.png"),
-                                        fit: BoxFit.fill,
-                                      ),
-                                    ),
-                                  ),
-                   
-                                  //5th Image of Slider
-                                  Container(
-                                    margin: EdgeInsets.all(6.0),
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(1.0),
-                                      image: DecorationImage(
-                                        image: NetworkImage("https://raw.githubusercontent.com/AsmaaJAH/smarthelmet/main/assets/images/tracking_underGround/4.png"),
-                                        fit: BoxFit.fill,
-                                      ),
-                                    ),
-                                  ),
-                                  Container(
-                                    margin: EdgeInsets.all(6.0),
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(8.0),
-                                      image: DecorationImage(
-                                        image: NetworkImage("https://raw.githubusercontent.com/AsmaaJAH/smarthelmet/main/assets/images/tracking_underGround/5.png"),
-                                        fit: BoxFit.fill,
-                                      ),
-                                    ),
-                                  ),
-                                  Container(
-                                    margin: EdgeInsets.all(6.0),
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(8.0),
-                                      image: DecorationImage(
-                                        image: NetworkImage("https://raw.githubusercontent.com/AsmaaJAH/smarthelmet/main/assets/images/tracking_underGround/6.png"),
-                                        fit: BoxFit.fill,
-                                      ),
-                                    ),
-                                  ),
-                                  Container(
-                                    margin: EdgeInsets.all(6.0),
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(8.0),
-                                      image: DecorationImage(
-                                        image: NetworkImage("https://raw.githubusercontent.com/AsmaaJAH/smarthelmet/main/assets/images/tracking_underGround/7.png"),
-                                        fit: BoxFit.fill,
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                   
-                                //Slider Container properties
-                                options: CarouselOptions(
-                                  height: 300,
-                                  enlargeCenterPage: true,
-                                  autoPlay: true,
-                                  aspectRatio:  16/9,
-                                  autoPlayCurve: Curves.fastOutSlowIn,
-                                  enableInfiniteScroll: true,
-                                  autoPlayAnimationDuration: Duration(milliseconds: 500),
-                                  viewportFraction: 0.8,
-                                ),
-                              ),
-                            
-                          
-               Container(
-                alignment: Alignment.bottomCenter,
-                margin: const EdgeInsets.fromLTRB(10, 50, 10, 10),
-                padding: const EdgeInsets.fromLTRB(30, 10, 30, 10),
-                decoration: BoxDecoration(
-                    color: Colors.amber, borderRadius: BorderRadius.circular(15)),
-                child: Center(
-                  child: SelectionArea(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          "The Results of The UnderGround Tracking: ",
-                          style:
-                              TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
-                          textAlign: TextAlign.center,
-                        ),
-                        Text(
-                          "${sensorsTable['underGround'] == null ? "" : sensorsTable['underGround']}",
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.w400,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                        ),
-                 ],
-               ),
-         ),
     );
   }
+}
+
+class ChartData {
+  final double x;
+  final double y;
+  ChartData({required this.x, required this.y});
 }

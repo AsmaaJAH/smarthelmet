@@ -7,8 +7,7 @@ import 'package:flutter/material.dart';
 class FirestoreData extends StatefulWidget {
   final String documentId;
 
-  const FirestoreData({Key? key, required this.documentId})
-      : super(key: key);
+  const FirestoreData({Key? key, required this.documentId}) : super(key: key);
 
   @override
   State<FirestoreData> createState() => _FirestoreDataState();
@@ -43,10 +42,18 @@ class _FirestoreDataState extends State<FirestoreData> {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     TextButton(
-                        onPressed: () {
-                          users
-                              .doc(credential!.uid)
-                              .update({key: editdialogcontroller.text});
+                        onPressed: () async {
+                          if (key == 'email') {
+                            await credential
+                                ?.updateEmail(editdialogcontroller.text);
+                            await users
+                                .doc(credential!.uid)
+                                .update({key: editdialogcontroller.text});
+                          } else {
+                            await users
+                                .doc(credential!.uid)
+                                .update({key: editdialogcontroller.text});
+                          }
 
                           setState(() {
                             Navigator.pop(context);
@@ -76,8 +83,7 @@ class _FirestoreDataState extends State<FirestoreData> {
 
   @override
   Widget build(BuildContext context) {
-    CollectionReference users =
-        FirebaseFirestore.instance.collection('Users');
+    CollectionReference users = FirebaseFirestore.instance.collection('Users');
 
     return FutureBuilder<DocumentSnapshot>(
       future: users.doc(widget.documentId).get(),
@@ -133,7 +139,6 @@ class _FirestoreDataState extends State<FirestoreData> {
                         icon: Icon(Icons.edit))
                   ],
                 ),
-               
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [

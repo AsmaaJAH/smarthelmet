@@ -25,6 +25,7 @@ class FetchData extends StatefulWidget {
 
 class _FetchDataState extends State<FetchData> with TickerProviderStateMixin {
   final dataBase = FirebaseDatabase.instance.ref();
+
   late Animation<double> tempAnimation;
   late AnimationController progressController;
 
@@ -38,10 +39,8 @@ class _FetchDataState extends State<FetchData> with TickerProviderStateMixin {
       await dbRef.onValue.listen((event) {
         print(event.snapshot.value);
         if (key == "ALERT") {
-          print("----------------------Alerts---------------");
           alertTable = event.snapshot.value as Map<Object?, Object?>;
         } else if (key == "sensors") {
-          print("-------------///sensors///------------------");
           sensorsTable = event.snapshot.value as Map<Object?, Object?>;
         } else if (key == "gps") {
           gpsTable = event.snapshot.value as Map<Object?, Object?>;
@@ -86,7 +85,6 @@ class _FetchDataState extends State<FetchData> with TickerProviderStateMixin {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Colors.white,
-      // drawer: NavBar(),
       appBar: AppBar(
         backgroundColor: Colors.amber,
         elevation: 0.0,
