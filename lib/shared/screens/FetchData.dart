@@ -234,7 +234,7 @@ class _FetchDataState extends State<FetchData> with TickerProviderStateMixin {
                     )),
                 Positioned(
                     top: size.height * .01,
-                    right: size.width * .09,
+                    right: size.width * .05,
                     bottom: size.height * .09,
                     child: Container(
                       height: size.height,
