@@ -53,20 +53,20 @@ class _HumidityScreenState extends State<HumidityScreen>
       });
     });
   }
-
   Map<String, List<String>> tables = {
-    "ALERT": ['HUM', 'LPG', 'CO', 'TEMP', 'fall', 'object'],
+    "ALERT": ['HUM', 'LPG', 'CO', 'TEMP', 'fall', 'object','uid','medicalAssistance'],
     "sensors": [
       'CO PPM value',
       'Humdity',
       'LPG PPM value',
       'temp',
-      'underGround'
+      'undergroundX',
+      'undergroundY',
     ],
     "gps": [
       'latitude1',
       'longitude1',
-    ]
+    ],
   };
 
   void updateDataSource(Timer timer) {

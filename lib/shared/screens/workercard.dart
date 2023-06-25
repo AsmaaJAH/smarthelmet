@@ -1,3 +1,5 @@
+import 'package:auto_size_text/auto_size_text.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:smarthelmet/shared/functions/navigation.dart';
 import 'FetchData.dart';
@@ -12,6 +14,54 @@ class WorkerCard extends StatefulWidget {
 }
 
 class _WorkerCardState extends State<WorkerCard> {
+  final dataBase = FirebaseDatabase.instance.ref();
+
+  Map<Object?, Object?> alertTable = {};
+
+  void workerNotifigation() async {
+    tables.forEach((key, value) async {
+      Query dbRef = FirebaseDatabase.instance.ref().child(key);
+      await dbRef.onValue.listen((event) {
+        print(event.snapshot.value);
+        if (key == "ALERT") {
+          alertTable = event.snapshot.value as Map<Object?, Object?>;
+        }
+        setState(() {});
+      });
+    });
+  }
+
+  Map<String, List<String>> tables = {
+    "ALERT": [
+      'HUM',
+      'LPG',
+      'CO',
+      'TEMP',
+      'fall',
+      'object',
+      'uid',
+      'medicalAssistance'
+    ],
+    "sensors": [
+      'CO PPM value',
+      'Humdity',
+      'LPG PPM value',
+      'temp',
+      'undergroundX',
+      'undergroundY',
+    ],
+    "gps": [
+      'latitude1',
+      'longitude1',
+    ],
+  };
+
+  @override
+  void initState() {
+    workerNotifigation();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -58,9 +108,9 @@ class _WorkerCardState extends State<WorkerCard> {
                 )),
             Positioned(
                 bottom: 0,
-                left: size.width * .3,
+                left: size.width * .2,
                 child: SizedBox(
-                  height: 80,
+                  height: 90,
                   width: size.width - 100,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -73,7 +123,7 @@ class _WorkerCardState extends State<WorkerCard> {
                         child: Text(
                           "Name : ${widget.snapshot.data!.docs[widget.index]["firstName"]} ${widget.snapshot.data!.docs[widget.index]["lastName"]}",
                           style: TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.bold),
+                              fontSize: 18, fontWeight: FontWeight.bold),
                         ),
                       ),
                       Spacer(),
@@ -82,13 +132,26 @@ class _WorkerCardState extends State<WorkerCard> {
                         child: Text(
                           "age     : ${widget.snapshot.data!.docs[widget.index]["age"]}",
                           style: TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.bold),
+                              fontSize: 18, fontWeight: FontWeight.bold),
                         ),
                       ),
                       Spacer()
                     ],
                   ),
-                ))
+                )),
+            Positioned(
+              top: 30,
+              right: 20,
+              child: Container(
+                child: Icon(Icons.notification_important),
+                decoration: BoxDecoration(
+                   color: "${widget.snapshot.data!.docs[widget.index]["uid"]}" ==
+                        alertTable['uid'].toString()
+                    ? Colors.redAccent
+                    : Colors.white,
+                    borderRadius: BorderRadius.all(Radius.circular(10))),
+              ),
+            ),
           ],
         ),
       ),

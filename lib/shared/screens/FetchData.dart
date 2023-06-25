@@ -54,13 +54,14 @@ class _FetchDataState extends State<FetchData> with TickerProviderStateMixin {
   }
 
   Map<String, List<String>> tables = {
-    "ALERT": ['HUM', 'LPG', 'CO', 'TEMP', 'fall', 'object'],
+    "ALERT": ['HUM', 'LPG', 'CO', 'TEMP', 'fall', 'object','uid','medicalAssistance'],
     "sensors": [
       'CO PPM value',
       'Humdity',
       'LPG PPM value',
       'temp',
-      'underGround'
+      'undergroundX',
+      'undergroundY',
     ],
     "gps": [
       'latitude1',
@@ -229,7 +230,7 @@ class _FetchDataState extends State<FetchData> with TickerProviderStateMixin {
                     )),
                 Positioned(
                     top: size.height * .01,
-                    right: size.width * .05,
+                    right: size.width * .1,
                     bottom: size.height * .09,
                     child: Container(
                       height: size.height,
@@ -252,9 +253,17 @@ class _FetchDataState extends State<FetchData> with TickerProviderStateMixin {
                             alertname: 'Fall Detector',
                             fontsize: 14,
                           ),
+                          AlertInfo(
+                            data: alertTable['medicalAssistance'].toString(),
+                            alertname: 'Medical Help',
+                            fontsize: 14,
+                          ),
+
+
                         ],
                       ),
                     )),
+                
               ],
             ),
           ),
