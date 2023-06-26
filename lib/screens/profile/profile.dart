@@ -68,7 +68,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         color: Colors.amber),
                     child: const Center(
                         child: Text(
-                      'Reset Psasword',
+                      'Reset Password',
                       style: TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,

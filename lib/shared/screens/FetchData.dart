@@ -210,39 +210,6 @@ class _FetchDataState extends State<FetchData> with TickerProviderStateMixin {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           AlertInfo(
-                            data: alertTable['CO'].toString(),
-                            alertname: 'CO',
-                            fontsize: 16,
-                            snapshot: widget.snapshot,
-                            index: widget.index,
-                          ),
-                          AlertInfo(
-                            data: alertTable['LPG'].toString(),
-                            alertname: 'LPG',
-                            fontsize: 16,
-                            snapshot: widget.snapshot,
-                            index: widget.index,
-                          ),
-                          AlertInfo(
-                              data: alertTable['object'].toString(),
-                              alertname: 'Falling Object',
-                              fontsize: 12,
-                              snapshot: widget.snapshot,
-                            index: widget.index,),
-                        ],
-                      ),
-                    )),
-                Positioned(
-                    top: size.height * .01,
-                    right: size.width * .05,
-                    bottom: size.height * .09,
-                    child: Container(
-                      height: size.height,
-                      width: size.width * .44,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          AlertInfo(
                             data: alertTable['TEMP'].toString(),
                             alertname: 'Tempreture',
                             fontsize: 14,
@@ -256,6 +223,34 @@ class _FetchDataState extends State<FetchData> with TickerProviderStateMixin {
                             snapshot: widget.snapshot,
                             index: widget.index,
                           ),
+                           AlertInfo(
+                            data: alertTable['CO'].toString(),
+                            alertname: 'CO',
+                            fontsize: 16,
+                            snapshot: widget.snapshot,
+                            index: widget.index,
+                          ),
+                          AlertInfo(
+                            data: alertTable['LPG'].toString(),
+                            alertname: 'LPG',
+                            fontsize: 16,
+                            snapshot: widget.snapshot,
+                            index: widget.index,
+                          ),
+
+                        ],
+                      ),
+                    )),
+                Positioned(
+                    top: size.height * .01,
+                    right: size.width * .03,
+                    bottom: size.height * .09,
+                    child:  Container(
+                      height: size.height,
+                      width: size.width * .44,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
                           AlertInfo(
                             data: alertTable['fall'].toString(),
                             alertname: 'Fall Detector',
@@ -270,8 +265,12 @@ class _FetchDataState extends State<FetchData> with TickerProviderStateMixin {
                             snapshot: widget.snapshot,
                             index: widget.index,
                           ),
-
-
+                          AlertInfo(
+                              data: alertTable['object'].toString(),
+                              alertname: 'Falling Object',
+                              fontsize: 12,
+                              snapshot: widget.snapshot,
+                            index: widget.index,),
                         ],
                       ),
                     )),

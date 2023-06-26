@@ -63,7 +63,7 @@ class _AddWorkerState extends State<AddWorker> {
         lable: 'Worker Number',
         type: TextInputType.phone),
     TextFieldData(
-        controller: ageController, lable: 'age', type: TextInputType.number),
+        controller: ageController, lable: 'Age', type: TextInputType.number),
   ];
 
   addworker() async {

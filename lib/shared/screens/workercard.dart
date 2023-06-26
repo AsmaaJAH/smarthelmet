@@ -130,7 +130,7 @@ class _WorkerCardState extends State<WorkerCard> {
                       Padding(
                         padding: EdgeInsets.symmetric(horizontal: 20),
                         child: Text(
-                          "age     : ${widget.snapshot.data!.docs[widget.index]["age"]}",
+                          "Age     : ${widget.snapshot.data!.docs[widget.index]["age"]}",
                           style: TextStyle(
                               fontSize: 18, fontWeight: FontWeight.bold),
                         ),

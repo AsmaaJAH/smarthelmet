@@ -13,11 +13,9 @@ class AboutScreen extends StatefulWidget {
 class _AboutScreenState extends State<AboutScreen> {
   int activeindex = 0;
   final HelmetImages = [
-    'assets/Helmet/1.jpg',
-    'assets/Helmet/2.jpg',
-    'assets/Helmet/3.jpg',
-    'assets/Helmet/4.jpg',
-    'assets/Helmet/5.jpg',
+    'assets/Helmet/1.jpeg',
+    'assets/Helmet/2.jpeg',
+    'assets/Helmet/3.jpeg',
   ];
   @override
   Widget build(BuildContext context) {
@@ -68,7 +66,7 @@ class _AboutScreenState extends State<AboutScreen> {
                   height: MediaQuery.of(context).size.height * .08,
                 ),
                 Text(
-                  "Discribe",
+                  "Description",
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
@@ -78,7 +76,7 @@ class _AboutScreenState extends State<AboutScreen> {
                   height: 8,
                 ),
                 textfun(
-                    "Smart helmet is not an ordinary helmet. As it is mentioned in its name it is a helmet with smart functionalities. It provides the user with high level safety and full access to its phone while driving motor bike or bicycle. Purpose of the product is to provide safety by providing the information of surroundings by using the technology and allow the user to access his/her phone functionalities by his/her voice. Smart helmet is a helmet with some hardware installed in it. End product is the helmet which performs different functionalities by connecting to the user android phone"),
+                    "Safety is one of the most important aspects in any work environment and while a safety helmet is essential on its own, our project aims to take this mandatory safety equipment a step further to allow the supervisor to monitor his team of workers and the working environment through this mobile app. Our smart safety helmet is equipped with various sensors controlled by a microcontroller in order to keep track of the various changes in the work environment and regularly send this feedback to the mobile app, this will enable the supervisors to better monitor their workers and take action if required."),
               ],
             ),
           ),
