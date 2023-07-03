@@ -1,6 +1,6 @@
 # smarthelmet
 
-A new Flutter project.
+A new Flutter project: https://docs.google.com/document/d/1KOHYA_hEY_BcKxjiJ8jozP-9TVM0kjT-/edit
 
 ![SmartSafetyHelmet](https://github.com/AsmaaJAH/smarthelmet/assets/88660261/c1ba6e02-926f-48b0-bacd-9258aba41f0e)
 
