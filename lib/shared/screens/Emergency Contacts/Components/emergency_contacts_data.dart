@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 
 import 'emergency_contacts.dart';
+
 class ContactsData extends StatefulWidget {
   const ContactsData({Key? key}) : super(key: key);
 
