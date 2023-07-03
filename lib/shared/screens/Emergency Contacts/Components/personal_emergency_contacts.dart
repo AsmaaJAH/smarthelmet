@@ -82,52 +82,84 @@ class _PersonalEmergencyContactsState extends State<PersonalEmergencyContacts> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: FutureBuilder(
-          future: contacts,
-          builder: (context, AsyncSnapshot snapshot) {
-            if (!snapshot.hasData) {
-              return (const Center(child: CircularProgressIndicator()));
-            } else {
-              getData(snapshot.data);
-              return Scrollbar(
-                  child: ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: emergencyContactsName.length,
-                      itemBuilder: (BuildContext context, index) {
-                        return SizedBox(
-                            height: 100,
-                            child: Card(
-                                elevation: 4,
-                                child: InkWell(
-                                    onTap: () async {
-                                      var phoneNo = emergencyContactsNo[index];
-                                      await FlutterPhoneDirectCaller.callNumber(
-                                          phoneNo);
-                                    },
-                                    child: ListTile(
-                                        title:
-                                            Text(emergencyContactsName[index]),
-                                        subtitle:
-                                            Text(emergencyContactsNo[index]),
-                                        dense: true,
-                                        trailing: IconButton(
-                                            icon: Icon(
-                                              Icons.delete,
-                                            ),
-                                            onPressed: () async {
-                                              await DBHelper()
-                                                  .deleteSQFLITE(widget.id);
-                                              setState(() {
-                                                snapshot.data.removeAt(index);
-                                              });
-                                            }),
-                                        leading: CircleAvatar(
-                                            child: Text(
-                                                emergencyContactsInitials[
-                                                    index]))))));
-                      }));
-            }
-          }),
+      body: Column(
+        children: [
+          const SizedBox(
+            height: 20,
+          ),
+          InkWell(
+
+            onTap: () {
+              setState(() {
+                DBHelper().deleteSQFLITE(widget.id);
+                emergencyContactsName.clear();
+                emergencyContactsNo.clear();
+                emergencyContactsInitials.clear();
+              });
+            },
+            child: Container(
+              width: 120,
+              padding: const EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                  color: Colors.amber, borderRadius: BorderRadius.circular(8)),
+              child: const Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                   Icon(Icons.delete),
+                   Text(
+                    ' Delete',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ],
+              ),
+            ),
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          FutureBuilder(
+              future: contacts,
+              builder: (context, AsyncSnapshot snapshot) {
+                if (!snapshot.hasData) {
+                  return (const Center(child: CircularProgressIndicator()));
+                } else {
+                  getData(snapshot.data);
+                  return Scrollbar(
+                      child: ListView.builder(
+                          shrinkWrap: true,
+                          itemCount: emergencyContactsName.length,
+                          itemBuilder: (BuildContext context, index) {
+                            return SizedBox(
+                                height: 100,
+                                child: Card(
+                                    elevation: 4,
+                                    child: InkWell(
+                                        onTap: () async {
+                                          var phoneNo =
+                                              emergencyContactsNo[index];
+                                          await FlutterPhoneDirectCaller
+                                              .callNumber(phoneNo);
+                                        },
+                                        child: ListTile(
+                                            title: Text(
+                                                emergencyContactsName[index]),
+                                            subtitle: Text(
+                                                emergencyContactsNo[index]),
+                                            dense: true,
+                                            leading: CircleAvatar(
+                                                child: Text(
+                                                    emergencyContactsInitials[
+                                                        index]))))));
+                          }));
+                }
+              }),
+        ],
+      ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => showDialog<String>(
           context: context,

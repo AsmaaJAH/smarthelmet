@@ -16,7 +16,7 @@ class _EmergencyScreenState extends State<EmergencyScreen> {
         title: const Text(
           'Emergency Help',
           style: TextStyle(
-            fontSize: 22.0,
+            fontSize: 26.0,
             fontWeight: FontWeight.bold,
             letterSpacing: 2.0,
             color: Colors.white,
@@ -25,11 +25,8 @@ class _EmergencyScreenState extends State<EmergencyScreen> {
         ),
         backgroundColor: Colors.amber,
         elevation: 0.0,
-        leading: IconButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          icon: const Icon(Icons.arrow_back_ios_new),
+        leading: Icon(
+           Icons.call
         ),
       ),
       body:  HomeScreenTabs(widget.index),

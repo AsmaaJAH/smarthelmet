@@ -34,20 +34,22 @@ class _HomeScreenTabsState extends State<HomeScreenTabs>
     return Scaffold(
       appBar: AppBar(
         title: const Text("1 click to call Emergency",
-            style: TextStyle(color: Colors.white)),
+            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
         elevation: 0.7,
         bottom: TabBar(
+          labelStyle: TextStyle(fontSize: 16.0,fontWeight: FontWeight.bold),  //For Selected tab
+          unselectedLabelStyle: TextStyle(fontSize: 14.0,fontWeight: FontWeight.bold), //For Un-selected Tabs
           controller: _controller,
           indicatorColor: Colors.white,
           tabs: const <Widget>[
-            Tab(text: "Emergency Contacts"),
+            Tab(text: "Emergency Contacts" , ),
             Tab(text: "Personal Contacts")
           ],
         ),
       ),
       body: TabBarView(
+
           controller: _controller,
-          // ignore: prefer_const_literals_to_create_immutables
           children: <Widget>[ContactsData(), PersonalEmergencyContacts(widget.index)]),
     );
   }
