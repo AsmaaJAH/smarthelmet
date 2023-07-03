@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
-import 'package:smarthelmet/shared/screens/Emergency%20Contacts/Components/personal_emergency_contacts_model.dart';
+import 'package:smarthelmet/models/personal_emergency_contacts_model.dart';
 
 import 'db_helper.dart';
 
