@@ -13,7 +13,8 @@ Complete Presentation Slides for SW and HW Parts:
 https://docs.google.com/presentation/d/1G-CcmBBJAF4IN20XPR6r6kwxeqITzUQA/edit?usp=sharing&ouid=114810985550305975313&rtpof=true&sd=true
 
 
-The Demo video of the Project: 
+The Demo video of the Project:
+
 A. Hw:
 
 https://drive.google.com/file/d/1y0ok9uh_vwoILyhokhO5b521eBAIvLxM/view?usp=sharing
