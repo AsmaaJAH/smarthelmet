@@ -1,15 +1,40 @@
 # smarthelmet
 
-A new Flutter project: https://docs.google.com/document/d/1KOHYA_hEY_BcKxjiJ8jozP-9TVM0kjT-/edit
+
+** Documentation for SW part only:
+
+https://docs.google.com/document/d/1KOHYA_hEY_BcKxjiJ8jozP-9TVM0kjT-/edit
 
 ![SmartSafetyHelmet](https://github.com/AsmaaJAH/smarthelmet/assets/88660261/c1ba6e02-926f-48b0-bacd-9258aba41f0e)
 
 
-A few resources to get you started if this is your first Flutter project:
+** Complete Presentation Slides for SW and HW Parts: 
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+https://docs.google.com/presentation/d/1G-CcmBBJAF4IN20XPR6r6kwxeqITzUQA/edit?usp=sharing&ouid=114810985550305975313&rtpof=true&sd=true
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+
+** The Demo video of the Project:
+
+A. Hw:
+
+https://drive.google.com/file/d/1y0ok9uh_vwoILyhokhO5b521eBAIvLxM/view?usp=sharing
+   
+B. SW:
+1. Sensors:
+
+https://drive.google.com/file/d/1ggjrixRBY6DkNbAiAJGnxBBgBUaiCGH_/view?usp=sharing
+ 
+2. Notifications:
+
+https://drive.google.com/file/d/121OQ8lRMtm3iqbA0O8GiSStzcKtSCAp4/view?usp=drive_link
+
+3. Emergency:
+
+https://drive.google.com/file/d/19MYVdIUE_ph_1HMq8IdE67C44rCe1tCQ/view?usp=sharing
+
+
+
+
+** The Full Book Documentation of SW and HW part:
+
+https://drive.google.com/file/d/1pH1YRO0ARxKWdC07mmQ6SoznHRYjRrhh/view?usp=sharing
