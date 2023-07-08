@@ -7,6 +7,7 @@ https://docs.google.com/document/d/1KOHYA_hEY_BcKxjiJ8jozP-9TVM0kjT-/edit
 
 ![SmartSafetyHelmet](https://github.com/AsmaaJAH/smarthelmet/assets/88660261/4bf68cd5-1458-46ed-b094-dad2af66403c)
 
+![SmartSafetyHelmet](https://github.com/AsmaaJAH/smarthelmet/assets/88660261/c1ba6e02-926f-48b0-bacd-9258aba41f0e)
 
 
 
