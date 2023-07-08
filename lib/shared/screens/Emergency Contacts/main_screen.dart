@@ -5,7 +5,7 @@ import 'Components/personal_emergency_contacts.dart';
 
 class EmergancyTabs extends StatefulWidget {
   late String index;
-  EmergancyTabs({required this.index});
+  EmergancyTabs({super.key, required this.index});
 
   @override
   _EmergancyTabsState createState() => _EmergancyTabsState();
@@ -50,7 +50,7 @@ class _EmergancyTabsState extends State<EmergancyTabs>
           controller: _controller,
           // ignore: prefer_const_literals_to_create_immutables
           children: <Widget>[
-            ContactsData(),
+            const ContactsData(),
             PersonalEmergencyContacts(widget.index)
           ]),
     );

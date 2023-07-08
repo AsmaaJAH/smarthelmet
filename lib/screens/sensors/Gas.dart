@@ -6,7 +6,7 @@ import 'package:smarthelmet/shared/functions/CircleProgress.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 class GasScreen extends StatefulWidget {
-  GasScreen({super.key});
+  const GasScreen({super.key});
 
   @override
   State<GasScreen> createState() => _GasScreenState();
@@ -29,7 +29,7 @@ class _GasScreenState extends State<GasScreen> with TickerProviderStateMixin {
 
   void read() async {
     Query dbRef = FirebaseDatabase.instance.ref().child("sensors");
-    await dbRef.onValue.listen((event) {
+    dbRef.onValue.listen((event) {
       sensorsTable = event.snapshot.value as Map<Object?, Object?>;
 
       co = double.tryParse('${sensorsTable['CO PPM value']}'.toString()) ?? 0.0;
@@ -112,7 +112,7 @@ class _GasScreenState extends State<GasScreen> with TickerProviderStateMixin {
 
   _GasScreenInit(double co, double lpg) {
     progressController = AnimationController(
-        vsync: this, duration: Duration(milliseconds: 0)); //5s
+        vsync: this, duration: const Duration(milliseconds: 0)); //5s
 
     coAnimation = Tween<double>(begin: 0, end: co).animate(progressController)
       ..addListener(() {
@@ -137,20 +137,20 @@ class _GasScreenState extends State<GasScreen> with TickerProviderStateMixin {
               children: <Widget>[
                 CustomPaint(
                   foregroundPainter: CircleProgress(coAnimation.value, false),
-                  child: Container(
+                  child: SizedBox(
                     width: 160,
                     height: 160,
                     child: Center(
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
-                          Text('PPM'),
+                          const Text('PPM'),
                           Text(
                             '${coAnimation.value.toInt()}',
-                            style: TextStyle(
+                            style: const TextStyle(
                                 fontSize: 50, fontWeight: FontWeight.bold),
                           ),
-                          Text(
+                          const Text(
                             'CO',
                             style: TextStyle(
                                 fontSize: 20, fontWeight: FontWeight.bold),
@@ -162,20 +162,20 @@ class _GasScreenState extends State<GasScreen> with TickerProviderStateMixin {
                 ),
                 CustomPaint(
                   foregroundPainter: CircleProgress(lpgAnimation.value, false),
-                  child: Container(
+                  child: SizedBox(
                     width: 160,
                     height: 160,
                     child: Center(
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
-                          Text('PPM'),
+                          const Text('PPM'),
                           Text(
                             '${lpgAnimation.value.toInt()}',
-                            style: TextStyle(
+                            style: const TextStyle(
                                 fontSize: 50, fontWeight: FontWeight.bold),
                           ),
-                          Text(
+                          const Text(
                             'LPG',
                             style: TextStyle(
                                 fontSize: 20, fontWeight: FontWeight.bold),
@@ -196,9 +196,9 @@ class _GasScreenState extends State<GasScreen> with TickerProviderStateMixin {
                   majorGridLines: const MajorGridLines(width: 0),
                   title: AxisTitle(text: 'Time (minutes)')),
               primaryYAxis: NumericAxis(
-                  axisLine: AxisLine(width: 0),
+                  axisLine: const AxisLine(width: 0),
                   majorTickLines: const MajorTickLines(size: 0),
-                  majorGridLines: MajorGridLines(color: Colors.transparent),
+                  majorGridLines: const MajorGridLines(color: Colors.transparent),
                   title: AxisTitle(text: 'GAS (ppm)')),
               series: <SplineSeries<ChartData, num>>[
                 SplineSeries<ChartData, num>(
@@ -209,7 +209,7 @@ class _GasScreenState extends State<GasScreen> with TickerProviderStateMixin {
                     xValueMapper: (ChartData value, _) => value.x,
                     yValueMapper: (ChartData value, _) => value.y,
                     width: 2,
-                    markerSettings: MarkerSettings(isVisible: true)),
+                    markerSettings: const MarkerSettings(isVisible: true)),
                 SplineSeries<ChartData, num>(
                     onRendererCreated: (ChartSeriesController controller) {
                       _chartSeriesController2 = controller;
@@ -218,7 +218,7 @@ class _GasScreenState extends State<GasScreen> with TickerProviderStateMixin {
                     xValueMapper: (ChartData value, _) => value.x,
                     yValueMapper: (ChartData value, _) => value.y,
                     width: 2,
-                    markerSettings: MarkerSettings(isVisible: true))
+                    markerSettings: const MarkerSettings(isVisible: true))
               ],
             ),
           )

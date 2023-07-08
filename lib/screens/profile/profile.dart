@@ -30,13 +30,13 @@ class _ProfilePageState extends State<ProfilePage> {
           IconButton(
             color: Colors.white,
             onPressed: () {
-              navigateAndFinish(context, SignInScreen());
+              navigateAndFinish(context, const SignInScreen());
               CachHelper.removeAllData();
             },
             icon: const Icon(Icons.logout),
           ),
         ],
-        title: Center(
+        title: const Center(
           child: Text(
             "Profile Page",
             style: TextStyle(color: Colors.white),
@@ -81,7 +81,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 onTap: () async {
                   users.doc(credential!.uid).delete();
                   credential!.delete();
-                  navigateAndFinish(context, SignInScreen());
+                  navigateAndFinish(context, const SignInScreen());
                 },
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),

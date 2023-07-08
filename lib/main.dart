@@ -16,11 +16,11 @@ Future<void> main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  await FirebaseDatabase.instance;
+  FirebaseDatabase.instance;
   var userID = await CachHelper.getData(key: "uid");
-  Widget startWidget = SignInScreen();
+  Widget startWidget = const SignInScreen();
   if (userID != null) {
-    startWidget = PageViewScreen();
+    startWidget = const PageViewScreen();
   }
   runApp(MyApp(startWidget: startWidget));
 }
@@ -42,7 +42,7 @@ class MyApp extends StatelessWidget {
         home: AnimatedSplashScreen(
             duration: 3000,
             splashIconSize: 400,
-            splash: SplashScreen(),
+            splash: const SplashScreen(),
             nextScreen: startWidget,
             pageTransitionType: PageTransitionType.fade,
             backgroundColor: Colors.white));

@@ -4,7 +4,7 @@ import 'Components/personal_emergency_contacts.dart';
 
 class HomeScreenTabs extends StatefulWidget {
   late String index;
-  HomeScreenTabs(this.index);
+  HomeScreenTabs(this.index, {super.key});
 
   @override
   _HomeScreenTabsState createState() => _HomeScreenTabsState();
@@ -37,8 +37,8 @@ class _HomeScreenTabsState extends State<HomeScreenTabs>
             style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
         elevation: 0.7,
         bottom: TabBar(
-          labelStyle: TextStyle(fontSize: 16.0,fontWeight: FontWeight.bold),  //For Selected tab
-          unselectedLabelStyle: TextStyle(fontSize: 14.0,fontWeight: FontWeight.bold), //For Un-selected Tabs
+          labelStyle: const TextStyle(fontSize: 16.0,fontWeight: FontWeight.bold),  //For Selected tab
+          unselectedLabelStyle: const TextStyle(fontSize: 14.0,fontWeight: FontWeight.bold), //For Un-selected Tabs
           controller: _controller,
           indicatorColor: Colors.white,
           tabs: const <Widget>[
@@ -50,7 +50,7 @@ class _HomeScreenTabsState extends State<HomeScreenTabs>
       body: TabBarView(
 
           controller: _controller,
-          children: <Widget>[ContactsData(), PersonalEmergencyContacts(widget.index)]),
+          children: <Widget>[const ContactsData(), PersonalEmergencyContacts(widget.index)]),
     );
   }
 }

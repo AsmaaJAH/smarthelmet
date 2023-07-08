@@ -4,7 +4,7 @@ import 'teammembers.dart';
 
 class Teamcard extends StatefulWidget {
   int? Index;
-  Teamcard({required this.Index});
+  Teamcard({super.key, required this.Index});
 
   @override
   State<Teamcard> createState() => _TeamcardState();
@@ -15,7 +15,7 @@ class _TeamcardState extends State<Teamcard> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+      margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
       height: 160,
       child: Stack(
         alignment: Alignment.bottomCenter,
@@ -25,7 +25,7 @@ class _TeamcardState extends State<Teamcard> {
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(22),
                   color: Colors.white54,
-                  boxShadow: [
+                  boxShadow: const [
                     BoxShadow(
                         offset: Offset(0, 15),
                         blurRadius: 25,
@@ -35,7 +35,7 @@ class _TeamcardState extends State<Teamcard> {
               top: 0,
               left: 0,
               child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 10),
+                padding: const EdgeInsets.symmetric(horizontal: 10),
                 height: 100,
                 width: 100,
                 child: ClipRRect(
@@ -56,38 +56,38 @@ class _TeamcardState extends State<Teamcard> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Padding(
-                      padding: EdgeInsets.symmetric(
+                      padding: const EdgeInsets.symmetric(
                         horizontal: 30,
                       ),
                       child: Text(
                         Members[widget.Index!].name,
-                        style: TextStyle(
+                        style: const TextStyle(
                             color: Colors.black,
                             fontSize: 18,
                             fontWeight: FontWeight.bold),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 3,
                     ),
                     Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 60),
+                      padding: const EdgeInsets.symmetric(horizontal: 60),
                       child: Text(
                         Members[widget.Index!].team,
-                        style: TextStyle(
+                        style: const TextStyle(
                             color: Colors.black,
                             fontSize: 12,
                             fontWeight: FontWeight.bold),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 3,
                     ),
                     Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 10),
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
                       child: Text(
                         Members[widget.Index!].qual,
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Colors.black,
                           fontSize: 8,
                         ),

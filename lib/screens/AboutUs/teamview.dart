@@ -3,6 +3,8 @@ import 'package:smarthelmet/screens/AboutUs/teamcard.dart';
 import 'package:smarthelmet/screens/AboutUs/teammembers.dart';
 
 class TeamViewScreen extends StatefulWidget {
+  const TeamViewScreen({super.key});
+
   @override
   State<TeamViewScreen> createState() => _TeamViewScreenState();
 }
@@ -17,7 +19,7 @@ class _TeamViewScreenState extends State<TeamViewScreen> {
         appBar: AppBar(
           elevation: 0,
           centerTitle: true,
-          title: Text(
+          title: const Text(
             "Team Members",
             style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
           ),

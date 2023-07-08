@@ -62,7 +62,7 @@ class _ContactsDataState extends State<ContactsData> {
                         shrinkWrap: true,
                         itemCount: emergencyContactsName.length,
                         itemBuilder: (BuildContext context, index) {
-                          EmergencyContacts _contacts =
+                          EmergencyContacts contacts =
                               emergencyContacts[index];
                           return SizedBox(
                               height: 100,
@@ -70,13 +70,13 @@ class _ContactsDataState extends State<ContactsData> {
                                   elevation: 4,
                                   child: InkWell(
                                       onTap: () async {
-                                        var phoneNo = _contacts.contactNo;
+                                        var phoneNo = contacts.contactNo;
                                         await FlutterPhoneDirectCaller
                                             .callNumber(phoneNo);
                                       },
                                       child: ListTile(
-                                          title: Text(_contacts.name),
-                                          subtitle: Text(_contacts.contactNo),
+                                          title: Text(contacts.name),
+                                          subtitle: Text(contacts.contactNo),
                                           dense: true,
                                           leading: CircleAvatar(
                                               child: Icon(icons[index]))))));

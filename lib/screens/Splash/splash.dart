@@ -17,7 +17,7 @@ class _SplashScreenState extends State<SplashScreen> {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Column(
+              const Column(
                 children: [
                   SizedBox(
                     height: 10,
@@ -41,7 +41,7 @@ class _SplashScreenState extends State<SplashScreen> {
                   ),
                 ],
               ),
-              Container(
+              SizedBox(
                 width: 80,
                 height: 90,
                 child: Image.asset(
@@ -50,7 +50,7 @@ class _SplashScreenState extends State<SplashScreen> {
               ),
             ],
           ),
-          Text(
+          const Text(
             'Helmet',
             style: TextStyle(
                 color: Colors.black, fontSize: 40, fontFamily: 'splashfont'),

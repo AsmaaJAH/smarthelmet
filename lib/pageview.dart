@@ -16,11 +16,11 @@ class PageViewScreen extends StatefulWidget {
 class _PageViewScreenState extends State<PageViewScreen> {
   int index = 0;
   final screens = [
-    HomePageScreen(),
-    SearchWorker(),
-    AddWorker(),
-    ProfilePage(),
-    AboutScreen()
+    const HomePageScreen(),
+    const SearchWorker(),
+    const AddWorker(),
+    const ProfilePage(),
+    const AboutScreen()
   ];
 
   @override
@@ -33,10 +33,10 @@ class _PageViewScreenState extends State<PageViewScreen> {
         body: screens[index],
         bottomNavigationBar: Theme(
           data: Theme.of(context)
-              .copyWith(iconTheme: IconThemeData(color: Colors.white)),
+              .copyWith(iconTheme: const IconThemeData(color: Colors.white)),
           child: CurvedNavigationBar(
             height: 50,
-            animationDuration: Duration(milliseconds: 300),
+            animationDuration: const Duration(milliseconds: 300),
             backgroundColor: Colors.transparent,
             color: Colors.amber,
             index: index,
@@ -45,7 +45,7 @@ class _PageViewScreenState extends State<PageViewScreen> {
                 this.index = index;
               });
             },
-            items: <Widget>[
+            items: const <Widget>[
               Icon(Icons.home),
               Icon(Icons.search),
               Icon(Icons.add),

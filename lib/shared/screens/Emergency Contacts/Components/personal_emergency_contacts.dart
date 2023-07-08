@@ -7,7 +7,7 @@ import 'db_helper.dart';
 class PersonalEmergencyContacts extends StatefulWidget {
   late String id;
 
-  PersonalEmergencyContacts(String uid) {
+  PersonalEmergencyContacts(String uid, {super.key}) {
     id = uid;
   }
 
@@ -53,12 +53,12 @@ class _PersonalEmergencyContactsState extends State<PersonalEmergencyContacts> {
   }
 
   void getData(List<PersonalEmergency> contacts) {
-    contacts.forEach((contact) {
+    for (var contact in contacts) {
       print(contact.contactNo);
       getInitial(contact.name.toString());
       emergencyContactsName.add(contact.name.toString());
       emergencyContactsNo.add(contact.contactNo.toString());
-    });
+    }
   }
 //Asmaa's instantanous delete for an item from listTile
   // void _removetile(int index) {
@@ -75,7 +75,7 @@ class _PersonalEmergencyContactsState extends State<PersonalEmergencyContacts> {
       emergencyContactsInitials = [];
       emergencyContactsNo = [];
 
-      contacts = dbHelper.getContacts(id) as Future<List<PersonalEmergency>>?;
+      contacts = dbHelper.getContacts(id);
     });
   }
 

@@ -19,7 +19,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
           extendBody: true,
           appBar: AppBar(
             centerTitle: true,
-            title: Text(
+            title: const Text(
               'Workers',
               style: TextStyle(color: Colors.white),
             ),
@@ -28,7 +28,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
               future: FirebaseFirestore.instance.collection('Workers').get(),
               builder: (BuildContext context, AsyncSnapshot snapshot) {
                 if (snapshot.hasError) {
-                  return Text("Something went wrong");
+                  return const Text("Something went wrong");
                 }
 
                 if (snapshot.connectionState == ConnectionState.done) {
@@ -41,7 +41,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                         );
                       });
                 }
-                return Center(
+                return const Center(
                     child: CircularProgressIndicator(
                   color: Colors.amber,
                 ));

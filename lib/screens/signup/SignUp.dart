@@ -79,6 +79,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
     });
   }
 
+  @override
   void dispose() {
     emailController.dispose();
     passwordController.dispose();
@@ -95,13 +96,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
         centerTitle: true,
         leading: IconButton(
             onPressed: () {
-              navigateAndFinish(context, SignInScreen());
+              navigateAndFinish(context, const SignInScreen());
             },
-            icon: Icon(
+            icon: const Icon(
               Icons.arrow_back,
               color: Colors.amberAccent,
             )),
-        title: Text(
+        title: const Text(
           "Sign up",
           style:
               TextStyle(color: Colors.amberAccent, fontWeight: FontWeight.bold),
@@ -133,6 +134,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     controller: usernameController,
                     validator: (value) {
                       if (value!.isEmpty) return 'This field is requreid';
+                      return null;
                     },
                     keyboardType: TextInputType.text,
                     decoration: const InputDecoration(
@@ -150,6 +152,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       } else if (value.length != 11) {
                         return 'Please enter a valid number';
                       }
+                      return null;
                     },
                     keyboardType: TextInputType.number,
                     decoration: const InputDecoration(
@@ -168,6 +171,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")))) {
                       return "Please enter a valid e-mail";
                     }
+                    return null;
                   },
                   autovalidateMode: AutovalidateMode.onUserInteraction,
                   keyboardType: TextInputType.emailAddress,
@@ -186,8 +190,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   },
                   validator: (value) {
                     if (value!.isEmpty) return 'This field is requreid';
-                    if (value.length < 8)
+                    if (value.length < 8) {
                       return 'Please enter valid password';
+                    return null;
+                    }
+                    return null;
                   },
                   autovalidateMode: AutovalidateMode.onUserInteraction,
                   keyboardType: TextInputType.visiblePassword,
@@ -237,7 +244,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         userName: usernameController.text,
                         phone: phoneController.text,
                       );
-                      navigateAndFinish(context, SignInScreen());
+                      navigateAndFinish(context, const SignInScreen());
                     }
                   },
                   child: Container(
@@ -274,7 +281,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
             const Text('Already have an account? '),
             TextButton(
                 onPressed: () {
-                  navigateAndFinish(context, SignInScreen());
+                  navigateAndFinish(context, const SignInScreen());
                 },
                 child: const Text(
                   'Sign in',

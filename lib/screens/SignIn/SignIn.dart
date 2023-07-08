@@ -20,6 +20,7 @@ class _SignInScreenState extends State<SignInScreen> {
   bool secure = true;
   var formKey = GlobalKey<FormState>();
 
+  @override
   void dispose() {
     emailController.dispose();
     passwordController.dispose();
@@ -59,6 +60,7 @@ class _SignInScreenState extends State<SignInScreen> {
                         r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")))) {
                       return "Please enter a valid e-mail";
                     }
+                    return null;
                   },
                   autovalidateMode: AutovalidateMode.onUserInteraction,
                   keyboardType: TextInputType.emailAddress,
@@ -73,8 +75,11 @@ class _SignInScreenState extends State<SignInScreen> {
                 TextFormField(
                   controller: passwordController,
                   validator: (value) {
-                    if (value!.isEmpty) 
-                    return 'This field is requreid';
+                    if (value!.isEmpty) {
+                      return 'This field is requreid';
+                    return null;
+                    }
+                    return null;
                   },
                   autovalidateMode: AutovalidateMode.onUserInteraction,
                   keyboardType: TextInputType.visiblePassword,
@@ -116,7 +121,7 @@ class _SignInScreenState extends State<SignInScreen> {
                               password: passwordController.text)
                           .then((value) {
                         CachHelper.saveData(key: "uid", value: value.user!.uid);
-                        navigateAndFinish(context, PageViewScreen());
+                        navigateAndFinish(context, const PageViewScreen());
                       }).catchError((onError) {
                         showToast(
                             text: onError.toString(),

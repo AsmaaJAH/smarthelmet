@@ -1,4 +1,3 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:smarthelmet/shared/functions/navigation.dart';
@@ -7,7 +6,7 @@ import 'FetchData.dart';
 class WorkerCard extends StatefulWidget {
   late AsyncSnapshot<dynamic> snapshot;
   late int index;
-  WorkerCard({required this.snapshot, required this.index});
+  WorkerCard({super.key, required this.snapshot, required this.index});
 
   @override
   State<WorkerCard> createState() => _WorkerCardState();
@@ -21,7 +20,7 @@ class _WorkerCardState extends State<WorkerCard> {
   void workerNotifigation() async {
     tables.forEach((key, value) async {
       Query dbRef = FirebaseDatabase.instance.ref().child(key);
-      await dbRef.onValue.listen((event) {
+      dbRef.onValue.listen((event) {
         print(event.snapshot.value);
         if (key == "ALERT") {
           alertTable = event.snapshot.value as Map<Object?, Object?>;
@@ -75,7 +74,7 @@ class _WorkerCardState extends State<WorkerCard> {
             ));
       },
       child: Container(
-        margin: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+        margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
         height: 110,
         child: Stack(
           alignment: Alignment.bottomCenter,
@@ -85,7 +84,7 @@ class _WorkerCardState extends State<WorkerCard> {
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(22),
                     color: Colors.white,
-                    boxShadow: [
+                    boxShadow: const [
                       BoxShadow(
                           offset: Offset(0, 15),
                           blurRadius: 25,
@@ -95,7 +94,7 @@ class _WorkerCardState extends State<WorkerCard> {
                 top: 0,
                 left: 0,
                 child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 10),
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
                   height: 90,
                   width: 100,
                   child: ClipRRect(
@@ -115,27 +114,27 @@ class _WorkerCardState extends State<WorkerCard> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Spacer(),
+                      const Spacer(),
                       Padding(
-                        padding: EdgeInsets.symmetric(
+                        padding: const EdgeInsets.symmetric(
                           horizontal: 20,
                         ),
                         child: Text(
                           "Name : ${widget.snapshot.data!.docs[widget.index]["firstName"]} ${widget.snapshot.data!.docs[widget.index]["lastName"]}",
-                          style: TextStyle(
+                          style: const TextStyle(
                               fontSize: 18, fontWeight: FontWeight.bold),
                         ),
                       ),
-                      Spacer(),
+                      const Spacer(),
                       Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 20),
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
                         child: Text(
                           "Age     : ${widget.snapshot.data!.docs[widget.index]["age"]}",
-                          style: TextStyle(
+                          style: const TextStyle(
                               fontSize: 18, fontWeight: FontWeight.bold),
                         ),
                       ),
-                      Spacer()
+                      const Spacer()
                     ],
                   ),
                 )),
@@ -143,13 +142,13 @@ class _WorkerCardState extends State<WorkerCard> {
               top: 30,
               right: 20,
               child: Container(
-                child: Icon(Icons.notification_important),
                 decoration: BoxDecoration(
                    color: "${widget.snapshot.data!.docs[widget.index]["uid"]}" ==
                         alertTable['uid'].toString()
                     ? Colors.redAccent
                     : Colors.white,
-                    borderRadius: BorderRadius.all(Radius.circular(10))),
+                    borderRadius: const BorderRadius.all(Radius.circular(10))),
+                child: const Icon(Icons.notification_important),
               ),
             ),
           ],

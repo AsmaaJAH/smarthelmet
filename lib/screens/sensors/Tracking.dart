@@ -10,7 +10,7 @@ import 'package:smarthelmet/shared/network/position.dart';
 class Tracking extends StatefulWidget {
   late AsyncSnapshot<dynamic> snapshot;
   late int index;
-  Tracking({required this.snapshot, required this.index});
+  Tracking({super.key, required this.snapshot, required this.index});
 
   @override
   State<Tracking> createState() => _TrackingState();
@@ -38,7 +38,7 @@ class _TrackingState extends State<Tracking> with TickerProviderStateMixin {
 
     tables.forEach((key, value) async {
       Query dbRef = FirebaseDatabase.instance.ref().child(key);
-      await dbRef.onValue.listen((event) {
+      dbRef.onValue.listen((event) {
         print(event.snapshot.value);
         setState(() { 
           if (key == "gps") {
@@ -55,11 +55,11 @@ class _TrackingState extends State<Tracking> with TickerProviderStateMixin {
                 setState(() {
                   myMarkers.add(
                     Marker(
-                      markerId: MarkerId('1'),
+                      markerId: const MarkerId('1'),
                       position:
                           LatLng(positions[0].latitude, positions[0].longitude),
 
-                      infoWindow: InfoWindow(
+                      infoWindow: const InfoWindow(
                         title: 'khloud & Asmaa',
                       ),
                       icon: BitmapDescriptor.defaultMarker, //myIcon,
@@ -97,7 +97,7 @@ class _TrackingState extends State<Tracking> with TickerProviderStateMixin {
             onPressed: () {
               Navigator.pop(context);
             },
-            icon: Icon(Icons.arrow_back_ios_new),
+            icon: const Icon(Icons.arrow_back_ios_new),
           ),
         ),
         body:
@@ -112,11 +112,11 @@ class _TrackingState extends State<Tracking> with TickerProviderStateMixin {
               markers: myMarkers,
             ),
             Container(
+              alignment: Alignment.bottomCenter,
               child: Text(
                 "${widget.snapshot.data!.docs[widget.index]["firstName"]} ${widget.snapshot.data!.docs[widget.index]["lastName"]}",
-                style: TextStyle(fontSize: 30 , fontFamily: 'Ubuntu',   fontWeight: FontWeight.bold,),
+                style: const TextStyle(fontSize: 30 , fontFamily: 'Ubuntu',   fontWeight: FontWeight.bold,),
               ),
-              alignment: Alignment.bottomCenter,
             )
           ],
         )

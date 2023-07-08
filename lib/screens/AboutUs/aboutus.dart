@@ -6,6 +6,8 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:readmore/readmore.dart';
 
 class AboutScreen extends StatefulWidget {
+  const AboutScreen({super.key});
+
   @override
   State<AboutScreen> createState() => _AboutScreenState();
 }
@@ -27,7 +29,7 @@ class _AboutScreenState extends State<AboutScreen> {
           
           elevation: 0,
           centerTitle: true,
-          title: Text(
+          title: const Text(
             "About us",
             style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
           ),
@@ -45,7 +47,7 @@ class _AboutScreenState extends State<AboutScreen> {
                     viewportFraction: 1,
                     enlargeCenterPage: true,
                     autoPlay: true,
-                    autoPlayInterval: Duration(seconds: 4),
+                    autoPlayInterval: const Duration(seconds: 4),
                     onPageChanged: (index, reason) {
                       setState(() {
                         activeindex = index;
@@ -58,21 +60,21 @@ class _AboutScreenState extends State<AboutScreen> {
                     return buildImage(imageview, index);
                   }),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 8,
                 ),
                 Center(child: Dotedfun(HelmetImages, activeindex)),
                 SizedBox(
                   height: MediaQuery.of(context).size.height * .08,
                 ),
-                Text(
+                const Text(
                   "Description",
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 8,
                 ),
                 textfun(
@@ -85,7 +87,7 @@ class _AboutScreenState extends State<AboutScreen> {
           padding: const EdgeInsets.all(8.0),
           child: InkWell(
             onTap: () {
-              navigateTo(context, TeamViewScreen());
+              navigateTo(context, const TeamViewScreen());
             },
             child: Container(
               height: 40,
@@ -113,12 +115,12 @@ Widget textfun(String text) {
   return ReadMoreText(
     text,
     trimCollapsedText: 'Read More',
-    moreStyle: TextStyle(
+    moreStyle: const TextStyle(
         fontSize: 15, fontWeight: FontWeight.bold, color: Colors.amber),
     trimExpandedText: ' Read Less',
-    lessStyle: TextStyle(
+    lessStyle: const TextStyle(
         fontSize: 15, fontWeight: FontWeight.bold, color: Colors.amber),
-    style: TextStyle(
+    style: const TextStyle(
       fontSize: 20,
     ),
   );
@@ -128,7 +130,7 @@ Widget Dotedfun(List<String> image, int activeindex) {
   return AnimatedSmoothIndicator(
     activeIndex: activeindex,
     count: image.length,
-    effect: ScrollingDotsEffect(
+    effect: const ScrollingDotsEffect(
       fixedCenter: true,
       activeDotColor: Colors.amber,
       dotColor: Colors.grey,
@@ -140,7 +142,7 @@ Widget Dotedfun(List<String> image, int activeindex) {
 
 Widget buildImage(String imageview, int index) {
   return Container(
-    margin: EdgeInsets.symmetric(horizontal: 3),
+    margin: const EdgeInsets.symmetric(horizontal: 3),
     child: Image.asset(
       imageview,
       fit: BoxFit.cover,

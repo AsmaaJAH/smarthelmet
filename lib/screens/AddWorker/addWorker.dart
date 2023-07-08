@@ -85,7 +85,7 @@ class _AddWorkerState extends State<AddWorker> {
         uid = doc.id;
       });
     } on Exception catch (e) {
-      showToast(text: "ERROR :  ${e} ", color: Colors.white, time: 3);
+      showToast(text: "ERROR :  $e ", color: Colors.white, time: 3);
     }
     setState(() {
       loading = false;
@@ -100,10 +100,10 @@ class _AddWorkerState extends State<AddWorker> {
         setState(() {
           imgPath = File(pickedImg.path);
         });
-        int random_f = Random().nextInt(999999999);
-        int random_l = Random().nextInt(999999999);
+        int randomF = Random().nextInt(999999999);
+        int randomL = Random().nextInt(999999999);
         imgName = basename(pickedImg.path);
-        imgName = '$random_f$imgName$random_l';
+        imgName = '$randomF$imgName$randomL';
         final storageRef = FirebaseStorage.instance.ref(imgName);
         await storageRef.putFile(imgPath!);
         String url = await storageRef.getDownloadURL();
@@ -112,7 +112,7 @@ class _AddWorkerState extends State<AddWorker> {
         showToast(text: "No img selected", color: Colors.white, time: 3);
       }
     } catch (e) {
-      showToast(text: "ERROR :  ${e} ", color: Colors.white, time: 3);
+      showToast(text: "ERROR :  $e ", color: Colors.white, time: 3);
     }
   }
 
@@ -121,7 +121,7 @@ class _AddWorkerState extends State<AddWorker> {
       context: context,
       builder: (BuildContext context) {
         return Container(
-          padding: EdgeInsets.all(22),
+          padding: const EdgeInsets.all(22),
           height: 170,
           color: Colors.amber,
           child: Column(
@@ -137,7 +137,7 @@ class _AddWorkerState extends State<AddWorker> {
                     // SizedBox(
                     //   width: MediaQuery.of(context).size.width * .2,
                     // ),
-                    Icon(
+                    const Icon(
                       Icons.camera,
                       size: 30,
                       color: Colors.white,
@@ -145,7 +145,7 @@ class _AddWorkerState extends State<AddWorker> {
                     SizedBox(
                       width: MediaQuery.of(context).size.width * .05,
                     ),
-                    Text(
+                    const Text(
                       "From Camera",
                       style: TextStyle(
                           fontSize: 25,
@@ -155,7 +155,7 @@ class _AddWorkerState extends State<AddWorker> {
                   ],
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 22,
               ),
               GestureDetector(
@@ -165,7 +165,7 @@ class _AddWorkerState extends State<AddWorker> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(
+                    const Icon(
                       Icons.photo_outlined,
                       size: 30,
                       color: Colors.white,
@@ -173,7 +173,7 @@ class _AddWorkerState extends State<AddWorker> {
                     SizedBox(
                       width: MediaQuery.of(context).size.width * .05,
                     ),
-                    Text(
+                    const Text(
                       "From Gallery",
                       style: TextStyle(
                           fontSize: 25,
@@ -190,6 +190,7 @@ class _AddWorkerState extends State<AddWorker> {
     );
   }
 
+  @override
   void dispose() {
     firstnameController.dispose();
     lastnameController.dispose();
@@ -206,7 +207,7 @@ class _AddWorkerState extends State<AddWorker> {
       appBar: AppBar(
         centerTitle: true,
         backgroundColor: Colors.amber,
-        title: Text(
+        title: const Text(
           'Add Worker',
           style: TextStyle(fontSize: 22, color: Colors.white),
         ),
@@ -236,7 +237,7 @@ class _AddWorkerState extends State<AddWorker> {
                                   spreadRadius: 2,
                                   blurRadius: 10,
                                   color: Colors.black.withOpacity(.1),
-                                  offset: Offset(0, 10))
+                                  offset: const Offset(0, 10))
                             ],
                             shape: BoxShape.circle,
                           ),
@@ -268,14 +269,14 @@ class _AddWorkerState extends State<AddWorker> {
                                         onPressed: () {
                                           showmodel();
                                         },
-                                        icon: Icon(Icons.add_a_photo),
+                                        icon: const Icon(Icons.add_a_photo),
                                         color: Colors.white,
                                       )
                                     : IconButton(
                                         onPressed: () {
                                           showmodel();
                                         },
-                                        icon: Icon(Icons.edit),
+                                        icon: const Icon(Icons.edit),
                                         color: Colors.white,
                                       ))),
                       ]),
@@ -283,7 +284,7 @@ class _AddWorkerState extends State<AddWorker> {
                     Container(
                       height: MediaQuery.of(context).size.height * .05,
                     ),
-                    Container(
+                    SizedBox(
                         height: MediaQuery.of(context).size.height * .5,
                         child: ListView.builder(
                             itemCount: Data.length,
@@ -311,13 +312,13 @@ class _AddWorkerState extends State<AddWorker> {
                   await workercollection.doc(uid).update({'uid': uid!});
                 } catch (e) {
                   showToast(
-                      text: "ERROR :  ${e} ", color: Colors.white, time: 3);
+                      text: "ERROR :  $e ", color: Colors.white, time: 3);
                 }
                 showToast(
                     text: 'Worker added successfully',
                     color: Colors.white,
                     time: 5);
-                navigateAndFinish(context, PageViewScreen());
+                navigateAndFinish(context, const PageViewScreen());
               } catch (e) {
                 showToast(text: e.toString(), color: Colors.white, time: 5);
               }
@@ -358,11 +359,12 @@ Widget textfield(TextEditingController controller, TextInputType type,
           controller: controller,
           validator: (value) {
             if (value!.isEmpty) return 'This field is requreid';
+            return null;
           },
           keyboardType: type,
           decoration: InputDecoration(
             labelText: lable,
-            border: OutlineInputBorder(),
+            border: const OutlineInputBorder(),
           )),
       Container(
         height: MediaQuery.of(context).size.height * .03,

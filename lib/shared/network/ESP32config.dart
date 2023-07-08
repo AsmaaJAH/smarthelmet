@@ -15,7 +15,7 @@ void main() async {
     password: "NETWORK_PASSWORD_GOES_HERE",
   ));
 
-  await Future.delayed(Duration(seconds: 10));
+  await Future.delayed(const Duration(seconds: 10));
 
   provisioner.stop();
   exit(0);

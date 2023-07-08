@@ -3,11 +3,10 @@ import 'dart:async';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:smarthelmet/shared/constants/colors.dart';
-import 'package:smarthelmet/shared/functions/CircleProgress.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 class UnderGroundScreen extends StatefulWidget {
-  UnderGroundScreen({super.key});
+  const UnderGroundScreen({super.key});
 
   @override
   State<UnderGroundScreen> createState() => _UnderGroundScreenState();
@@ -25,7 +24,7 @@ class _UnderGroundScreenState extends State<UnderGroundScreen>
   ];
   void read() async {
     Query dbRef = FirebaseDatabase.instance.ref().child('sensors');
-    await dbRef.onValue.listen((event) {
+    dbRef.onValue.listen((event) {
       sensorsTable = event.snapshot.value as Map<Object?, Object?>;
       undergroundX =
           double.tryParse('${sensorsTable['undergroundX']}'.toString()) ?? 0.0;

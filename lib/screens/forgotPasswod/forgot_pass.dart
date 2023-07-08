@@ -30,7 +30,7 @@ class _ForgotPassState extends State<ForgotPass> {
           .sendPasswordResetEmail(email: emailController.text);
       if (!mounted) return;
       Navigator.pushReplacement(context,
-          MaterialPageRoute(builder: (BuildContext context) => SignInScreen()));
+          MaterialPageRoute(builder: (BuildContext context) => const SignInScreen()));
     } on FirebaseAuthException catch (e) {
       showToast(color: Colors.amber, text: "Erroe : ${e.code}", time: 5);
     }
@@ -45,13 +45,13 @@ class _ForgotPassState extends State<ForgotPass> {
         centerTitle: true,
         leading: IconButton(
             onPressed: () {
-              navigateAndFinish(context, SignInScreen());
+              navigateAndFinish(context, const SignInScreen());
             },
-            icon: Icon(
+            icon: const Icon(
               Icons.arrow_back,
               color: Colors.amber,
             )),
-        title: Text(
+        title: const Text(
           "Reset Password",
           style:
           TextStyle(color: Colors.amber, fontWeight: FontWeight.bold),
@@ -80,6 +80,7 @@ class _ForgotPassState extends State<ForgotPass> {
                         r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")))) {
                       return "Please enter a valid e-mail";
                     }
+                    return null;
                   },
                   autovalidateMode: AutovalidateMode.onUserInteraction,
                   keyboardType: TextInputType.emailAddress,
@@ -95,7 +96,7 @@ class _ForgotPassState extends State<ForgotPass> {
                   onPressed: () async {
                     if (formkey.currentState!.validate()) {
                       await resetpass();
-                      navigateAndFinish(context, SignInScreen());
+                      navigateAndFinish(context, const SignInScreen());
                     } else {
                       showToast(
                           color: Colors.amber, text: "Error", time: 5);

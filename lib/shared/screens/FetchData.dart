@@ -17,7 +17,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 class FetchData extends StatefulWidget {
   late AsyncSnapshot<dynamic> snapshot;
   late int index;
-  FetchData({required this.snapshot, required this.index});
+  FetchData({super.key, required this.snapshot, required this.index});
 
   @override
   State<FetchData> createState() => _FetchDataState();
@@ -36,7 +36,7 @@ class _FetchDataState extends State<FetchData> with TickerProviderStateMixin {
   void readRealTimeDatabase() async {
     tables.forEach((key, value) async {
       Query dbRef = FirebaseDatabase.instance.ref().child(key);
-      await dbRef.onValue.listen((event) {
+      dbRef.onValue.listen((event) {
         print(event.snapshot.value);
         if (key == "ALERT") {
           alertTable = event.snapshot.value as Map<Object?, Object?>;
@@ -104,7 +104,7 @@ class _FetchDataState extends State<FetchData> with TickerProviderStateMixin {
             child: Container(
                 height: size.height * .3,
                 width: double.infinity,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                     color: Colors.amber,
                     borderRadius: BorderRadius.only(
                       bottomLeft: Radius.circular(50),
@@ -130,7 +130,7 @@ class _FetchDataState extends State<FetchData> with TickerProviderStateMixin {
                     Positioned(
                       top: size.height * .1,
                       left: size.width * .45,
-                      child: Container(
+                      child: SizedBox(
                         width: size.width * .5,
                         child: AutoSizeText(
                           "Name : ${widget.snapshot.data!.docs[widget.index]["firstName"]}  ${widget.snapshot.data!.docs[widget.index]["lastName"]}",
@@ -146,7 +146,7 @@ class _FetchDataState extends State<FetchData> with TickerProviderStateMixin {
                       child: Text(
                         "Age   : ${widget.snapshot.data!.docs[widget.index]["age"]}",
                         style:
-                            TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                            const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                       ),
                     ),
                   ],
@@ -155,7 +155,7 @@ class _FetchDataState extends State<FetchData> with TickerProviderStateMixin {
           SizedBox(
             height: size.height * .005,
           ),
-          Center(
+          const Center(
             child: Text(
               "Emergency Alerts",
               style: TextStyle(
@@ -166,7 +166,7 @@ class _FetchDataState extends State<FetchData> with TickerProviderStateMixin {
               textAlign: TextAlign.center,
             ),
           ),
-          Container(
+          SizedBox(
             height: size.height * .26,
             width: double.infinity,
             child: Stack(
@@ -184,11 +184,11 @@ class _FetchDataState extends State<FetchData> with TickerProviderStateMixin {
                           ));
                     },
                     child: Container(
-                      padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                      padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                       decoration: BoxDecoration(
                           color: Colors.amber,
                           borderRadius: BorderRadius.circular(8)),
-                      child: Text(
+                      child: const Text(
                         ' Call Emergency',
                         style: TextStyle(
                             color: Colors.black,
@@ -203,7 +203,7 @@ class _FetchDataState extends State<FetchData> with TickerProviderStateMixin {
                     top: size.height * .01,
                     left: size.width * .05,
                     bottom: size.height * .09,
-                    child: Container(
+                    child: SizedBox(
                       height: size.height,
                       width: size.width * .44,
                       child: Column(
@@ -245,7 +245,7 @@ class _FetchDataState extends State<FetchData> with TickerProviderStateMixin {
                     top: size.height * .01,
                     right: size.width * .03,
                     bottom: size.height * .09,
-                    child:  Container(
+                    child:  SizedBox(
                       height: size.height,
                       width: size.width * .44,
                       child: Column(
@@ -288,13 +288,13 @@ class _FetchDataState extends State<FetchData> with TickerProviderStateMixin {
                       padding: const EdgeInsets.all(18.0),
                       child: InkWell(
                         onTap: () {
-                          navigateTo(context, TempretureScreen());
+                          navigateTo(context, const TempretureScreen());
                         },
                         child: Container(
                           height: 150,
                           width: MediaQuery.of(context).size.width * 0.4,
                           decoration: BoxDecoration(
-                              color: Color.fromARGB(255, 236, 235, 235),
+                              color: const Color.fromARGB(255, 236, 235, 235),
                               borderRadius: BorderRadius.circular(15)),
                           child: Column(
                             children: [
@@ -310,7 +310,7 @@ class _FetchDataState extends State<FetchData> with TickerProviderStateMixin {
                               ),
                               Text(
                                 'Temperature : ${sensorsTable['temp']} °C',
-                                style: TextStyle(
+                                style: const TextStyle(
                                     fontSize: 15, fontWeight: FontWeight.bold),
                               ),
                             ],
@@ -322,13 +322,13 @@ class _FetchDataState extends State<FetchData> with TickerProviderStateMixin {
                       padding: const EdgeInsets.all(18.0),
                       child: InkWell(
                         onTap: () {
-                          navigateTo(context, HumidityScreen());
+                          navigateTo(context, const HumidityScreen());
                         },
                         child: Container(
                           height: 150,
                           width: MediaQuery.of(context).size.width * 0.4,
                           decoration: BoxDecoration(
-                              color: Color.fromARGB(255, 236, 235, 235),
+                              color: const Color.fromARGB(255, 236, 235, 235),
                               borderRadius: BorderRadius.circular(15)),
                           child: Column(
                             children: [
@@ -344,7 +344,7 @@ class _FetchDataState extends State<FetchData> with TickerProviderStateMixin {
                               ),
                               Text(
                                 'Humidity : ${sensorsTable['Humdity']} %',
-                                style: TextStyle(
+                                style: const TextStyle(
                                     fontSize: 15, fontWeight: FontWeight.bold),
                               ),
                             ],
@@ -361,13 +361,13 @@ class _FetchDataState extends State<FetchData> with TickerProviderStateMixin {
                       padding: const EdgeInsets.symmetric(horizontal: 18),
                       child: InkWell(
                         onTap: () {
-                          navigateTo(context, GasScreen());
+                          navigateTo(context, const GasScreen());
                         },
                         child: Container(
                           height: 150,
                           width: MediaQuery.of(context).size.width * 0.4,
                           decoration: BoxDecoration(
-                              color: Color.fromARGB(255, 236, 235, 235),
+                              color: const Color.fromARGB(255, 236, 235, 235),
                               borderRadius: BorderRadius.circular(15)),
                           child: Column(
                             children: [
@@ -382,7 +382,7 @@ class _FetchDataState extends State<FetchData> with TickerProviderStateMixin {
                                       color: Colors.amber,
                                     )),
                               ),
-                              Text(
+                              const Text(
                                 'Gas Detection ',
                                 style: TextStyle(
                                     fontSize: 15, fontWeight: FontWeight.bold),
@@ -406,7 +406,7 @@ class _FetchDataState extends State<FetchData> with TickerProviderStateMixin {
                           height: 150,
                           width: MediaQuery.of(context).size.width * 0.4,
                           decoration: BoxDecoration(
-                              color: Color.fromARGB(255, 236, 235, 235),
+                              color: const Color.fromARGB(255, 236, 235, 235),
                               borderRadius: BorderRadius.circular(15)),
                           child: Column(
                             children: [
@@ -420,7 +420,7 @@ class _FetchDataState extends State<FetchData> with TickerProviderStateMixin {
                                       color: Colors.amber,
                                     )),
                               ),
-                              Text(
+                              const Text(
                                 'GPS Tracking',
                                 style: TextStyle(
                                     fontSize: 15, fontWeight: FontWeight.bold),
@@ -439,13 +439,13 @@ class _FetchDataState extends State<FetchData> with TickerProviderStateMixin {
                       padding: const EdgeInsets.all(18.0),
                       child: InkWell(
                         onTap: () {
-                          navigateTo(context, UnderGroundScreen());
+                          navigateTo(context, const UnderGroundScreen());
                         },
                         child: Container(
                           height: 150,
                           width: MediaQuery.of(context).size.width * 0.4,
                           decoration: BoxDecoration(
-                              color: Color.fromARGB(255, 236, 235, 235),
+                              color: const Color.fromARGB(255, 236, 235, 235),
                               borderRadius: BorderRadius.circular(15)),
                           child: Column(
                             children: [
@@ -460,7 +460,7 @@ class _FetchDataState extends State<FetchData> with TickerProviderStateMixin {
                                       color: Colors.amber,
                                     )),
                               ),
-                              Text(
+                              const Text(
                                 'Underground Tracking',
                                 style: TextStyle(
                                     fontSize: 14, fontWeight: FontWeight.bold),

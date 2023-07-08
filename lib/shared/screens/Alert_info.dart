@@ -9,7 +9,7 @@ class AlertInfo extends StatefulWidget {
   late AsyncSnapshot<dynamic> snapshot;
   late int index;
   AlertInfo(
-      {required this.data, required this.alertname, required this.fontsize, required this.snapshot, required this.index});
+      {super.key, required this.data, required this.alertname, required this.fontsize, required this.snapshot, required this.index});
 
   @override
   State<AlertInfo> createState() => _AlertInfoState();
@@ -24,7 +24,7 @@ class _AlertInfoState extends State<AlertInfo> {
   void showNormal() async {
     tables.forEach((key, value) async {
       Query dbRef = FirebaseDatabase.instance.ref().child(key);
-      await dbRef.onValue.listen((event) {
+      dbRef.onValue.listen((event) {
         print(event.snapshot.value);
         if (key == "ALERT") {
           alertTable = event.snapshot.value as Map<Object?, Object?>;
@@ -73,7 +73,7 @@ class _AlertInfoState extends State<AlertInfo> {
           Text(
             '- ${widget.alertname}:  ',
           
-            style: TextStyle(
+            style: const TextStyle(
                 fontSize: 14, color: Colors.black, fontWeight: FontWeight.bold),
           ),
         widget.data == 'normal'

@@ -15,7 +15,7 @@ import '../functions/showtoast.dart';
 class WorkerProfile extends StatefulWidget {
   late AsyncSnapshot<dynamic> snapshot;
   late int index;
-  WorkerProfile({required this.snapshot, required this.index});
+  WorkerProfile({super.key, required this.snapshot, required this.index});
   @override
   State<WorkerProfile> createState() => _WorkerProfileState();
 }
@@ -78,15 +78,15 @@ class _WorkerProfileState extends State<WorkerProfile> {
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(11)),
           child: Container(
-            padding: EdgeInsets.all(22),
+            padding: const EdgeInsets.all(22),
             height: 200,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 TextField(
                     controller: editdialogcontroller,
-                    decoration: InputDecoration(hintText: "  ${data}    ")),
-                SizedBox(
+                    decoration: InputDecoration(hintText: "  $data    ")),
+                const SizedBox(
                   height: 5,
                 ),
                 Row(
@@ -103,7 +103,7 @@ class _WorkerProfileState extends State<WorkerProfile> {
                             Navigator.pop(context);
                           });
                         },
-                        child: Text(
+                        child: const Text(
                           "Edit",
                           style: TextStyle(fontSize: 17),
                         )),
@@ -111,7 +111,7 @@ class _WorkerProfileState extends State<WorkerProfile> {
                         onPressed: () {
                           Navigator.pop(context);
                         },
-                        child: Text(
+                        child: const Text(
                           "Cancel",
                           style: TextStyle(fontSize: 17),
                         )),
@@ -133,10 +133,10 @@ class _WorkerProfileState extends State<WorkerProfile> {
         setState(() {
           imgPath = File(pickedImg.path);
         });
-        int random_f = Random().nextInt(999999999);
-        int random_l = Random().nextInt(999999999);
+        int randomF = Random().nextInt(999999999);
+        int randomL = Random().nextInt(999999999);
         imgName = basename(pickedImg.path);
-        imgName = '$random_f$imgName$random_l';
+        imgName = '$randomF$imgName$randomL';
         final storageRef = FirebaseStorage.instance.ref(imgName);
         await storageRef.putFile(imgPath!);
         String url = await storageRef.getDownloadURL();
@@ -149,7 +149,7 @@ class _WorkerProfileState extends State<WorkerProfile> {
         showToast(text: "No img selected", color: Colors.white, time: 3);
       }
     } catch (e) {
-      showToast(text: "ERROR :  ${e} ", color: Colors.white, time: 3);
+      showToast(text: "ERROR :  $e ", color: Colors.white, time: 3);
     }
   }
 
@@ -158,7 +158,7 @@ class _WorkerProfileState extends State<WorkerProfile> {
       context: context,
       builder: (BuildContext context) {
         return Container(
-          padding: EdgeInsets.all(22),
+          padding: const EdgeInsets.all(22),
           height: 170,
           color: Colors.amber,
           child: Column(
@@ -174,7 +174,7 @@ class _WorkerProfileState extends State<WorkerProfile> {
                     // SizedBox(
                     //   width: MediaQuery.of(context).size.width * .2,
                     // ),
-                    Icon(
+                    const Icon(
                       Icons.camera,
                       size: 30,
                       color: Colors.white,
@@ -182,7 +182,7 @@ class _WorkerProfileState extends State<WorkerProfile> {
                     SizedBox(
                       width: MediaQuery.of(context).size.width * .05,
                     ),
-                    Text(
+                    const Text(
                       "From Camera",
                       style: TextStyle(
                           fontSize: 25,
@@ -192,7 +192,7 @@ class _WorkerProfileState extends State<WorkerProfile> {
                   ],
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 22,
               ),
               GestureDetector(
@@ -202,7 +202,7 @@ class _WorkerProfileState extends State<WorkerProfile> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(
+                    const Icon(
                       Icons.photo_outlined,
                       size: 30,
                       color: Colors.white,
@@ -210,7 +210,7 @@ class _WorkerProfileState extends State<WorkerProfile> {
                     SizedBox(
                       width: MediaQuery.of(context).size.width * .05,
                     ),
-                    Text(
+                    const Text(
                       "From Gallery",
                       style: TextStyle(
                           fontSize: 25,
@@ -232,7 +232,7 @@ class _WorkerProfileState extends State<WorkerProfile> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.amber,
-        title: Text(
+        title: const Text(
           'Worker Profile',
           style: TextStyle(color: Colors.white),
         ),
@@ -242,13 +242,13 @@ class _WorkerProfileState extends State<WorkerProfile> {
                 await workerscollection
                     .doc(widget.snapshot.data!.docs[widget.index]["uid"])
                     .delete();
-                navigateAndFinish(context, HomePageScreen());
+                navigateAndFinish(context, const HomePageScreen());
                 showToast(
                     text: 'Worker deleted successfully',
                     color: Colors.white,
                     time: 5);
               },
-              icon: Icon(Icons.delete))
+              icon: const Icon(Icons.delete))
         ],
       ),
       body: Column(
@@ -268,7 +268,7 @@ class _WorkerProfileState extends State<WorkerProfile> {
                         spreadRadius: 2,
                         blurRadius: 10,
                         color: Colors.black.withOpacity(.1),
-                        offset: Offset(0, 10))
+                        offset: const Offset(0, 10))
                   ],
                   shape: BoxShape.circle,
                 ),
@@ -302,7 +302,7 @@ class _WorkerProfileState extends State<WorkerProfile> {
                               color: Colors.black,
                               time: 10);
                         },
-                        icon: Icon(Icons.edit),
+                        icon: const Icon(Icons.edit),
                         color: Colors.white,
                       ))),
             ]),
@@ -315,8 +315,8 @@ class _WorkerProfileState extends State<WorkerProfile> {
                   itemCount: workerdata.length,
                   itemBuilder: (BuildContext context, int index) {
                     return Container(
-                      padding: EdgeInsets.symmetric(horizontal: 4),
-                      margin: EdgeInsets.all(8),
+                      padding: const EdgeInsets.symmetric(horizontal: 4),
+                      margin: const EdgeInsets.all(8),
                       decoration: BoxDecoration(
                           color: Colors.grey.shade200,
                           borderRadius: BorderRadius.circular(15)),
@@ -328,7 +328,7 @@ class _WorkerProfileState extends State<WorkerProfile> {
                         ),
                         title: Text(
                           workerdata[index].title,
-                          style: TextStyle(
+                          style: const TextStyle(
                               color: Colors.black54,
                               fontSize: 13,
                               fontWeight: FontWeight.bold),
@@ -337,17 +337,17 @@ class _WorkerProfileState extends State<WorkerProfile> {
                           workerdata[index].data,
                           maxLines: 2,
                           minFontSize: 8,
-                          style: TextStyle(
+                          style: const TextStyle(
                               color: Colors.black,
                               fontSize: 20,
                               fontWeight: FontWeight.bold),
-                          overflowReplacement: Text('Sorry String too long'),
+                          overflowReplacement: const Text('Sorry String too long'),
                         ),
                         trailing: IconButton(
                             onPressed: () {
                               EditDialog(workerdata[index].data, keys[index]);
                             },
-                            icon: Icon(
+                            icon: const Icon(
                               Icons.edit,
                               color: Colors.grey,
                             )),

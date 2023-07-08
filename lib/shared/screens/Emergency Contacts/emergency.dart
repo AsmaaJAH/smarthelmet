@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'home_tabs.dart';
 class EmergencyScreen extends StatefulWidget {
   late String index;
-  EmergencyScreen(this.index);
+  EmergencyScreen(this.index, {super.key});
 
   @override
   State<EmergencyScreen> createState() => _EmergencyScreenState();
@@ -25,7 +25,7 @@ class _EmergencyScreenState extends State<EmergencyScreen> {
         ),
         backgroundColor: Colors.amber,
         elevation: 0.0,
-        leading: Icon(
+        leading: const Icon(
            Icons.call
         ),
       ),

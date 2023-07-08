@@ -7,7 +7,7 @@ import 'package:smarthelmet/shared/functions/CircleProgress.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 class TempretureScreen extends StatefulWidget {
-  TempretureScreen({super.key});
+  const TempretureScreen({super.key});
 
   @override
   State<TempretureScreen> createState() => _TempretureScreenState();
@@ -40,7 +40,7 @@ class _TempretureScreenState extends State<TempretureScreen>
     ];
   void read() async {
       Query dbRef = FirebaseDatabase.instance.ref().child('sensors');
-      await dbRef.onValue.listen((event) {
+      dbRef.onValue.listen((event) {
           sensorsTable = event.snapshot.value as Map<Object?, Object?>;
         String? nullableString = '${sensorsTable['temp']}'.toString();
         temp = double.tryParse(nullableString) ?? 0.0;
@@ -85,7 +85,7 @@ class _TempretureScreenState extends State<TempretureScreen>
 
   _TempretureScreenInit(double temp) {
     progressController = AnimationController(
-        vsync: this, duration: Duration(milliseconds: 1)); //5s
+        vsync: this, duration: const Duration(milliseconds: 1)); //5s
 
     tempAnimation =
         Tween<double>(begin: 0, end: temp).animate(progressController)
@@ -107,20 +107,20 @@ class _TempretureScreenState extends State<TempretureScreen>
               children: <Widget>[
                 CustomPaint(
                   foregroundPainter: CircleProgress(tempAnimation.value, true),
-                  child: Container(
+                  child: SizedBox(
                     width: 180,
                     height: 180,
                     child: Center(
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
-                          Text('Temperature'),
+                          const Text('Temperature'),
                           Text(
                             '${tempAnimation.value.toInt()}',
-                            style: TextStyle(
+                            style: const TextStyle(
                                 fontSize: 40, fontWeight: FontWeight.bold),
                           ),
-                          Text(
+                          const Text(
                             '°C',
                             style: TextStyle(
                                 fontSize: 20, fontWeight: FontWeight.bold),
@@ -141,9 +141,9 @@ class _TempretureScreenState extends State<TempretureScreen>
                   majorGridLines: const MajorGridLines(width: 0),
                   title: AxisTitle(text: 'Time (minutes)')),
               primaryYAxis: NumericAxis(
-                  axisLine: AxisLine(width: 0),
+                  axisLine: const AxisLine(width: 0),
                   majorTickLines: const MajorTickLines(size: 0),
-                  majorGridLines: MajorGridLines(color: Colors.transparent),
+                  majorGridLines: const MajorGridLines(color: Colors.transparent),
                   title: AxisTitle(text: 'Temperature (°C)')),
               series: <LineSeries<ChartData, num>>[
                 LineSeries<ChartData, num>(
@@ -154,7 +154,7 @@ class _TempretureScreenState extends State<TempretureScreen>
                     xValueMapper: (ChartData value, _) => value.x,
                     yValueMapper: (ChartData value, _) => value.y,
                     width: 2,
-                    markerSettings: MarkerSettings(isVisible: true))
+                    markerSettings: const MarkerSettings(isVisible: true))
               ],
             ),
           )
