@@ -1,5 +1,28 @@
 # smarthelmet
 
+The Project Video:
+
+https://drive.google.com/file/d/1KyRRI7kLIveABft17Lilg12LsriE-RWR/view?usp=drive_link
+
+
+
+The Project presentation slides:
+
+https://docs.google.com/presentation/d/1AIYYr7sZVSren1u-P9b_R9TDCue93LW2/edit?usp=drive_link&ouid=114810985550305975313&rtpof=true&sd=true
+
+
+The Full Book Documentation of SW and HW parts:
+
+https://drive.google.com/file/d/1pH1YRO0ARxKWdC07mmQ6SoznHRYjRrhh/view?usp=sharing
+
+=====================================================================================================================================================================
+
+Some Other useful links:
+
+=====================
+
+https://drive.google.com/drive/folders/152kCSFsMeH2gC6DuwZpWkbvGIVU2Aswt?usp=drive_link
+
 
 ** Documentation for SW part only:
 
@@ -13,10 +36,6 @@ SW Demo video:
 ![SmartSafetyHelmet](https://github.com/AsmaaJAH/smarthelmet/assets/88660261/c1ba6e02-926f-48b0-bacd-9258aba41f0e)
 
 
-
-** Complete Presentation Slides for SW and HW Parts: 
-
-https://docs.google.com/presentation/d/1G-CcmBBJAF4IN20XPR6r6kwxeqITzUQA/edit?usp=sharing&ouid=114810985550305975313&rtpof=true&sd=true
 
 
 ** The Demo video of the Project:
@@ -41,6 +60,4 @@ https://drive.google.com/file/d/19MYVdIUE_ph_1HMq8IdE67C44rCe1tCQ/view?usp=shari
 
 
 
-** The Full Book Documentation of SW and HW part:
 
-https://drive.google.com/file/d/1pH1YRO0ARxKWdC07mmQ6SoznHRYjRrhh/view?usp=sharing
