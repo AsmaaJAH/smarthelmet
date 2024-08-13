@@ -32,7 +32,7 @@ https://drive.google.com/drive/folders/1-0sUXn8At5m9mPMxUqQZK12NXqspRPpx
 
 ======================================================================================================================================================
 
-Some Other useful links for More Details:
+Some Other useful links for More info:
 
 =====================
 
