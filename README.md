@@ -32,11 +32,27 @@ https://drive.google.com/drive/folders/1-0sUXn8At5m9mPMxUqQZK12NXqspRPpx
 
 ======================================================================================================================================================
 
-Some Other useful links:
+Some Other useful links for More Details:
 
 =====================
 
-[some other useful visualization.pdf](https://github.com/user-attachments/files/16605455/some.other.useful.visualization.pdf)
+** More Detailed SW Visualization:
+1. Sensors:
+   
+https://drive.google.com/file/d/1ggjrixRBY6DkNbAiAJGnxBBgBUaiCGH_/view?usp=sharing
+
+3. Notifications:
+   
+https://drive.google.com/file/d/121OQ8lRMtm3iqbA0O8GiSStzcKtSCAp4/view?usp=drive_link
+
+5. Emergency:
+   
+https://drive.google.com/file/d/19MYVdIUE_ph_1HMq8IdE67C44rCe1tCQ/view?usp=sharing
+
+
+** General other Visualizations:
+
+[some other useful visualization.pdf](https://github.com/user-attachments/files/16605673/some.other.useful.visualization.pdf)
 
 
 
