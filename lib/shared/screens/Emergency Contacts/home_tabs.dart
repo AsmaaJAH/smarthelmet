@@ -11,7 +11,7 @@ class HomeScreenTabs extends StatefulWidget {
 }
 
 class _HomeScreenTabsState extends State<HomeScreenTabs>
-    with SingleTickerProviderStateMixin {
+    with SingleTickerProviderStateMixin { // you can remove it because no animation exists, especially in Race app.
   late TabController _controller;
   @override
   void initState() {

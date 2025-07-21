@@ -60,7 +60,7 @@ class _TrackingState extends State<Tracking> with TickerProviderStateMixin {
                           LatLng(positions[0].latitude, positions[0].longitude),
 
                       infoWindow: const InfoWindow(
-                        title: 'khloud & Asmaa',
+                        title: 'Asmaa & Kholoud',
                       ),
                       icon: BitmapDescriptor.defaultMarker, //myIcon,
                     ),
